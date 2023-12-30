@@ -31,8 +31,6 @@
 			</div>
 		</a>
 	</div>
-
-	
 	{/each}
 </div>
 

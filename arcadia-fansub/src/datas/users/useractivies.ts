@@ -1,9 +1,11 @@
 import type { User } from "../../types/types";
 import { baseUrl } from "../variables";
+import currentUser from "./user";
 
 export function LogOut() {
     localStorage.clear();
     location.reload();
+    localStorage.setItem("isLoggedIn","false");
     window.location.href='/';
 }
 export async function Login(email: string, password: string) {
@@ -26,7 +28,7 @@ export async function Login(email: string, password: string) {
         }
         const data:User = await loginResponse.json();
         localStorage.setItem('userId', data.userId.toString());
-        localStorage.setItem('usertoken', data.userToken);
+        localStorage.setItem('userToken', data.userToken);
         localStorage.setItem('userEmail', data.userEmail);
         localStorage.setItem('userName', data.userName);
         localStorage.setItem('userPerm',data.userPermission)
@@ -61,4 +63,7 @@ export async function Register(email: string, password: string, username: string
     } catch (error) {
         console.error('Error:', error);
     }
+}
+export function ShowCurrentUser(){
+    console.log(currentUser);
 }

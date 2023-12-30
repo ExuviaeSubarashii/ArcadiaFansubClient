@@ -3,6 +3,8 @@ const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P
 </script>
 <div class="column border border-1 ms-5 sticky-bottom" style="width: 39%;">
     {#each alphabet as letter}
-    <button type="button" class="btn btn-primary btn-sm">{letter}</button>
+    <button type="button" on:click={()=>{
+        window.location.href=`anime/${letter}`
+    }} class="btn btn-primary btn-sm">{letter}</button>
     {/each}
 </div>

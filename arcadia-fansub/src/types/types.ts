@@ -6,6 +6,7 @@ export type Animes = {
     releaseDate: Date;
     translator: string | null;
     editor: string | null;
+    animeImage:string|null;
 }
 export type Episodes = {
     episodeId: number;
