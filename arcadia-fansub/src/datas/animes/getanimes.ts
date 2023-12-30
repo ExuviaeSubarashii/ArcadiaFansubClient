@@ -4,15 +4,16 @@ import { baseUrl } from "../variables";
 
 export async function GetAllAnimes() {
     const requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     };
     try {
-        const getAllAnimesResponse = await fetch(`${baseUrl}/Animes/GetAllAnimes`, requestOptions);
+        const getAllAnimesResponse = await fetch(`${baseUrl}/Anime/GetAllAnimes`, requestOptions);
         if(!getAllAnimesResponse.ok){
             throw new Error(getAllAnimesResponse.statusText);
         }
         const animeData: Animes[] = await getAllAnimesResponse.json();
+        console.log(animeData);
         ExportedAnimeLists.set(animeData);
     } catch (error) {
         console.error('Error:', error);

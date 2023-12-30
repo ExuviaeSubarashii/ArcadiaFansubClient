@@ -1,3 +1,8 @@
+<script>
+
+	import currentUser from "../datas/users/user";
+
+</script>
 <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -15,10 +20,13 @@
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
         <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
       </form>
-
+      {#if currentUser.isLoggedIn}
+      <p style="color:white;">Logged In</p>
+      {:else}
       <div class="text-end">
         <button type="button" class="btn btn-outline-light me-2">Giriş Yap</button>
         <button type="button" class="btn btn-warning">Kayıt Ol</button>
       </div>
+      {/if}
     </div>
   </div>

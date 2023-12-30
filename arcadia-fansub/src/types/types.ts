@@ -14,11 +14,14 @@ export type Episodes = {
     episodeLinks: string | null;
     episodeLikes: number;
     episodeUploadDate: Date;
+    episodeImage:string;
 }
 export type User = {
     userId: number;
-    userName: string | null;
-    favoritedAnimes?: string | null;
+    userName: string;
+    favoritedAnimes?: string;
     userToken: string;
-    userPermission: string | null;
+    userPermission: string;
+    userEmail:string;
+    isLoggedIn:boolean;
 }

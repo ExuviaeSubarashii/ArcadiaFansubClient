@@ -1,0 +1,64 @@
+import type { User } from "../../types/types";
+import { baseUrl } from "../variables";
+
+export function LogOut() {
+    localStorage.clear();
+    location.reload();
+    window.location.href='/';
+}
+export async function Login(email: string, password: string) {
+    try {
+        const user = {
+            userEmail: email,
+            password: password
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const loginResponse = await fetch(`${baseUrl}/User/Login`, requestOptions);
+        if (!loginResponse.ok) {
+            throw new Error(loginResponse.statusText);
+        }
+        const data:User = await loginResponse.json();
+        localStorage.setItem('userId', data.userId.toString());
+        localStorage.setItem('usertoken', data.userToken);
+        localStorage.setItem('userEmail', data.userEmail);
+        localStorage.setItem('userName', data.userName);
+        localStorage.setItem('userPerm',data.userPermission)
+        localStorage.setItem('isLoggedIn', "true");
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+export async function Register(email: string, password: string, username: string) {
+    
+    try {
+        const user = {
+            userEmail: email,
+            userPassword: password,
+            userName: username
+        };
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const registerResponse = await fetch(`${baseUrl}/User/Register`, requestOptions);
+        if (!registerResponse.ok) {
+            throw new Error(registerResponse.statusText);
+        }
+        window.location.href = '/login';
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
