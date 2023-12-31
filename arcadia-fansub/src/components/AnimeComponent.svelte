@@ -7,7 +7,7 @@ import type { Animes } from "../types/types";
 	{#each $ExportedAnimeLists as anime}
 		<div class="card mb-3 text-bg-dark border-5 rounded border-secondary" style="max-width: 540px;">
 			<!-- direct to series/anime.id -->
-			<a href="series/{anime.animeId}" class="text-decoration-none text-light">
+			<a href="/{anime.animeId}" class="text-decoration-none text-light">
 				<div class="row g-0">
 					<div class="col-md-4">
 						<img src={anime.animeImage} class="img-fluid rounded-start" alt="..." />
