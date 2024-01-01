@@ -1,8 +1,16 @@
-<script>
+<script lang="ts">
 
-	import currentUser from "../datas/users/user";
+	import { onMount } from "svelte";
+import currentUser from "../datas/users/user";
 	import { LogOut } from "../datas/users/useractivies";
-
+	import { IsAdmin } from "../datas/users/authentication";
+	let isAdmin:boolean=false;
+	onMount(async()=>{
+		let isAdminresponse= await IsAdmin();
+		if(isAdminresponse){
+			isAdmin=isAdminresponse;
+		}
+	})
 </script>
 <div class="top-right-user-component">
     <div class="dropdown">
@@ -12,6 +20,9 @@
         <a href="/user/{encodeURIComponent(currentUser.userId)}">Profile</a>
         <span>Private Session</span>
         <a href="/user/settings">Settings</a>
+		{#if isAdmin===true}
+		<a href="/addnew">Add New</a>
+		{/if}
         <hr />
         <a href="/" on:click={LogOut}>Log out</a>
       </div>

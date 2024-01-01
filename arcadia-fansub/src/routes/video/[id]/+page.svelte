@@ -9,26 +9,31 @@
 	let episodeData: Episodes;
 	let linkArray: string[] = [];
 	let player: string;
-	async function SetPlayer(playerName: string) {
-		player = playerName;
-		console.log(player);
-	}
+	
 	onMount(async () => {
 		episodeData = await GetEpisodeVideo(episodeId);
 		console.log(episodeData);
 		if (episodeData && episodeData.episodeLinks) {
 			linkArray = episodeData.episodeLinks.split(',');
 			console.log(linkArray);
-			SetPlayer(linkArray[0]);
+			// SetPlayer(linkArray[0]);
 		} else {
 			console.error('Episode data or episodeLinks is undefined.');
 		}
 	});
+	async function SetPlayer(playerName: string) {
+		player = playerName;
+		console.log(player);
+	}
 </script>
 <div class="col-sm-4">
     <div class="card d-flexbox align-items-center justify-content-center" style="position:fixed; top:30%;right:30%;">
         {#key player}
+		{#if episodeData}
         <iframe src={player} height="422" width="654" title="Iframe Example"></iframe>
+		{:else}
+		<p>No Video</p>
+		{/if}
         {/key}
         
         <div class="btn-group">

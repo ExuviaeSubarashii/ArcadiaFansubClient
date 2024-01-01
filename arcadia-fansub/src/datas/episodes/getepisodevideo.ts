@@ -4,11 +4,12 @@ import { baseUrl } from "../variables";
 
 export async function GetEpisodeVideo(episodeId: string): Promise<Episodes> {
     try {
-        const getEpisodesResponse = await fetch(`${baseUrl}/Episode/GetVideo`, {
+        const requestOptions = {
             method: 'POST',
             body:JSON.stringify(episodeId),
             headers: { 'Content-Type': 'application/json' },
-        });
+        };
+        const getEpisodesResponse = await fetch(`${baseUrl}/Episode/GetVideo`,requestOptions);
 
         if (!getEpisodesResponse.ok) {
             throw new Error(getEpisodesResponse.statusText);

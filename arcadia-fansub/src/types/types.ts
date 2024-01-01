@@ -26,3 +26,18 @@ export type User = {
     userEmail:string;
     isLoggedIn:boolean;
 }
+
+export type AddAnime={
+    AnimeName:string;
+    AnimeEpisodeAmount:number;
+    Editor:string;
+    Translator:string;
+    ReleaseDate:Date;
+}
+export type AddEpisode={
+    animeName:string;
+    episodeNumber:number;
+    episodeLinks:string[]|null;
+    episodeLikes:number;
+    episodeUploadDate:string;
+}
