@@ -21,7 +21,7 @@ import currentUser from "../datas/users/user";
         <span>Private Session</span>
         <a href="/user/settings">Settings</a>
 		{#if isAdmin===true}
-		<a href="/addnew">Add New</a>
+		<a href="/addnew">Admin Panel</a>
 		{/if}
         <hr />
         <a href="/" on:click={LogOut}>Log out</a>

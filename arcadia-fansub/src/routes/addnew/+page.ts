@@ -13,7 +13,7 @@ export async function load() {
             }
         };
     } catch (error) {
-        console.error("Error loading data:", error);
+        
         return {
             props: {
                 isUserAdmin: {

@@ -11,13 +11,13 @@ export async function IsAdmin():Promise<boolean>{
             body:JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' },
         };
-        const getanimeProperties=await fetch(`${baseUrl}/User/IsAdmin`,requestOptions)
-        const propertyData=await getanimeProperties.json();
-        console.log(propertyData);
-        return Boolean(propertyData);
+        const isUserAdmin=await fetch(`${baseUrl}/User/IsAdmin`,requestOptions)
+        const adminData=await isUserAdmin.json();
+        console.log(adminData);
+        return Boolean(adminData);
 
     } catch (error) {
         console.error('Error:', error);
-        throw new Error('Failed to get anime properties.');
+        throw new Error('Failed to get user properties.');
     }
 }

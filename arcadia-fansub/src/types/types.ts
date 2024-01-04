@@ -28,11 +28,12 @@ export type User = {
 }
 
 export type AddAnime={
-    AnimeName:string;
-    AnimeEpisodeAmount:number;
-    Editor:string;
-    Translator:string;
-    ReleaseDate:Date;
+    animeName:string;
+    animeEpisodeAmount:number;
+    editor:string;
+    translator:string;
+    releaseDate:Date;
+    imageLink:string|null;
 }
 export type AddEpisode={
     animeName:string;

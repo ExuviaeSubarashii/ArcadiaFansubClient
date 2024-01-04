@@ -32,7 +32,7 @@ export async function GetAddEpisodeNumber(animeId:string):Promise<number>{
         const getEpisodesResponse = await fetch(`${baseUrl}/Anime/GetAddEpisodeNumber`,requestOptions);
         if(!getEpisodesResponse.ok){
             throw new Error(getEpisodesResponse.statusText);
-            // window.location.href="/addnew";
+            window.location.href="/addnew";
         }
         const returneddata=await getEpisodesResponse.json();
         console.log(returneddata);

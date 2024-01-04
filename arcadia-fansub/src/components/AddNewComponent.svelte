@@ -1,70 +1,47 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { writable } from "svelte/store";
-	import type { AddAnime,AddEpisode } from "../types/types";
-	import { ExportedAnimeLists} from "../datas/animes/getanimes";
-	import { AddEpisodeFunction, GetAddEpisodeNumber } from "../datas/episodes/addEpisode";
 	import AddNewEpisodeComponent from "./AddNewEpisodeComponent.svelte";
+	import AddNewAnimeComponent from "./AddNewAnimeComponent.svelte";
+	import EpisodePanelComponent from "./EpisodePanelComponent.svelte";
 
-	let userOption=writable(0);
+	let userOption=writable();
     function SetOption(option:number){
         $userOption=option;
     }
-    //add anime
-    let animeName: any;
-    let episodeAmount: any;
-    let editor: any;
-    let translator: any;
-    let releaseDate: any;
-    const addAnime:AddAnime={
-        AnimeName:animeName,
-        AnimeEpisodeAmount:episodeAmount,
-        Editor:editor,
-        Translator:translator,
-        ReleaseDate:releaseDate
-    }
-    //add anime
+ 
 
     
 
 </script>
 {#key $userOption}
-<div class="options">
-    <button on:click={()=>SetOption(0)}>Add Anime</button>
-    <button on:click={()=>SetOption(1)}>Add Episode</button>
-    <button on:click={()=>SetOption(2)}>Update Anime</button>
-    <button on:click={()=>SetOption(3)}>Update Episode</button>
+<div class="container">
 </div>
+<div class="container">
+    <div class="row">
+        <button type="button" class="mt-2 col btn btn-dark"  on:click={()=>SetOption(0)}>Add Anime</button>
+        <button type="button" class="mt-2 col btn btn-dark" on:click={()=>SetOption(1)}>Add Episode</button>
+      <div class="w-100"></div>
+      <button type="button" class="col btn btn-dark" on:click={()=>SetOption(2)}>Episode Panel</button>
+      <button type="button" class="col btn btn-dark" on:click={()=>SetOption(2)}>Another Option idk</button>
+    </div>
+  </div>
 <div class="full-body" style="display:flex; column-direction:column;">
 
     <!-- add anime -->
 	{#if $userOption === 0}
-		<div>
-			<input bind:value={animeName} placeholder="Anime Name">
-			<input bind:value={episodeAmount} placeholder="Episode Amount">
-			<input bind:value={editor} placeholder="Editor">
-			<input bind:value={translator} placeholder="Translator">
-			<input bind:value={releaseDate} placeholder="Release Date" type="date">
-            <button>Create New Anime</button>
-		</div>
+		<AddNewAnimeComponent/>
 	{/if}
 
     <!-- add episode -->
     {#if $userOption === 1}
     <AddNewEpisodeComponent/>
     {/if}
-    {#if $userOption === 2}
-    <div>
-        <p>{$userOption}</p>
-    </div>
-    {/if}
-    {#if $userOption === 3}
-    <div>
-        <p>{$userOption}</p>
-    </div>
+    {#if $userOption===2}
+        <EpisodePanelComponent/>
     {/if}
 </div>
 {/key}
 
 <style>
+    
 </style>
