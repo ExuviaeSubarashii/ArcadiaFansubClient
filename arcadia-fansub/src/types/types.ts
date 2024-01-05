@@ -1,5 +1,5 @@
 export type Animes = {
-    animeId: number;
+    animeId: string;
     animeName: string | null;
     animeEpisodeAmount: number;
     links: string | null;

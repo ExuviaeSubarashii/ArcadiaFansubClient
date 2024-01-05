@@ -14,8 +14,7 @@
 
 </script>
 {#key $userOption}
-<div class="container">
-</div>
+
 <div class="container">
     <div class="row">
         <button type="button" class="mt-2 col btn btn-dark"  on:click={()=>SetOption(0)}>Add Anime</button>

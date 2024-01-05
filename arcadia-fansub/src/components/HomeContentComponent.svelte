@@ -10,9 +10,11 @@
 </script>
 
 <div class="row gap-4 ms-5">
-	<h1 class="text-light">Latest Update</h1>
-	{#each $ExportedEpisodeLists as episode}
+	<h1 class="text-light">Son Eklenenler</h1>
+	{#key $ExportedEpisodeLists}
 		
+	{#each $ExportedEpisodeLists as episode}
+	
 	<div class="card mb-3 text-bg-dark border-5 rounded border-secondary" style="max-width: 540px;">
 		<a href="video/{episode.episodeId}" class="text-decoration-none text-light">
 			<div class="row g-0">
@@ -32,6 +34,7 @@
 		</a>
 	</div>
 	{/each}
+	{/key}
 </div>
 
 <style>

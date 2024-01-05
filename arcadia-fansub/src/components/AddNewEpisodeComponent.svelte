@@ -41,7 +41,7 @@
 	});
 </script>
 
-<div class="fullbody">
+<div class="fullbody mt-3">
 	<div class="mt-3">
 		<select
 			class="form-select mb-3"

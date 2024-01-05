@@ -13,7 +13,7 @@ export async function AddEpisodeFunction(episode: AddEpisode) {
         if (!addEpisodeResponse.ok) {
             throw new Error(addEpisodeResponse.statusText);
         }
-        window.location.href="/addnew";
+        // window.location.href="/addnew";
 
     } catch (error) {
         console.error('Error:', error);
