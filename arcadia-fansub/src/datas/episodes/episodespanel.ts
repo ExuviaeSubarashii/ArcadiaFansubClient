@@ -1,7 +1,8 @@
+import { writable } from "svelte/store";
 import type { Episodes } from "../../types/types";
 import { baseUrl } from "../variables";
 
-export async function GetEpisodePanelData(animeId:string):Promise<Episodes[]>{
+export async function GetEpisodePanelData(animeId:string){
     try {
         const body={
             animeId:animeId
@@ -16,8 +17,10 @@ export async function GetEpisodePanelData(animeId:string):Promise<Episodes[]>{
             throw new Error(getEpisodePanelDataResponse.statusText);
         }
         const panelData:Episodes[]=await getEpisodePanelDataResponse.json();
-        return panelData;
+        // return panelData;
+        exportedepisodes.set(panelData);
     } catch (error) {
         return [];
     }
 }
+export const exportedepisodes=writable<Episodes[]>([])

@@ -9,7 +9,7 @@ export type Animes = {
     animeImage:string|null;
 }
 export type Episodes = {
-    episodeId: number;
+    episodeId: string;
     animeName: string | null;
     episodeNumber: number;
     episodeLinks: string | null;

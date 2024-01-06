@@ -20,7 +20,7 @@
 </script>
 
 <div class="information-card">
-	<div class="card-body">
+	<div class="card-body m-3">
 		<h5 class="card-title">{animedata?.animeName}</h5>
 		<img src={animedata?.animeImage} alt="captura" />
 		<p>Çevirmen: {animedata?.translator} || Editör:{animedata?.editor}</p>
@@ -28,7 +28,7 @@
 </div>
 
 {#each episodedata as episode}
-	<div class="episode-group">
+	<div class="episode-group m-3 ">
 		<a href="/video/{episode.episodeId}" class="group-anchor" aria-current="true">
 			<div>
 				<h5 class="episode-information">{episode.animeName} - {episode.episodeNumber}. Bölüm</h5>
@@ -36,6 +36,7 @@
 		</a>
 	</div>
 {/each}
+
 
 <style>
 	.episode-group {
@@ -67,6 +68,6 @@
 		position: relative;
 		width: 18rem;
 		top: 10%;
-		left: 43%;
+		left: 44%;
 	}
 </style>

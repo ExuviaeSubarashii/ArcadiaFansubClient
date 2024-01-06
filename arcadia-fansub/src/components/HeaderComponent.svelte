@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from "svelte";
 	import currentUser from "../datas/users/user";
 	import { LogOut, ShowCurrentUser } from "../datas/users/useractivies";
@@ -22,8 +22,8 @@
         }}>Animeler</a></li>
         <button on:click={ShowCurrentUser}>Bombo</button>
         <li><a href="/" class="nav-link px-2 text-white">Gidilecek Yer </a></li>
-        <li><a href="/" class="nav-link px-2 text-white">Gidilecek Yer </a></li>
-        <li><a href="/" class="nav-link px-2 text-white">Gidilecek Yer </a></li>
+        <li><a href="https://discord.gg/wHVPuuKSjR" class="nav-link px-2 text-white"><i class='bx bxl-discord-alt' ></i>Discord Sunucumuz</a></li>
+        <li><a href="/about" class="nav-link px-2 text-white">Hakkımızda</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">

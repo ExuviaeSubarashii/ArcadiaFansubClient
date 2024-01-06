@@ -27,7 +27,7 @@
   
 </script>
 
-<div class="row gap-4 ms-5">
+<div class="row gap-3 ms-5">
 	<h1 class="text-light">Son Eklenenler</h1>
 	{#key $ExportedEpisodeLists}
 		{#each $ExportedEpisodeLists as episode}
@@ -57,7 +57,7 @@
 		{/each}
 	{/key}
 </div>
-<OrderComponent />
+
 
 <style>
 	img {

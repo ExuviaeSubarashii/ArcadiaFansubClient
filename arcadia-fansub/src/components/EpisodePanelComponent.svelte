@@ -1,21 +1,32 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { Animes, Episodes } from '../types/types';
-	import { GetEpisodePanelData } from '../datas/episodes/episodespanel';
+	import { GetEpisodePanelData, exportedepisodes } from '../datas/episodes/episodespanel';
 	import { GetAllAnimes } from '../datas/animes/getanimes';
+	import { DeleteEpisode } from '../datas/episodes/deletepisode';
+	import { writable } from 'svelte/store';
 	let paneldata: Animes[] = [];
+	
+	let episodedata: Episodes[] = [];
+	let currentAnime:any;
+	let visiblediv: any = null;
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
 	});
-	let episodedata: Episodes[] = [];
 	async function HandleAnimeChange(animeId: string) {
-		episodedata = await GetEpisodePanelData(animeId);
+		currentAnime=animeId;
+		await GetEpisodePanelData(animeId);
+		
 		visiblediv=null;
+
 	}
-	let visiblediv: any = null;
 	function handleVisibility(index: any) {
 		console.log(index);
 		visiblediv = visiblediv === index ? null : index;
+	}
+	async function HandleEpisodeDeletion(episodeId:string){
+		await DeleteEpisode(episodeId,currentAnime);
+		await GetEpisodePanelData(currentAnime);
 	}
 </script>
 
@@ -35,9 +46,9 @@
 	</div>
 </div>
 <div class="episodepanel">
-	{#if episodedata !== undefined}
-		{#key episodedata}
-			{#each episodedata as data, index}
+	{#if $exportedepisodes !== undefined}
+		{#key $exportedepisodes}
+			{#each $exportedepisodes as data, index}
 				<div class="episodes">
 					<button class="editbutton" on:click={() => handleVisibility(index)}>...</button>
 					<p>{data.animeName}</p>
@@ -46,7 +57,7 @@
 					<img src={data.episodeImage} alt="{data.animeName}_image" />
 					{#if visiblediv === index}
 					<div class="optionsdiv">
-						<button>Delete Episode</button>
+						<button on:click={()=>HandleEpisodeDeletion(data.episodeId)}>Delete Episode</button>
 					</div>
 				{/if}
 				</div>
