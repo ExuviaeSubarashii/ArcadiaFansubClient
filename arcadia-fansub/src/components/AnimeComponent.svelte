@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { ExportedAnimeLists } from "../datas/animes/getanimes";
-import type { Animes } from "../types/types";
 </script>
 <div class="row gap-4 ms-5">
 	<h1 class="text-light">Latest Update</h1>

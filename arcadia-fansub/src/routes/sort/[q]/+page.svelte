@@ -11,19 +11,10 @@
 	export let data: PageData;
 	let num = data.props.querydata.querynumber;
 	let episodes: Episodes[] = [];
-    const fetchData = async () => {
-        await GetEpisodesByPageQuery(num);
+    onMount(async()=>{
+		await GetEpisodesByPageQuery(num);
         console.log(num);
-    };
-
-    onMount(fetchData);
-
-    // Use reactive statement to call fetchData when num changes
-    $: {
-        fetchData();
-    }
-
-    // Alternatively, you can use the afterUpdate lifecycle function
+	})
   
 </script>
 
@@ -57,7 +48,7 @@
 		{/each}
 	{/key}
 </div>
-
+<OrderComponent/>
 
 <style>
 	img {

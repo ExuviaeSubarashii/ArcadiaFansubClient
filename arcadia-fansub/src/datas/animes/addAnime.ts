@@ -1,5 +1,5 @@
 import type { AddAnime } from "../../types/types";
-import { baseUrl } from "../variables";
+import { baseUrl, responseMessageStore } from "../variables";
 
 export async function AddAnimeFunction(anime: AddAnime) {
     try {
@@ -14,7 +14,7 @@ export async function AddAnimeFunction(anime: AddAnime) {
             throw new Error(addEpisodeResponse.statusText);
         }
         window.location.href="/addnew";
-
+        responseMessageStore.set(addEpisodeResponse.statusText);
     } catch (error) {
         console.error('Error:', error);
     }

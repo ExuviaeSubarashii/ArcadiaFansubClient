@@ -2,10 +2,16 @@
 	import { onMount } from "svelte";
 	import HeaderComponent from "../components/HeaderComponent.svelte";
 	import currentUser from "../datas/users/user";
+	import ResponseMessageComponent from "../components/ResponseMessageComponent.svelte";
+	import { responseMessageStore } from "../datas/variables";
+	
 	onMount(()=>{
 		document.title="Arcadia Fansub";
 	})
 </script>
+{#key $responseMessageStore}
+<ResponseMessageComponent/>
+{/key}
 {#key currentUser.isLoggedIn===true}
 <HeaderComponent/>
 {/key}

@@ -1,4 +1,4 @@
-import { baseUrl } from "../variables";
+import { baseUrl, responseMessageStore } from "../variables";
 import { GetEpisodePanelData } from "./episodespanel";
 
 export async function DeleteEpisode(episodeId:string,currentAnime:string) {
@@ -15,6 +15,7 @@ export async function DeleteEpisode(episodeId:string,currentAnime:string) {
         if(!deleteEpisodeResponse.ok){
             throw new Error(deleteEpisodeResponse.statusText);
         }
+        responseMessageStore.set(deleteEpisodeResponse.statusText);
         GetEpisodePanelData(currentAnime);
     } catch (error) {
         

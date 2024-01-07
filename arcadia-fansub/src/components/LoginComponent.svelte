@@ -4,12 +4,13 @@
 
     var email = '';
 	var password = '';
+	
 </script>
 <div class="loginpage">
 	{#if currentUser.isLoggedIn}
 	{window.location.href='/'}
 	{:else}
-	<h1 class="tospotify">Log in to Spotify</h1>
+	<h1 class="tospotify">Log in to Arcadia</h1>
 	<ul class="login-options">
 		<li>
 			<button>Continue with Google</button>
@@ -44,11 +45,14 @@
 <style>
 	.tospotify {
 		color: white;
+		position: fixed;
+		top: 23%;
+		right: 40%;
 	}
 	.loginpage {
 		position: fixed;
 		top: 30%;
-		right: 37%;
+		right: 30%;
 	}
 	.login-options li {
 		list-style: none;

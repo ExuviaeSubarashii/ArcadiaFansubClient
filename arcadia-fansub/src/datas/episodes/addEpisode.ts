@@ -1,5 +1,5 @@
 import type { AddEpisode} from '../../types/types'
-import { baseUrl } from '../variables';
+import { baseUrl, responseMessageStore } from '../variables';
 
 export async function AddEpisodeFunction(episode: AddEpisode) {
     try {
@@ -13,6 +13,7 @@ export async function AddEpisodeFunction(episode: AddEpisode) {
         if (!addEpisodeResponse.ok) {
             throw new Error(addEpisodeResponse.statusText);
         }
+        responseMessageStore.set(addEpisodeResponse.statusText);
         // window.location.href="/addnew";
 
     } catch (error) {

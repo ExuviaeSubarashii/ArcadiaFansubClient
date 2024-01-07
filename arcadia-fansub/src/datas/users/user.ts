@@ -16,22 +16,22 @@ const userName=writable(browser ? localStorage.getItem("userName") || undefined:
 
 usertoken.subscribe((val) => {
   if (browser) {
-    localStorage.setItem("userToken", val);
+    localStorage.setItem("userToken", val??undefined);
   }
 });
 userId.subscribe((val) => {
   if (browser) {
-    localStorage.setItem("userId", val);
+    localStorage.setItem("userId", val??undefined);
   }
 });
 userEmail.subscribe((val) => {
   if (browser) {
-    localStorage.setItem("userEmail", val);
+    localStorage.setItem("userEmail", val??undefined);
   }
 });
 userName.subscribe((val) => {
   if (browser) {
-    localStorage.setItem("userName", val);
+    localStorage.setItem("userName", val??undefined);
   }
 });
 

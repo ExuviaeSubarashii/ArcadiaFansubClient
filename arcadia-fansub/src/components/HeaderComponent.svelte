@@ -33,12 +33,14 @@
       <UserComponent/>
       {:else}
       <div class="text-end">
-        <button type="button" on:click={()=>{
+        <!-- <button type="button" on:click={()=>{
           window.location.href="/login";
         }} class="btn btn-outline-light me-2">Giriş Yap</button>
         <button type="button" on:click={()=>{
           window.location.href="/register";
-        }} class="btn btn-warning">Kayıt Ol</button>
+        }} class="btn btn-warning">Kayıt Ol</button> -->
+        <a type="button" class=" btn btn-outline-light me-2" href="/login">Giriş Yap</a>
+        <a type="button" class="btn btn-warning" href="/register">Kayıt ol</a>
       </div>
       {/if}
     </div>

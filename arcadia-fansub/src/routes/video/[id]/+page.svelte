@@ -16,7 +16,6 @@
 		if (episodeData && episodeData.episodeLinks) {
 			linkArray = episodeData.episodeLinks.split(',');
 			console.log(linkArray);
-			// SetPlayer(linkArray[0]);
 		} else {
 			console.error('Episode data or episodeLinks is undefined.');
 		}

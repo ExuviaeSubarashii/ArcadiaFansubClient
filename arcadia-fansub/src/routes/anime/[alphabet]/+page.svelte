@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AnimeComponent from '../../../components/AnimeComponent.svelte';
+	import OrderComponent from '../../../components/OrderComponent.svelte';
 	import { GetAllAnimes, GetAnimeByAlphabet } from '../../../datas/animes/getanimes';
     import type { PageData } from './$types';
 	import { onMount } from 'svelte';
@@ -12,3 +13,4 @@
 	});
     </script>
 <AnimeComponent/>
+<OrderComponent/>

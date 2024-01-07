@@ -5,31 +5,44 @@
 	import { GetAllAnimes } from '../datas/animes/getanimes';
 	import { DeleteEpisode } from '../datas/episodes/deletepisode';
 	import { writable } from 'svelte/store';
+	import { UpdateEpisode } from '../datas/episodes/updateEpisode';
+	import { GetEpisodeVideo } from '../datas/episodes/getepisodevideo';
 	let paneldata: Animes[] = [];
 	
 	let episodedata: Episodes[] = [];
 	let currentAnime:any;
 	let visiblediv: any = null;
+	let episodeData=writable<Episodes>();
+	let episodeLinkInputVisibility:boolean=false;
+	let episodeLinkValue:any;
+	let episodeId:string;
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
 	});
 	async function HandleAnimeChange(animeId: string) {
 		currentAnime=animeId;
 		await GetEpisodePanelData(animeId);
-		
 		visiblediv=null;
-
+		HandleEpisodeVisibility()
 	}
-	function handleVisibility(index: any) {
+	async function handleVisibility(index: any) {
 		console.log(index);
 		visiblediv = visiblediv === index ? null : index;
+		await HandleEpisodeVisibility();
 	}
 	async function HandleEpisodeDeletion(episodeId:string){
 		await DeleteEpisode(episodeId,currentAnime);
 		await GetEpisodePanelData(currentAnime);
+		await await HandleEpisodeVisibility();
+	}
+	async function HandleEpisodeVisibility(){
+		episodeLinkInputVisibility=!episodeLinkInputVisibility;
+	}
+	async function HandleEpisodeUpdate(episodeLinks:string){
+		await UpdateEpisode(currentAnime,episodeLinks);
+		await HandleEpisodeVisibility();
 	}
 </script>
-
 <div class="fullbody">
 	<div class="buttoncontainer">
 		<div class="row">
@@ -58,6 +71,7 @@
 					{#if visiblediv === index}
 					<div class="optionsdiv">
 						<button on:click={()=>HandleEpisodeDeletion(data.episodeId)}>Delete Episode</button>
+						<button on:click={()=>HandleEpisodeVisibility()}>Update Episode</button>
 					</div>
 				{/if}
 				</div>
@@ -66,8 +80,24 @@
 		{/key}
 	{/if}
 </div>
+{#if episodeLinkInputVisibility===true}
 
+<div class="episode-update-panel">
+<input placeholder="Please put ',' between links." bind:value={episodeLinkValue}>
+{#if episodeLinkValue}
+<button on:click={()=>HandleEpisodeUpdate(episodeLinkValue)}>Update</button>
+{/if}
+</div>
+
+{/if}
 <style>
+	.episode-update-panel{
+		position: relative;
+		top: 50%;
+		height: 776px;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
 	.optionsdiv button:hover{
 		background-color: gray;
 		color:black;

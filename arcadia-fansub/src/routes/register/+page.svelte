@@ -1,16 +1,18 @@
 <script lang="ts">
 	import currentUser from "../../datas/users/user";
 	import { Register } from "../../datas/users/useractivies";
+	import { responseMessageStore } from "../../datas/variables";
 	var email = '';
 	var password = '';
 	var username = '';
+	
 </script>
 
 <div class="loginpage">
 	{#if currentUser.isLoggedIn===true}
 		{(window.location.href = '/')}
 	{:else}
-		<h1 class="tospotify">Sign up to start listening</h1>
+		<h1 class="tospotify">Sign up to start watching</h1>
 		<hr />
 		<br />
 		<input bind:value={email} placeholder="Email" class="email-input" />
@@ -22,7 +24,7 @@
 				if (email && password && username) {
 					Register(email, password, username);
 				} else {
-					console.log('Email and password are required');
+					responseMessageStore.set('Email and password are required');
 				}
 			}}>Sign up</button
 		>
@@ -52,7 +54,7 @@
 	.loginpage {
 		position: fixed;
 		top: 20%;
-		right: 37%;
+		right: 30%;
 	}
 	.login-options li {
 		list-style: none;
