@@ -7,6 +7,7 @@
 	} from '../../../datas/episodes/getepisodes';
 	import OrderComponent from '../../../components/OrderComponent.svelte';
 	import type { Episodes } from '../../../types/types';
+	import HomeContentComponent from '../../../components/HomeContentComponent.svelte';
 
 	export let data: PageData;
 	let num = data.props.querydata.querynumber;
@@ -18,7 +19,7 @@
   
 </script>
 
-<div class="row gap-3 ms-5">
+<!-- <div class="row gap-3 ms-5">
 	<h1 class="text-light">Son Eklenenler</h1>
 	{#key $ExportedEpisodeLists}
 		{#each $ExportedEpisodeLists as episode}
@@ -29,7 +30,7 @@
 				<a href="video/{episode.episodeId}" class="text-decoration-none text-light">
 					<div class="row g-0">
 						<div class="col-md-4">
-							<img src={episode.episodeImage} class="img-fluid rounded-start" alt="..." />
+							<img src={episode.animeImage} class="img-fluid rounded-start" alt="..." />
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
@@ -47,7 +48,8 @@
 			</div>
 		{/each}
 	{/key}
-</div>
+</div> -->
+<HomeContentComponent/>
 <OrderComponent/>
 
 <style>

@@ -15,7 +15,8 @@ export type Episodes = {
     episodeLinks: string | null;
     episodeLikes: number;
     episodeUploadDate: Date;
-    episodeImage:string;
+    animeImage:string;
+    animeId:string;
 }
 export type User = {
     userId: number;

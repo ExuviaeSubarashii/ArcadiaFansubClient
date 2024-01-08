@@ -6,7 +6,7 @@
 	export let data: PageData;
 	let name = data.props.animedata.animename;
 	console.log(name);
-	let animedata: Animes | null;
+	let animedata: Animes|null;
 	let episodedata: Episodes[] = [];
 	onMount(async () => {
 		const returnedAnimedata = await GetAnimeProperties(name);
@@ -14,6 +14,7 @@
 
 		if (returnedAnimedata) {
 			animedata = returnedAnimedata;
+			console.log(animedata);
 			episodedata = returnedEpisodesdata;
 		}
 	});
@@ -22,7 +23,7 @@
 <div class="information-card">
 	<div class="card-body m-3">
 		<h5 class="card-title">{animedata?.animeName}</h5>
-		<img src={animedata?.animeImage} alt="captura" />
+		<img src={`src/lib/imajlar/${animedata?.animeImage?.trim()}`} alt="captura" />
 		<p>Çevirmen: {animedata?.translator} || Editör:{animedata?.editor}</p>
 	</div>
 </div>
@@ -39,6 +40,9 @@
 
 
 <style>
+	img {
+		inline-size: 150px;
+	}
 	.episode-group {
 		border-color: #914747;
 		border-style: solid;
