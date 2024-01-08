@@ -1,48 +1,55 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Animes, Episodes } from '../types/types';
+	import type { Animes } from '../types/types';
 	import { GetEpisodePanelData, exportedepisodes } from '../datas/episodes/episodespanel';
 	import { GetAllAnimes } from '../datas/animes/getanimes';
 	import { DeleteEpisode } from '../datas/episodes/deletepisode';
-	import { writable } from 'svelte/store';
 	import { UpdateEpisode } from '../datas/episodes/updateEpisode';
-	import { GetEpisodeVideo } from '../datas/episodes/getepisodevideo';
+
 	let paneldata: Animes[] = [];
-	
-	let episodedata: Episodes[] = [];
-	let currentAnime:any;
+	let currentAnime: any;
 	let visiblediv: any = null;
-	let episodeData=writable<Episodes>();
-	let episodeLinkInputVisibility:boolean=false;
-	let episodeLinkValue:any;
-	let episodeId:string;
+	let episodeLinkInputVisibility: boolean = false;
+	let episodeLinkValue: any;
+	let episodeId: any;
+	
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
 	});
 	async function HandleAnimeChange(animeId: string) {
-		currentAnime=animeId;
+		currentAnime = animeId;
 		await GetEpisodePanelData(animeId);
-		visiblediv=null;
-		HandleEpisodeVisibility()
+		visiblediv = null;
+		if (episodeLinkInputVisibility === true) {
+			HandleUpdateVisibility();
+		}
 	}
-	async function handleVisibility(index: any) {
-		console.log(index);
+	async function handleVisibility(index: any, paramepisodeId: any) {
+		episodeId = paramepisodeId;
 		visiblediv = visiblediv === index ? null : index;
-		await HandleEpisodeVisibility();
+		if (episodeLinkInputVisibility === true) {
+			HandleUpdateVisibility();
+		}
 	}
-	async function HandleEpisodeDeletion(episodeId:string){
-		await DeleteEpisode(episodeId,currentAnime);
+	async function HandleEpisodeDeletion(episodeId: string) {
+		await DeleteEpisode(episodeId, currentAnime);
 		await GetEpisodePanelData(currentAnime);
-		await await HandleEpisodeVisibility();
+		if (episodeLinkInputVisibility === true) {
+			HandleUpdateVisibility();
+		}
 	}
-	async function HandleEpisodeVisibility(){
-		episodeLinkInputVisibility=!episodeLinkInputVisibility;
+	async function HandleUpdateVisibility() {
+		episodeLinkInputVisibility = !episodeLinkInputVisibility;
+		episodeLinkValue = null;
 	}
-	async function HandleEpisodeUpdate(episodeLinks:string){
-		await UpdateEpisode(currentAnime,episodeLinks);
-		await HandleEpisodeVisibility();
+	async function HandleEpisodeUpdate(episodeLinks: string) {
+		await UpdateEpisode(episodeId, episodeLinks);
+		if (episodeLinkInputVisibility === true) {
+			HandleUpdateVisibility();
+		}
 	}
 </script>
+
 <div class="fullbody">
 	<div class="buttoncontainer">
 		<div class="row">
@@ -63,46 +70,47 @@
 		{#key $exportedepisodes}
 			{#each $exportedepisodes as data, index}
 				<div class="episodes">
-					<button class="editbutton" on:click={() => handleVisibility(index)}>...</button>
+					<button class="editbutton" on:click={() => handleVisibility(index, data.episodeId)}
+						>...</button
+					>
 					<p>{data.animeName}</p>
 					<p>{data.episodeNumber}. Bolum</p>
 					<p>{data.episodeUploadDate}</p>
 					<img src={data.episodeImage} alt="{data.animeName}_image" />
 					{#if visiblediv === index}
-					<div class="optionsdiv">
-						<button on:click={()=>HandleEpisodeDeletion(data.episodeId)}>Delete Episode</button>
-						<button on:click={()=>HandleEpisodeVisibility()}>Update Episode</button>
-					</div>
-				{/if}
+						<div class="optionsdiv">
+							<button on:click={() => HandleEpisodeDeletion(data.episodeId)}>Delete Episode</button>
+							<button on:click={() => HandleUpdateVisibility()}>Update Episode</button>
+						</div>
+					{/if}
 				</div>
-				
 			{/each}
 		{/key}
 	{/if}
 </div>
-{#if episodeLinkInputVisibility===true}
 
-<div class="episode-update-panel">
-<input placeholder="Please put ',' between links." bind:value={episodeLinkValue}>
-{#if episodeLinkValue}
-<button on:click={()=>HandleEpisodeUpdate(episodeLinkValue)}>Update</button>
+{#if episodeLinkInputVisibility === true}
+	<div class="episode-update-panel">
+		<input placeholder="Please put ',' between links." bind:value={episodeLinkValue} />
+		{#if episodeLinkValue}
+			<button on:click={() => HandleEpisodeUpdate(episodeLinkValue)}>Update</button>
+		{/if}
+	</div>
 {/if}
-</div>
 
-{/if}
 <style>
-	.episode-update-panel{
+	.episode-update-panel {
 		position: relative;
 		top: 50%;
 		height: 776px;
 		overflow-x: auto;
 		white-space: nowrap;
 	}
-	.optionsdiv button:hover{
+	.optionsdiv button:hover {
 		background-color: gray;
-		color:black;
+		color: black;
 	}
-	.optionsdiv button{
+	.optionsdiv button {
 		padding: 0.2em;
 		border-radius: 10px;
 		background-color: #121212;

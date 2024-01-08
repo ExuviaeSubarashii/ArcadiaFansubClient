@@ -1,7 +1,4 @@
 <script lang="ts">
-	import Volume_1 from '../Volume_1.png';
-	import Volume_8 from '../Volume_8.png';
-	import Volume_17 from '../Volume_17.png';
 	import { onMount } from 'svelte';
 	import { ExportedEpisodeLists, GetAllEpisodes } from '../datas/episodes/getepisodes';
 	onMount(async()=>{
@@ -12,9 +9,7 @@
 <div class="row gap-2 ms-5">
 	<h1 class="text-light">Son Eklenenler</h1>
 	{#key $ExportedEpisodeLists}
-		
 	{#each $ExportedEpisodeLists as episode}
-	
 	<div class="card mb-3 text-bg-dark border-5 rounded border-secondary" style="max-width: 540px;">
 		<a href="video/{episode.episodeId}" class="text-decoration-none text-light">
 			<div class="row g-0">
