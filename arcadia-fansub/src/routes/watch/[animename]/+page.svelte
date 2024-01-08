@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Animes, Episodes } from '../../types/types';
-	import { GetAnimeEpisodes, GetAnimeProperties } from '../../datas/pages/animepage';
+	import { GetAnimeEpisodes, GetAnimeProperties } from '../../../datas/pages/animepage';
+	import type { Animes, Episodes } from '../../../types/types';
 	export let data: PageData;
 	let name = data.props.animedata.animename;
 	console.log(name);

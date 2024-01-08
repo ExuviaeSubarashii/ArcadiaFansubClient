@@ -76,7 +76,11 @@
 					<p>{data.animeName}</p>
 					<p>{data.episodeNumber}. Bolum</p>
 					<p>{data.episodeUploadDate}</p>
-					<img src={data.animeImage} alt="{data.animeName}_image" />
+					<img
+								src={`/src/lib/imajlar/${data.animeImage}`}
+								class="img-fluid rounded-start"
+								alt={data.animeImage}
+							/>
 					{#if visiblediv === index}
 						<div class="optionsdiv">
 							<button on:click={() => HandleEpisodeDeletion(data.episodeId)}>Delete Episode</button>
@@ -99,6 +103,9 @@
 {/if}
 
 <style>
+	img {
+		inline-size: 150px;
+	}
 	.episode-update-panel {
 		position: relative;
 		top: 50%;

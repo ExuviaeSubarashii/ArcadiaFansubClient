@@ -12,12 +12,12 @@
 	export let data: PageData;
 	let num = data.props.querydata.querynumber;
 	let episodes: Episodes[] = [];
-    onMount(async()=>{
+	onMount(async () => {
 		await GetEpisodesByPageQuery(num);
-        console.log(num);
-	})
-  
+		console.log(num);
+	});
 </script>
+
 
 <!-- <div class="row gap-3 ms-5">
 	<h1 class="text-light">Son Eklenenler</h1>
@@ -30,7 +30,7 @@
 				<a href="video/{episode.episodeId}" class="text-decoration-none text-light">
 					<div class="row g-0">
 						<div class="col-md-4">
-							<img src={episode.animeImage} class="img-fluid rounded-start" alt="..." />
+							<img src={`src/lib/imajlar/${episode.animeImage}`} class="img-fluid rounded-start" alt="..." />
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
@@ -50,10 +50,10 @@
 	{/key}
 </div> -->
 <HomeContentComponent/>
-<OrderComponent/>
+<OrderComponent />
 
 <style>
-	img {
+	/* img {
 		inline-size: 150px;
-	}
+	} */
 </style>

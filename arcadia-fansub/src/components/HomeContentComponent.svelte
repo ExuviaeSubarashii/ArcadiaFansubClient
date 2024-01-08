@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { ExportedEpisodeLists, GetAllEpisodes } from '../datas/episodes/getepisodes';
-	onMount(async () => {
-		await GetAllEpisodes();
-	});
 </script>
 
 <div class="row gap-2 ms-5">
@@ -19,9 +16,9 @@
 						<div class="col-md-4">
 							<!-- svelte-ignore a11y-missing-attribute -->
 							<img
-								src={`src/lib/imajlar/${episode.animeImage}`}
+								src={`../src/lib/imajlar/${episode.animeImage}`}
 								class="img-fluid rounded-start"
-								alt="captura"
+								alt={episode.animeImage}
 							/>
 						</div>
 						<div class="col-md-9">
