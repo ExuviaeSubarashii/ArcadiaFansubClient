@@ -9,7 +9,7 @@
 		{#each $ExportedEpisodeLists as episode}
 			<div
 				class="card mb-3 text-bg-dark border-5 rounded border-secondary"
-				style="max-width: 540px;"
+				style="max-width: 240px;"
 			>
 				<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">
 					<div class="row g-0">
@@ -45,7 +45,7 @@
 <style>
 	.like-dislike{
 		position: absolute;
-		left: 90%;
+		left: 80%;
 		top: 2%;
 	}
 	.btn-light i.bxs-heart {

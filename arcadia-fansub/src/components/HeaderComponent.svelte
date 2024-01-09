@@ -12,11 +12,12 @@
 <div class="container" style="background-color:#121212;">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        <header>
+          <h1>Arcadia Fansub</h1>
+      </header>
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 text-secondary">Ana Sayfa</a></li>
         <li><a href="/anime" class="nav-link px-2 text-white">Seriler</a></li>
         <li><a href="https://discord.gg/wHVPuuKSjR" class="nav-link px-2 text-white"><i class='bx bxl-discord-alt' ></i>Discord Sunucumuz</a></li>
         <li><a href="/about" class="nav-link px-2 text-white">Hakkımızda</a></li>
@@ -29,15 +30,24 @@
       <UserComponent/>
       {:else}
       <div class="text-end">
-        <!-- <button type="button" on:click={()=>{
-          window.location.href="/login";
-        }} class="btn btn-outline-light me-2">Giriş Yap</button>
-        <button type="button" on:click={()=>{
-          window.location.href="/register";
-        }} class="btn btn-warning">Kayıt Ol</button> -->
         <a type="button" class=" btn btn-outline-light me-2" href="/login">Giriş Yap</a>
         <a type="button" class="btn btn-warning" href="/register">Kayıt ol</a>
       </div>
       {/if}
     </div>
   </div>
+  <style>
+
+    header {
+         padding: 1px;
+         text-align: center;
+       }
+   
+       h1 {
+         background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
+         -webkit-background-clip: text;
+         color: transparent;
+         background-clip: text;
+         margin: 0; 
+       }
+   </style>
