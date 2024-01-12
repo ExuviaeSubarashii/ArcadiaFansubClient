@@ -10,7 +10,6 @@
 </script>
 
 <HomeContentComponent />
-<ChangePageComponent /> 
 <footer>
 	<OrderComponent />
 </footer> 

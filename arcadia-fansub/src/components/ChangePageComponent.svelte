@@ -1,11 +1,43 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { pageCount } from '../datas/stores';
+	import { writable } from 'svelte/store';
+
+	let previousPage;
+	let nextPage;
+
+	function PreviousPageHandle() {
+		pageCount.update((n) => {
+			const newValue = n - 1;
+			if (newValue < 0) {
+				return 0;
+			}
+			return newValue;
+		});
+
+		pageCount.subscribe((value) => {
+			previousPage = value;
+			console.log(previousPage);
+			window.location.href = `/sort/${value}`;
+		});
+	}
+
+	function NextPageHandle() {
+		pageCount.update((n) => n + 1);
+
+		pageCount.subscribe((value) => {
+			nextPage = value;
+			console.log(nextPage);
+			window.location.href = `/sort/${value}`;
+		});
+	}
 </script>
 
 <div class="column float-end">
-	<a href="/">
-		<button type="button" class="btn btn-outline-primary">Previous</button>
-	</a>
-	<a href="/">
-		<button type="button" class="btn btn-outline-secondary">Next</button>
-	</a>
+	<button on:click={() => PreviousPageHandle()} type="button" class="btn btn-outline-primary"
+		>Previous</button
+	>
+	<button on:click={() => NextPageHandle()} type="button" class="btn btn-outline-secondary"
+		>Next</button
+	>
 </div>

@@ -13,7 +13,9 @@ export async function AddEpisodeFunction(episode: AddEpisode) {
         if (!addEpisodeResponse.ok) {
             throw new Error(addEpisodeResponse.statusText);
         }
-        responseMessageStore.set(addEpisodeResponse.statusText);
+        const responseMessage=await addEpisodeResponse.text();
+
+        responseMessageStore.set(responseMessage);
         // window.location.href="/addnew";
 
     } catch (error) {

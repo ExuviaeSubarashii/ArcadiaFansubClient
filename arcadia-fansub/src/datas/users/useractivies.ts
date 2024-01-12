@@ -59,7 +59,6 @@ export async function Register(email: string, password: string, username: string
         if (!registerResponse.ok) {
             throw new Error(registerResponse.statusText);
         }
-        responseMessageStore.set(registerResponse.statusText);
         window.location.href = '/login';
     } catch (error) {
         console.error('Error:', error);

@@ -9,12 +9,13 @@ export async function AddAnimeFunction(anime: AddAnime) {
             body: JSON.stringify(anime),
             headers: { 'Content-Type': 'application/json' },
         };
-        const addEpisodeResponse = await fetch(`${baseUrl}/Anime/CreateNewAnime`, requestOptions);
-        if (!addEpisodeResponse.ok) {
-            throw new Error(addEpisodeResponse.statusText);
+        const addAnimeResponse = await fetch(`${baseUrl}/Anime/CreateNewAnime`, requestOptions);
+        if (!addAnimeResponse.ok) {
+            throw new Error(addAnimeResponse.statusText);
         }
-        window.location.href="/addnew";
-        responseMessageStore.set(addEpisodeResponse.statusText);
+        // window.location.href="/addnew";
+        const responseMessage=await addAnimeResponse.text();
+        responseMessageStore.set(responseMessage);
     } catch (error) {
         console.error('Error:', error);
     }

@@ -9,9 +9,7 @@
 		document.title="Arcadia Fansub";
 	})
 </script>
-{#key $responseMessageStore}
-<ResponseMessageComponent/>
-{/key}
+
 {#key currentUser.isLoggedIn===true}
 <HeaderComponent/>
 {/key}

@@ -74,7 +74,7 @@
 						>...</button
 					>
 					<p>{data.animeName}</p>
-					<p>{data.episodeNumber}. Bolum</p>
+					<p>{data.episodeNumber}. Bölüm</p>
 					<p>{data.episodeUploadDate}</p>
 					<img
 								src={`/src/lib/imajlar/${data.animeImage}`}
@@ -83,8 +83,8 @@
 							/>
 					{#if visiblediv === index}
 						<div class="optionsdiv">
-							<button on:click={() => HandleEpisodeDeletion(data.episodeId)}>Delete Episode</button>
-							<button on:click={() => HandleUpdateVisibility()}>Update Episode</button>
+							<button on:click={() => HandleEpisodeDeletion(data.episodeId)}>Bölümü Kaldır</button>
+							<button on:click={() => HandleUpdateVisibility()}>Bölümü Güncelle</button>
 						</div>
 					{/if}
 				</div>
@@ -97,7 +97,7 @@
 	<div class="episode-update-panel">
 		<input placeholder="Please put ',' between links." bind:value={episodeLinkValue} />
 		{#if episodeLinkValue}
-			<button on:click={() => HandleEpisodeUpdate(episodeLinkValue)}>Update</button>
+			<button on:click={() => HandleEpisodeUpdate(episodeLinkValue)}>Güncelle</button>
 		{/if}
 	</div>
 {/if}

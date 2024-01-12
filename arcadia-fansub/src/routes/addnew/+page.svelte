@@ -1,19 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import AddNewComponent from '../../components/AddNewComponent.svelte';
-import type { PageData } from './$types';
-    
-    export let data: PageData;
-    let admincheck=data.props.isUserAdmin.adminCheck;
-    console.log("AddNew:",data.props.isUserAdmin.adminCheck);
-    onMount(()=>{
-        if(!admincheck){
+	import { GetAllAnimes } from '../../datas/animes/getanimes';
+	import { IsAdmin } from '../../datas/users/authentication';
+    let adminCheck:boolean=false;
+    onMount(async()=>{
+    adminCheck = await IsAdmin();
+        if(!adminCheck){
             window.location.href="/"
         }
+        await GetAllAnimes();
+
     })
 </script>
 <div style="color:white;">
-    {#if admincheck===true}
+    {#if adminCheck===true}
     <AddNewComponent/>
     {:else}
     <p>Redirecting...</p>

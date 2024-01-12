@@ -18,7 +18,9 @@ export async function UpdateEpisode(episodeId:any,episodeLinks:string) {
         if(!updateEpisodeResponse.ok){
             responseMessageStore.set(updateEpisodeResponse.statusText);
         }
-        responseMessageStore.set(updateEpisodeResponse.statusText);
+        const responseMessage=await updateEpisodeResponse.text();
+
+        responseMessageStore.set(responseMessage);
     } catch (error) {
         throw new Error("Couldn't Update");
     }

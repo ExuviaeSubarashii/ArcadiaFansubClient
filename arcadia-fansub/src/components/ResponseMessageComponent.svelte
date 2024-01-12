@@ -32,8 +32,8 @@
 		border-style: outset;
 		border-radius: 25px;
 		position: absolute;
-		top: 50px;
-		right: 15%;
+		top: 5px;
+		right: 1%;
 		color: white;
 		font-size: 7px;
 		/* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */

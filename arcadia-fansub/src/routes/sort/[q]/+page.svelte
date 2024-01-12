@@ -8,6 +8,7 @@
 	import OrderComponent from '../../../components/OrderComponent.svelte';
 	import type { Episodes } from '../../../types/types';
 	import HomeContentComponent from '../../../components/HomeContentComponent.svelte';
+	import ChangePageComponent from '../../../components/ChangePageComponent.svelte';
 
 	export let data: PageData;
 	let num = data.props.querydata.querynumber;

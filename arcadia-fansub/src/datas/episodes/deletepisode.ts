@@ -15,7 +15,9 @@ export async function DeleteEpisode(episodeId:string,currentAnime:string) {
         if(!deleteEpisodeResponse.ok){
             throw new Error(deleteEpisodeResponse.statusText);
         }
-        responseMessageStore.set(deleteEpisodeResponse.statusText);
+        const responseMessage=await deleteEpisodeResponse.text();
+
+        responseMessageStore.set(responseMessage);
         GetEpisodePanelData(currentAnime);
     } catch (error) {
         

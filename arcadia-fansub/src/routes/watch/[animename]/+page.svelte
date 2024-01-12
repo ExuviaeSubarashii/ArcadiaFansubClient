@@ -6,7 +6,7 @@
 	export let data: PageData;
 	let name = data.props.animedata.animename;
 	console.log(name);
-	let animedata: Animes|null;
+	let animedata: Animes | null;
 	let episodedata: Episodes[] = [];
 	onMount(async () => {
 		const returnedAnimedata = await GetAnimeProperties(name);
@@ -23,13 +23,13 @@
 <div class="information-card">
 	<div class="card-body m-3">
 		<h5 class="card-title">{animedata?.animeName}</h5>
-		<img src={`src/lib/imajlar/${animedata?.animeImage?.trim()}`} alt="captura" />
+		<img src={`/src/lib/imajlar/${animedata?.animeImage?.trim()}`} alt="captura" />
 		<p>Çevirmen: {animedata?.translator} || Editör:{animedata?.editor}</p>
 	</div>
 </div>
 
 {#each episodedata as episode}
-	<div class="episode-group m-3 ">
+	<div class="episode-group m-3">
 		<a href="/video/{episode.episodeId}" class="group-anchor" aria-current="true">
 			<div>
 				<h5 class="episode-information">{episode.animeName} - {episode.episodeNumber}. Bölüm</h5>
@@ -37,7 +37,6 @@
 		</a>
 	</div>
 {/each}
-
 
 <style>
 	img {

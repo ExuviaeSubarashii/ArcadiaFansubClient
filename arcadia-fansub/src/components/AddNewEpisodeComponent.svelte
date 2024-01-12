@@ -60,7 +60,7 @@
 				type="text"
 				class="form-control"
 				bind:value={episodeLinks}
-				placeholder="Links"
+				placeholder="Video Linkleri"
 				aria-label="Links"
 				aria-describedby="basic-addon2"
 			/>
@@ -107,7 +107,7 @@
 							episodeLinks,
 							episodeUploadDate
 						);
-				}}>Add New Episode</button
+				}}>Yeni Bölüm Oluştur</button
 			>
 		</div>
 	</div>

@@ -41,5 +41,5 @@ export type AddEpisode={
     episodeNumber:number;
     episodeLinks:string[]|null;
     episodeLikes:number;
-    episodeUploadDate:string;
+    episodeUploadDate:Date;
 }

@@ -17,11 +17,10 @@
 
 <div class="container">
     <div class="row">
-        <button type="button" class="mt-2 col btn btn-dark"  on:click={()=>SetOption(0)}>Add Anime</button>
-        <button type="button" class="mt-2 col btn btn-dark" on:click={()=>SetOption(1)}>Add Episode</button>
+        <button type="button" class="mt-2 col btn btn-dark border border-secondary"  on:click={()=>SetOption(0)}>Yeni Seri Ekle</button>
+        <button type="button" class="mt-2 col btn btn-dark border border-secondary" on:click={()=>SetOption(1)}>Yeni Bölüm Ekle</button>
       <div class="w-100"></div>
-      <button type="button" class="col btn btn-dark" on:click={()=>SetOption(2)}>Episode Panel</button>
-      <button type="button" class="col btn btn-dark" on:click={()=>SetOption(2)}>Another Option idk</button>
+      <button type="button" class="col btn btn-dark border border-secondary" on:click={()=>SetOption(2)}>Bölüm Paneli</button>
     </div>
   </div>
 <div class="full-body" style="display:flex; column-direction:column;">
