@@ -13,7 +13,7 @@ export async function AddAnimeFunction(anime: AddAnime) {
         if (!addAnimeResponse.ok) {
             throw new Error(addAnimeResponse.statusText);
         }
-        // window.location.href="/addnew";
+        window.location.href="/addnew";
         const responseMessage=await addAnimeResponse.text();
         responseMessageStore.set(responseMessage);
     } catch (error) {

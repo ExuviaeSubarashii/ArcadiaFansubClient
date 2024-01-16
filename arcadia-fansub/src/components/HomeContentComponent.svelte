@@ -28,7 +28,7 @@
 										{episode.episodeLikes} Begeni
 									</p>
 									<p class="card-text">
-										<small class="card-text">{episode.episodeUploadDate}</small>
+										<small class="card-text">{episode.sortingDate}</small>
 									</p>
 								</div>
 							</div>
