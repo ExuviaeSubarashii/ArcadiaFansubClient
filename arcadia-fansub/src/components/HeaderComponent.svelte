@@ -24,6 +24,7 @@
 
 		<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 			<li><a href="/anime" class="nav-link px-2 text-white">Seriler</a></li>
+			<li><a href="/tickets" class="nav-link px-2 text-white">Bilet Aç</a></li>
 			<li>
 				<a href="https://discord.gg/wHVPuuKSjR" class="nav-link px-2 text-white"
 					><i class="bx bxl-discord-alt"></i>Discord Sunucumuz</a
