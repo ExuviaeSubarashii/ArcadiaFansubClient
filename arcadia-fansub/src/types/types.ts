@@ -41,7 +41,6 @@ export type AddEpisode = {
     episodeNumber: number;
     episodeLinks: string[] | null;
     episodeLikes: number;
-    episodeUploadDate: Date;
 }
 export type TicketBody = {
     ticketTitle: string;
@@ -64,4 +63,9 @@ export type TicketDto={
     ticketDate:Date;
     ticketReason:string;
     ticketStatus :string;
+}
+export type AdminResponse={
+    ticketId:string;
+    adminName:string;
+    adminReply:string;
 }

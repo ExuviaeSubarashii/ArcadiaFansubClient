@@ -8,7 +8,7 @@
 	var episodeAnimeName: any;
 	var episodeNumberVar: any;
 	var episodeLinks: any;
-	var episodeUploadDate: any;
+	// var episodeUploadDate: any;
 
 	//add episode
 	let animeEpisodeNumber: any;
@@ -24,14 +24,14 @@
 		episodeAnimeName: any,
 		episodeNumberVar: any,
 		episodeLinks: any,
-		episodeUploadDate: any
+		// episodeUploadDate: any
 	) {
 		const newEpisode: AddEpisode = {
 			animeName: episodeAnimeName,
 			episodeLikes: 0,
 			episodeLinks: (episodeLinks || '').split(' '),
 			episodeNumber: episodeNumberVar,
-			episodeUploadDate: episodeUploadDate
+			// episodeUploadDate: episodeUploadDate
 		};
 		console.log(JSON.stringify(newEpisode));
 		await AddEpisodeFunction(newEpisode);
@@ -53,8 +53,6 @@
 				<option value={anime.animeId}>{anime.animeName}</option>
 			{/each}
 		</select>
-		<!-- <input bind:value={episodeLinks} placeholder="Links">
-            <input bind:value={episodeUploadDate} type="date"> -->
 		<div class="input-group mb-3">
 			<input
 				type="text"
@@ -66,7 +64,7 @@
 			/>
 		</div>
 
-		<div class="input-group mb-3">
+		<!-- <div class="input-group mb-3">
 			<input
 				type="date"
 				class="form-control"
@@ -74,7 +72,7 @@
 				aria-label="Recipient's username"
 				aria-describedby="basic-addon2"
 			/>
-		</div>
+		</div> -->
 
 		<select
 			class="form-select mb-3"
@@ -98,14 +96,12 @@
 						episodeAnimeName !== 'undefined' ||
 						(episodeAnimeName !== null && episodeNumberVar !== 'undefined') ||
 						(episodeNumberVar !== null && episodeLinks !== 'undefined') ||
-						(episodeLinks !== null && episodeUploadDate !== 'undefined') ||
-						episodeUploadDate !== null
+						(episodeLinks !== null)
 					)
 						SendAddEpisodeRequest(
 							episodeAnimeName,
 							episodeNumberVar,
 							episodeLinks,
-							episodeUploadDate
 						);
 				}}>Yeni Bölüm Oluştur</button
 			>

@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import type { TicketBody, TicketDto, TicketReply } from "../../types/types";
+import type { AdminResponse, TicketBody, TicketDto, TicketReply } from "../../types/types";
 import { baseUrl, responseMessageStore } from "../variables";
 
 export async function CreateTicket(ticketBody: TicketBody) {
@@ -91,6 +91,27 @@ export async function GetTicketReplies(ticketId:string):Promise<TicketReply[]>{
 
         const responseMessage: TicketReply[] = await getSpecificTicketResponse.json();
         return responseMessage;
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Could not create ticket.');
+    }
+}
+export async function CreateAdminResponse(adminResponse:AdminResponse){
+    try {
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(adminResponse),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const getSpecificTicketResponse = await fetch(`${baseUrl}/Ticket/CreateAdminResponse`, requestOptions);
+
+        if (!getSpecificTicketResponse.ok) {
+            throw new Error(getSpecificTicketResponse.statusText);
+        }
+
+        const responseMessage = await getSpecificTicketResponse.text();
+        responseMessageStore.set(responseMessage);
+        
     } catch (error) {
         console.error('Error:', error);
         throw new Error('Could not create ticket.');

@@ -2,7 +2,7 @@
 	import { GetAllTickets } from '../../datas/tickets/tickets';
 </script>
 <div class="create-ticket">
-<a href="/createticket" type="button" class="btn btn-info">Bilet Oluştur</a>
+<a href="tickets/createticket" type="button" class="btn btn-info">Bilet Oluştur</a>
 </div>
 <div class="tickets">
 	{#await GetAllTickets()}
