@@ -13,7 +13,6 @@ export async function IsAdmin():Promise<boolean>{
         };
         const isUserAdmin=await fetch(`${baseUrl}/User/IsAdmin`,requestOptions)
         const adminData=await isUserAdmin.json();
-        console.log(adminData);
         return Boolean(adminData);
 
     } catch (error) {

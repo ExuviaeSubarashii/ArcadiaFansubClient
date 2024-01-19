@@ -13,7 +13,6 @@ export async function GetAllAnimes(): Promise<Animes[]> {
             throw new Error(getAllAnimesResponse.statusText);
         }
         const animeData: Animes[] = await getAllAnimesResponse.json();
-        console.log(animeData);
         ExportedAnimeLists.set(animeData);
         return animeData;
     } catch (error) {
@@ -39,7 +38,6 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null) {
 
         const animeData: Animes[] = await getAllAnimesResponse.json();
         if (animeData.length>0) {
-            console.log(animeData);
             ExportedAnimeLists.set(animeData);
             return animeData;
         }

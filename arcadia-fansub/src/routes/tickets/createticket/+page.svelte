@@ -20,7 +20,6 @@
     }
     function ReasonSetter(event:any){
         reason=event.target.value;
-        console.log(reason);
     }
     onMount(()=>{
         if(!currentUser.isLoggedIn){

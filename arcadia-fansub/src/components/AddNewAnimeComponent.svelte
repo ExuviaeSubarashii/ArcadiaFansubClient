@@ -25,7 +25,6 @@
 			releaseDate: releaseDate,
             imageLink:imageLink
 		};
-        console.log(JSON.stringify(addAnime));
         await AddAnimeFunction(addAnime)
 	}
 	//add anime

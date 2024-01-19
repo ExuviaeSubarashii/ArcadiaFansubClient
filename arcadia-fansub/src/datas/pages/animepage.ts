@@ -14,7 +14,6 @@ export async function GetAnimeProperties(animeId:string):Promise<Animes> {
         };
         const getanimeProperties=await fetch(`${baseUrl}/Anime/GetAnimeProperties`,requestOptions)
         const propertyData:Animes=await getanimeProperties.json();
-        console.log(propertyData);
         return propertyData;
 
     } catch (error) {
@@ -35,7 +34,6 @@ export async function GetAnimeEpisodes(animeId:string):Promise<Episodes[]>{
         };
         const getanimeProperties=await fetch(`${baseUrl}/Anime/GetAnimeEpisodes`,requestOptions)
         const propertyData:Episodes[]=await getanimeProperties.json();
-        console.log(propertyData);
         return propertyData;
     } catch (error) {
         console.error('Error:', error);

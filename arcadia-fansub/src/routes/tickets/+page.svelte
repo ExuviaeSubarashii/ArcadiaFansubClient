@@ -1,22 +1,26 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import { GetAllTickets, GetTicketByType } from '../../datas/tickets/tickets';
+	import { DeleteTicket, GetAllTickets, GetTicketByType } from '../../datas/tickets/tickets';
 	import type { TicketDto } from '../../types/types';
+	import currentUser from '../../datas/users/user';
 	let ticketData:TicketDto[]=[];
 	async function SortTickets(event:any){
 		ticketData=await GetTicketByType(event.target.value);
-		console.log(ticketData);
 	}
 	async function ResetTickets(){
 		ticketData=await GetAllTickets();
 	}
+	async function HandleTicketDelete(ticketId:string){
+		await DeleteTicket(ticketId);
+		ticketData=await GetAllTickets();
+	}
 	onMount(async()=>{
 		ticketData=await GetAllTickets();
-	})
+	});
 </script>
 
 <div class="create-ticket">
-	<a href="tickets/createticket" type="button" class="btn btn-info">Bilet Oluştur</a>
+	<a href="tickets/createticket" type="button" class="btn btn-info relative ">Bilet Oluştur</a>
 </div>
 <div class="sort-tickets">
 	<div>
@@ -31,7 +35,9 @@
 		<label for="ticket">Site Problemi</label>
 		<input type="radio" name="ticket" value="Site Sorunları" on:click={(event)=>SortTickets(event)}/>
 	</div>
-	<button on:click={()=>ResetTickets()}>Sıfırla</button>
+	<div>
+		<button class="reset-button" on:click={()=>ResetTickets()}>Sıfırla</button>
+	</div>
 </div>
 
 <div class="tickets">
@@ -42,6 +48,11 @@
 	{:then data}
 		{#each data as ticket}
 			<div class="ticket-body">
+				{#if currentUser.userPermission==="Admin"}
+				<div class="ticket-options">
+					<button class="delete-ticket" on:click={()=>HandleTicketDelete(ticket.ticketId)}>Bileti Sil</button>
+				</div>
+				{/if}
 				<div class="ticket-headers">
 					<a href="tickets/{ticket.ticketId}" style="text-decoration: none; color:white;">
 						<h1>{ticket.ticketTitle}</h1>
@@ -62,10 +73,22 @@
 </div>
 
 <style>
+	.delete-ticket{
+		position: relative;
+		float: right;
+	}
+	.reset-button{
+		background-color: black;
+		color: beige;
+		border-radius: 7px;
+	}
 	.sort-tickets{
-		display: block;
+		display: flex;
 		flex-direction: row;
 		color: white;
+		position: relative;
+		padding-left: 40em;
+		gap: 10px;
 	}
 
 	.tickets {

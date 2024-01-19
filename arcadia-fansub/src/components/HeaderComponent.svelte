@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import currentUser from '../datas/users/user';
-	import { LogOut, ShowCurrentUser } from '../datas/users/useractivies';
 	import UserComponent from './UserComponent.svelte';
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
 	import { responseMessageStore } from '../datas/variables';
@@ -30,7 +29,7 @@
 					><i class="bx bxl-discord-alt"></i>Discord Sunucumuz</a
 				>
 			</li>
-			<li><a href="/about" class="nav-link px-2 text-white">Hakkımızda</a></li>
+			<li><a href="/about" class="nav-link px-1 text-white">Hakkımızda</a></li>
 		</ul>
 
 		<form class="searchbar col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -58,23 +57,6 @@
 </div>
 
 <style>
-	.searchbar {
-		position: relative;
-		left: 30%;
-	}
-	.userbar {
-		position: relative;
-		left: 30%;
-	}
-	.topbar {
-		position: relative;
-		right: 17%;
-	}
-	header {
-		padding: 1px;
-		text-align: center;
-	}
-
 	h1 {
 		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
 		-webkit-background-clip: text;

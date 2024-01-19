@@ -3,7 +3,6 @@ import { baseUrl, responseMessageStore } from '../variables';
 
 export async function AddEpisodeFunction(episode: AddEpisode) {
     try {
-        console.log(JSON.stringify(episode));
         const requestOptions = {
             method: 'POST',
             body: JSON.stringify(episode),
@@ -38,7 +37,6 @@ export async function GetAddEpisodeNumber(animeId:string):Promise<number>{
             window.location.href="/addnew";
         }
         const returneddata=await getEpisodesResponse.json();
-        console.log(returneddata);
         return returneddata;
     } catch (error) {
         console.error('Error:', error);

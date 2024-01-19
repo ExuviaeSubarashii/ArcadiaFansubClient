@@ -1,9 +1,6 @@
 import { baseUrl, responseMessageStore } from "../variables";
 
 export async function UpdateEpisode(episodeId:any,episodeLinks:string) {
-    console.log(episodeLinks);
-    console.log(episodeId);
-
     try {
         const body={
             episodeId:episodeId,

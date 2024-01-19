@@ -3,7 +3,6 @@ import { baseUrl, responseMessageStore } from "../variables";
 
 export async function AddAnimeFunction(anime: AddAnime) {
     try {
-        console.log(JSON.stringify(anime));
         const requestOptions = {
             method: 'POST',
             body: JSON.stringify(anime),

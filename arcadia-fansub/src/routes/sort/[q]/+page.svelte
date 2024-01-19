@@ -15,7 +15,6 @@
 	let episodes: Episodes[] = [];
 	onMount(async () => {
 		await GetEpisodesByPageQuery(num);
-		console.log(num);
 	});
 </script>
 

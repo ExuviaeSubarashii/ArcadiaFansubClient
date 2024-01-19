@@ -1,6 +1,7 @@
 <script lang="ts">
 	import currentUser from "../datas/users/user";
 	import { Login } from "../datas/users/useractivies";
+	import { responseMessageStore } from "../datas/variables";
 
     var email = '';
 	var password = '';
@@ -32,7 +33,7 @@
 			if (email && password) {
 				Login(email, password);
 			} else {
-				console.log('Email and password are required');
+				{responseMessageStore.set("Email or Password is empty.")}
 			}
 		}}>Login</button
 	>

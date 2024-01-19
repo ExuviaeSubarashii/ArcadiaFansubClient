@@ -18,7 +18,6 @@
 	onMount(async () => {
 		userTicketMessage = await GetSpecificTickets(ticketId);
 		adminTicketReplies = await GetTicketReplies(ticketId);
-		console.log(userTicketMessage);
 	});
 	let adminResponse: string;
 	let ticketStatus: string;

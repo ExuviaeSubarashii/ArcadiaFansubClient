@@ -5,24 +5,20 @@
 	import { GetEpisodeVideo } from '../../../datas/episodes/getepisodevideo';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
-	console.log(episodeId);
 	let episodeData: Episodes;
 	let linkArray: string[] = [];
 	let player: string;
 	
 	onMount(async () => {
 		episodeData = await GetEpisodeVideo(episodeId);
-		console.log(episodeData);
 		if (episodeData && episodeData.episodeLinks) {
 			linkArray = episodeData.episodeLinks.split(',');
-			console.log(linkArray);
 		} else {
 			console.error('Episode data or episodeLinks is undefined.');
 		}
 	});
 	async function SetPlayer(playerName: string) {
 		player = playerName;
-		console.log(player);
 	}
 </script>
 <div class="col-sm-4">

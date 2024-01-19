@@ -38,7 +38,7 @@ export async function DeleteTicket(ticketId: string) {
         throw new Error('Could not create ticket.');
     }
 }
-export async function GetAllTickets():Promise<TicketDto[]> {
+export async function GetAllTickets(): Promise<TicketDto[]> {
     try {
         const requestOptions = {
             method: 'GET',
@@ -48,7 +48,7 @@ export async function GetAllTickets():Promise<TicketDto[]> {
         if (!getAllTicketsResponse.ok) {
             throw new Error(getAllTicketsResponse.statusText);
         }
-        const responseMessage:TicketDto[] = await getAllTicketsResponse.json();
+        const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
         return responseMessage;
     } catch (error) {
         console.error('Error:', error);
@@ -76,7 +76,7 @@ export async function GetSpecificTickets(ticketId: string): Promise<TicketDto> {
     }
 
 }
-export async function GetTicketReplies(ticketId:string):Promise<TicketReply[]>{
+export async function GetTicketReplies(ticketId: string): Promise<TicketReply[]> {
     try {
         const requestOptions = {
             method: 'POST',
@@ -96,7 +96,7 @@ export async function GetTicketReplies(ticketId:string):Promise<TicketReply[]>{
         throw new Error('Could not create ticket.');
     }
 }
-export async function CreateAdminResponse(adminResponse:AdminResponse){
+export async function CreateAdminResponse(adminResponse: AdminResponse) {
     try {
         const requestOptions = {
             method: 'POST',
@@ -111,13 +111,13 @@ export async function CreateAdminResponse(adminResponse:AdminResponse){
 
         const responseMessage = await getSpecificTicketResponse.text();
         responseMessageStore.set(responseMessage);
-        
+
     } catch (error) {
         console.error('Error:', error);
         throw new Error('Could not create ticket.');
     }
 }
-export async function GetTicketByType(ticketType:string):Promise<TicketDto[]>{
+export async function GetTicketByType(ticketType: string): Promise<TicketDto[]> {
     try {
         const requestOptions = {
             method: 'POST',
@@ -130,17 +130,17 @@ export async function GetTicketByType(ticketType:string):Promise<TicketDto[]>{
             throw new Error(getSpecificTicketResponse.statusText);
         }
 
-        const responseMessage:TicketDto[] = await getSpecificTicketResponse.json();
+        const responseMessage: TicketDto[] = await getSpecificTicketResponse.json();
         return responseMessage;
     } catch (error) {
         console.error('Error:', error);
         throw new Error('Could not create ticket.');
     }
 }
-export async function UpdateTicketStatus(ticketStatus:string,ticketId:string){
-    const body={
-        ticketId:ticketId,
-        ticketStatus:ticketStatus
+export async function UpdateTicketStatus(ticketStatus: string, ticketId: string) {
+    const body = {
+        ticketId: ticketId,
+        ticketStatus: ticketStatus
     }
     try {
         const requestOptions = {

@@ -5,7 +5,7 @@
 <div class="row gap-2 ms-5">
 	<h1 class="text-light">Tüm Seriler</h1>
 	{#await $ExportedAnimeLists}
-		{console.log('Yukleniyor.')}
+		<div>Seriler Yükleniyor...</div>
 	{:then animelist}
 		{#each animelist as anime}
 			<div

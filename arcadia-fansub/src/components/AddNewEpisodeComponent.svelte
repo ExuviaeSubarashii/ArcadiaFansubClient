@@ -14,11 +14,9 @@
 	let animeEpisodeNumber: any;
 	async function handleAnimeChange(animeId: string) {
 		animeEpisodeNumber = await GetAddEpisodeNumber(animeId);
-		console.log(animeEpisodeNumber);
 	}
 	async function handleEpisodeNumberChange(episodeNumber: number) {
 		episodeNumberVar = episodeNumber;
-		console.log(animeEpisodeNumber);
 	}
 	async function SendAddEpisodeRequest(
 		episodeAnimeName: any,
@@ -33,7 +31,6 @@
 			episodeNumber: episodeNumberVar,
 			// episodeUploadDate: episodeUploadDate
 		};
-		console.log(JSON.stringify(newEpisode));
 		await AddEpisodeFunction(newEpisode);
 	}
 	onMount(async () => {
@@ -48,7 +45,6 @@
 			bind:value={episodeAnimeName}
 			on:change={() => handleAnimeChange(episodeAnimeName)}
 		>
-			{console.log(episodeAnimeName)}
 			{#each $ExportedAnimeLists as anime}
 				<option value={anime.animeId}>{anime.animeName}</option>
 			{/each}
@@ -83,7 +79,6 @@
 				<option
 					value={i + 1}
 					on:change={() => {
-						console.log(episodeNumberVar);
 					}}>{i + 1}.Bolum</option
 				>
 			{/each}

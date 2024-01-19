@@ -64,6 +64,3 @@ export async function Register(email: string, password: string, username: string
         console.error('Error:', error);
     }
 }
-export function ShowCurrentUser(){
-    console.log(currentUser);
-}

@@ -13,7 +13,6 @@ export async function GetAllEpisodes() {
             throw new Error(getAllEpisodesResponse.statusText);
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();
-        console.log(episodeData);
         ExportedEpisodeLists.set(episodeData);
     } catch (error) {
         console.error('Error:', error);
@@ -35,7 +34,7 @@ export async function GetEpisodesByPageQuery(offSet:any){
             throw new Error(getAllEpisodesResponse.statusText);
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();
-        console.log(episodeData);
+        
         ExportedEpisodeLists.set(episodeData);
         // return episodeData;
     } catch (error) {

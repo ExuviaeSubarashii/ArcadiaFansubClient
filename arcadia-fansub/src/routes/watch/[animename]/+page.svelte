@@ -5,7 +5,6 @@
 	import type { Animes, Episodes } from '../../../types/types';
 	export let data: PageData;
 	let name = data.props.animedata.animename;
-	console.log(name);
 	let animedata: Animes | null;
 	let episodedata: Episodes[] = [];
 	onMount(async () => {
@@ -14,7 +13,6 @@
 
 		if (returnedAnimedata) {
 			animedata = returnedAnimedata;
-			console.log(animedata);
 			episodedata = returnedEpisodesdata;
 		}
 	});
