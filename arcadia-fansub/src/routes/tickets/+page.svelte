@@ -1,11 +1,41 @@
 <script lang="ts">
-	import { GetAllTickets } from '../../datas/tickets/tickets';
+	import { onMount, tick } from 'svelte';
+	import { GetAllTickets, GetTicketByType } from '../../datas/tickets/tickets';
+	import type { TicketDto } from '../../types/types';
+	let ticketData:TicketDto[]=[];
+	async function SortTickets(event:any){
+		ticketData=await GetTicketByType(event.target.value);
+		console.log(ticketData);
+	}
+	async function ResetTickets(){
+		ticketData=await GetAllTickets();
+	}
+	onMount(async()=>{
+		ticketData=await GetAllTickets();
+	})
 </script>
+
 <div class="create-ticket">
-<a href="tickets/createticket" type="button" class="btn btn-info">Bilet Oluştur</a>
+	<a href="tickets/createticket" type="button" class="btn btn-info">Bilet Oluştur</a>
 </div>
+<div class="sort-tickets">
+	<div>
+		<label for="ticket">Bölüm Problemi</label>
+		<input type="radio" name="ticket" value="Bölüm Problemi" on:click={(event)=>SortTickets(event)}/>
+	</div>
+	<div>
+		<label for="ticket">Kullanıcı Problemi</label>
+		<input type="radio" name="ticket" value="Kullanıcı Sorunları" on:click={(event)=>SortTickets(event)}/>
+	</div>
+	<div>
+		<label for="ticket">Site Problemi</label>
+		<input type="radio" name="ticket" value="Site Sorunları" on:click={(event)=>SortTickets(event)}/>
+	</div>
+	<button on:click={()=>ResetTickets()}>Sıfırla</button>
+</div>
+
 <div class="tickets">
-	{#await GetAllTickets()}
+	{#await ticketData}
 		<div>
 			<h1>Loading...</h1>
 		</div>
@@ -32,15 +62,16 @@
 </div>
 
 <style>
-    .create-ticket{
-        position: relative;
-        left: 90%;
-        top: 1.7%;
-    }
+	.sort-tickets{
+		display: block;
+		flex-direction: row;
+		color: white;
+	}
+
 	.tickets {
-        margin-top: 0.5em;
+		margin-top: 0.5em;
 		display: flex;
-        flex-direction: column;
+		flex-direction: column;
 		position: relative;
 		overflow: scroll;
 		color: antiquewhite;
@@ -50,6 +81,6 @@
 		border-color: white;
 		padding: 2em;
 		margin: 1em;
-        border-radius: 15px;
+		border-radius: 15px;
 	}
 </style>

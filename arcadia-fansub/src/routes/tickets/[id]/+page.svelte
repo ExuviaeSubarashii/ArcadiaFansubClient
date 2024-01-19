@@ -3,7 +3,10 @@
 	import {
 		CreateAdminResponse,
 		GetSpecificTickets,
-		GetTicketReplies
+		GetTicketReplies,
+
+		UpdateTicketStatus
+
 	} from '../../../datas/tickets/tickets.js';
 	import type { AdminResponse, TicketDto, TicketReply } from '../../../types/types.js';
 	import currentUser from '../../../datas/users/user.js';
@@ -19,7 +22,7 @@
 	});
 	let adminResponse: string;
 	let ticketStatus: string;
-	async function HandleAdminResponse() {
+	async function HandleAdminResponse()  {
 		const responseBody: AdminResponse = {
 			adminName: currentUser.userName,
 			adminReply: adminResponse,
@@ -65,7 +68,7 @@
 					type="radio"
 					id="completed"
 					name="status"
-					value="Completed"
+					value="Tamamlandı"
 					on:click={(e) => HandleStatusChange(e)}
 				/>
 				Tamamlandı
@@ -76,7 +79,7 @@
 					type="radio"
 					id="examining"
 					name="status"
-					value="Will Be Examined"
+					value="İncelenecek"
 					on:click={(e) => HandleStatusChange(e)}
 				/>
 				İncelenecek
@@ -87,7 +90,7 @@
 					type="radio"
 					id="progress"
 					name="status"
-					value="Work In Progress"
+					value="Yapım Aşamasında"
 					on:click={(e) => HandleStatusChange(e)}
 				/>
 				Yapım Aşamasında
@@ -95,7 +98,11 @@
 
 			<button on:click={() => HandleAdminResponse()}>Kaydet ve Gönder</button>
 			{#if ticketStatus}
-				<button>Durumu Guncelle</button>
+				<button
+				on:click={()=>{
+					UpdateTicketStatus(ticketStatus,ticketId)
+				}}
+				>Durumu Guncelle</button>
 			{/if}
 		</div>
 	</div>
@@ -119,6 +126,7 @@
 		border-radius: 15px;
 		background-color: transparent;
 		color: wheat;
+		width: 100%;
 	}
 	.ticket-status {
 		display: flex;
@@ -172,7 +180,7 @@
 		margin: 0.5em;
 		display: block;
 		border-style: solid;
-		border-color: red;
+		border-color: #3a2424;
 		border-radius: 10px;
 		color: white;
 	}

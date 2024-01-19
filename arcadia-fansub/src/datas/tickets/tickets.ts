@@ -117,4 +117,48 @@ export async function CreateAdminResponse(adminResponse:AdminResponse){
         throw new Error('Could not create ticket.');
     }
 }
+export async function GetTicketByType(ticketType:string):Promise<TicketDto[]>{
+    try {
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(ticketType),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const getSpecificTicketResponse = await fetch(`${baseUrl}/Ticket/GetTicketByType/${ticketType}`, requestOptions);
+
+        if (!getSpecificTicketResponse.ok) {
+            throw new Error(getSpecificTicketResponse.statusText);
+        }
+
+        const responseMessage:TicketDto[] = await getSpecificTicketResponse.json();
+        return responseMessage;
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Could not create ticket.');
+    }
+}
+export async function UpdateTicketStatus(ticketStatus:string,ticketId:string){
+    const body={
+        ticketId:ticketId,
+        ticketStatus:ticketStatus
+    }
+    try {
+        const requestOptions = {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const updateTicketStatusResponse = await fetch(`${baseUrl}/Ticket/UpdateTicket`, requestOptions);
+
+        if (!updateTicketStatusResponse.ok) {
+            throw new Error(updateTicketStatusResponse.statusText);
+        }
+
+        const responseMessage = await updateTicketStatusResponse.text();
+        responseMessageStore.set(responseMessage);
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Could not create ticket.');
+    }
+}
 export const ExportedTickets = writable<TicketDto[]>([]);
