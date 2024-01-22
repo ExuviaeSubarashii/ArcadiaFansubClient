@@ -4,9 +4,7 @@
 		CreateAdminResponse,
 		GetSpecificTickets,
 		GetTicketReplies,
-
 		UpdateTicketStatus
-
 	} from '../../../datas/tickets/tickets.js';
 	import type { AdminResponse, TicketDto, TicketReply } from '../../../types/types.js';
 	import currentUser from '../../../datas/users/user.js';
@@ -21,7 +19,7 @@
 	});
 	let adminResponse: string;
 	let ticketStatus: string;
-	async function HandleAdminResponse()  {
+	async function HandleAdminResponse() {
 		const responseBody: AdminResponse = {
 			adminName: currentUser.userName,
 			adminReply: adminResponse,
@@ -98,10 +96,10 @@
 			<button on:click={() => HandleAdminResponse()}>Kaydet ve Gönder</button>
 			{#if ticketStatus}
 				<button
-				on:click={()=>{
-					UpdateTicketStatus(ticketStatus,ticketId)
-				}}
-				>Durumu Guncelle</button>
+					on:click={() => {
+						UpdateTicketStatus(ticketStatus, ticketId);
+					}}>Durumu Guncelle</button
+				>
 			{/if}
 		</div>
 	</div>

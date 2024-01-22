@@ -1,9 +1,17 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import { DeleteTicket, GetAllTickets, GetTicketByType } from '../../datas/tickets/tickets';
+	import {
+		DeleteTicket,
+		GetAllTickets,
+		GetTicketById,
+		GetTicketBySearch,
+		GetTicketByType
+	} from '../../datas/tickets/tickets';
 	import type { TicketDto } from '../../types/types';
 	import currentUser from '../../datas/users/user';
 	let ticketData: TicketDto[] = [];
+	let ticketIdValue: string;
+	let searchValue:string;
 	async function SortTickets(event: any) {
 		ticketData = await GetTicketByType(event.target.value);
 	}
@@ -17,6 +25,16 @@
 	onMount(async () => {
 		ticketData = await GetAllTickets();
 	});
+	async function HandleSearch(){
+		if(searchValue===undefined||searchValue===null||searchValue===""){
+			ResetTickets();
+		}
+		else if(searchValue!==undefined||searchValue!==null||searchValue!==""){ 
+			setTimeout(async() => {
+				ticketData=await GetTicketBySearch(searchValue)
+			}, 1000);
+		}
+	}
 </script>
 
 <div class="create-ticket">
@@ -52,6 +70,23 @@
 	</div>
 	<div>
 		<button class="reset-button" on:click={() => ResetTickets()}>Sıfırla</button>
+	</div>
+	<div class="search-ticket">
+		<input
+			style="background: black; color:white; border-radius:10px;"
+			bind:value={ticketIdValue}
+			placeholder="Bilet Numarasi"
+		/>
+		<!-- svelte-ignore missing-declaration -->
+		<button
+			style="border-radius: 10px;
+		background-color:black; color:white;"
+			on:click={() => {
+				if (ticketIdValue !== undefined) {
+					GetTicketById(ticketIdValue);
+				}
+			}}>Bilet Ara</button>
+			<input bind:value={searchValue} on:input={async()=>await HandleSearch()}>
 	</div>
 </div>
 
@@ -90,9 +125,9 @@
 </div>
 
 <style>
-	.create-ticket{
+	.create-ticket {
 		position: absolute;
-		left:28%;
+		left: 28%;
 	}
 	.delete-ticket {
 		position: relative;

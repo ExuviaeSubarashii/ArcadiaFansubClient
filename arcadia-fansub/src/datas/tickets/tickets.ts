@@ -161,4 +161,39 @@ export async function UpdateTicketStatus(ticketStatus: string, ticketId: string)
         throw new Error('Could not create ticket.');
     }
 }
+export async function GetTicketById(ticketId:string){
+    let ticketBySearch:TicketDto;
+    ticketBySearch=await GetSpecificTickets(ticketId)
+    if(ticketBySearch.ticketId!==null){
+        window.location.href=`/tickets/${ticketId}`
+        console.log(ticketBySearch)
+        return ticketBySearch;
+    }
+    else{
+        window.location.href="/404"
+    }
+
+}
+export async function GetTicketBySearch(inputValue:string):Promise<TicketDto[]>{
+    if (inputValue !== undefined && inputValue !== null && inputValue !== "" && inputValue.trim() !== ""){
+    try {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            };
+            const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetTicketsBySearch/${inputValue}`, requestOptions);
+            if (!getAllTicketsResponse.ok) {
+                throw new Error(getAllTicketsResponse.statusText);
+            }
+            const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
+            return responseMessage;
+        } catch (error) {
+            console.error('Error:', error);
+            throw new Error('Could not create ticket.');
+        }
+    }
+    else{
+        return [];
+    }
+}
 export const ExportedTickets = writable<TicketDto[]>([]);
