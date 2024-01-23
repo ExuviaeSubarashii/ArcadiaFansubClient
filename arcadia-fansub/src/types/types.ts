@@ -69,3 +69,7 @@ export type AdminResponse={
     adminName:string;
     adminReply:string;
 }
+export type Notifications={
+    episodeLink:string;
+    episodeNotificationMessage:string;
+}

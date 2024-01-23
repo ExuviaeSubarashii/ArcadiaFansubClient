@@ -4,6 +4,7 @@
 	import UserComponent from './UserComponent.svelte';
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
 	import { responseMessageStore } from '../datas/variables';
+	import NotificationComponent from './NotificationComponent.svelte';
 	onMount(() => {
 		if (currentUser.isLoggedIn) {
 			console.log(currentUser);
@@ -46,6 +47,7 @@
 		<div class="userbar">
 			{#if currentUser.isLoggedIn === true}
 				<UserComponent />
+				<NotificationComponent />
 			{:else}
 				<div class="text-end">
 					<a type="button" class=" btn btn-outline-light me-2" href="/login">Giriş Yap</a>

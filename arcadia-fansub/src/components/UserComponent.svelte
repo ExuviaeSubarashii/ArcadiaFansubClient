@@ -4,6 +4,8 @@
 import currentUser from "../datas/users/user";
 	import { LogOut } from "../datas/users/useractivies";
 	import { IsAdmin } from "../datas/users/authentication";
+	import NotificationComponene from "./NotificationComponent.svelte";
+	import NotificationComponent from "./NotificationComponent.svelte";
 	let isAdmin:boolean=false;
 	onMount(async()=>{
 		let isAdminresponse= await IsAdmin();
@@ -53,6 +55,7 @@ import currentUser from "../datas/users/user";
 	}
 	.dropdown:hover .dropdown-content {
 		display: block;
+		right: 1%;
 	}
 	.dropdown-content a,
 	span {
