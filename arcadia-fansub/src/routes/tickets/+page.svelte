@@ -132,6 +132,11 @@
 	.delete-ticket {
 		position: relative;
 		float: right;
+		border-radius: 5px;
+		background-color: navy;
+		background:linear-gradient(to right, rgb(109, 92, 106), rgb(84, 102, 184));
+		margin: 0;
+		color: black;
 	}
 	.reset-button {
 		background-color: black;

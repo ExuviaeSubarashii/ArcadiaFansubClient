@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import type { AdminResponse, TicketBody, TicketDto, TicketReply } from "../../types/types";
 import { baseUrl, responseMessageStore } from "../variables";
+import currentUser from "../users/user";
 
 export async function CreateTicket(ticketBody: TicketBody) {
     try {
@@ -194,6 +195,30 @@ export async function GetTicketBySearch(inputValue:string):Promise<TicketDto[]>{
     }
     else{
         return [];
+    }
+}
+export async function DeleteAdminResponse(responseId:any){
+    const body = {
+        responseId:responseId,
+        userToken:currentUser.userToken
+    }
+    try {
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const deleteAdminReplyStatusResponse = await fetch(`${baseUrl}/Ticket/DeleteAdminResponse`, requestOptions);
+
+        if (!deleteAdminReplyStatusResponse.ok) {
+            throw new Error(deleteAdminReplyStatusResponse.statusText);
+        }
+
+        const responseMessage = await deleteAdminReplyStatusResponse.text();
+        responseMessageStore.set(responseMessage);
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Could not delete reply.');
     }
 }
 export const ExportedTickets = writable<TicketDto[]>([]);

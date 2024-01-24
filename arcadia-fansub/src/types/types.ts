@@ -50,6 +50,7 @@ export type TicketBody = {
     ticketStatus: string;
 }
 export type TicketReply={
+    responseId:number;
     ticketId:string;
     ticketAdminName:string;
     ticketReply:string;

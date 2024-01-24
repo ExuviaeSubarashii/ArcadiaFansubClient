@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import {
 		CreateAdminResponse,
+		DeleteAdminResponse,
 		GetSpecificTickets,
 		GetTicketReplies,
 		UpdateTicketStatus
@@ -33,9 +34,18 @@
 		}
 
 		await CreateAdminResponse(responseBody);
+		adminTicketReplies = await GetTicketReplies(ticketId);
 	}
 	function HandleStatusChange(event: any) {
 		ticketStatus = event.target.value;
+	}
+
+
+	async function DeleteAdminResponseHandle(e: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }): Promise<any> {
+		const inputValue=(e.target as HTMLInputElement)?.value;
+		await DeleteAdminResponse(inputValue);
+		adminTicketReplies = await GetTicketReplies(ticketId);
+
 	}
 </script>
 
@@ -104,12 +114,13 @@
 		</div>
 	</div>
 {/if}
-{#await GetTicketReplies(ticketId)}
+{#await adminTicketReplies}
 	<div>Yanitlar Yukleniyor</div>
 {:then replies}
 	<div class="replies">
 		{#each replies as reply}
 			<div class="reply">
+				<button value="{reply.responseId}" on:click={(e)=>DeleteAdminResponseHandle(e)} class="delete-button">Delete</button>
 				<p>{reply.ticketAdminName}</p>
 				<p>{reply.ticketReply}</p>
 				<p>{reply.ticketReplyDate}</p>
@@ -119,6 +130,15 @@
 {/await}
 
 <style>
+	.delete-button {
+		position: absolute;
+		float: right;
+		border-radius: 5px;
+		background-color: navy;
+		background: linear-gradient(to right, rgb(109, 92, 106), rgb(84, 102, 184));
+		margin: 0;
+		color: black;
+	}
 	.admin-input {
 		border-radius: 15px;
 		background-color: transparent;
