@@ -10,6 +10,7 @@
 	let player: string;
 	
 	onMount(async () => {
+		console.log(episodeId);
 		episodeData = await GetEpisodeVideo(episodeId);
 		if (episodeData && episodeData.episodeLinks) {
 			linkArray = episodeData.episodeLinks.split(',');

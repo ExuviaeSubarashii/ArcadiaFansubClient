@@ -1,3 +1,4 @@
+import { json } from "@sveltejs/kit";
 import type { Notifications } from "../../types/types";
 import currentUser from "../users/user";
 import { baseUrl } from "../variables";
@@ -17,9 +18,12 @@ export async function GetUserNotifications():Promise<Notifications[]>{
         if (!notificationResponse.ok) {
             throw new Error(notificationResponse.statusText);
         }
-
         const responseMessage: Notifications[] = await notificationResponse.json();
-        console.log(responseMessage);
+        const notificationData=responseMessage.map(notification=>({
+            ...notification,
+            isVisible:false
+        }));
+        localStorage.setItem("notifications",JSON.stringify(notificationData))
         return responseMessage;
     } catch (error) {
         console.error('Error:', error);

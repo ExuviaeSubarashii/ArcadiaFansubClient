@@ -47,7 +47,9 @@
 		<div class="userbar">
 			{#if currentUser.isLoggedIn === true}
 				<UserComponent />
-				<NotificationComponent />
+				<div class="notif-comp">
+					<NotificationComponent />
+				</div>
 			{:else}
 				<div class="text-end">
 					<a type="button" class=" btn btn-outline-light me-2" href="/login">Giriş Yap</a>
@@ -59,6 +61,11 @@
 </div>
 
 <style>
+	.notif-comp{
+		position: absolute;
+		left: 63%;
+		top: 1%;
+	}
 	h1 {
 		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
 		-webkit-background-clip: text;
