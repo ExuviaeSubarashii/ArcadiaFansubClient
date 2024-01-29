@@ -73,4 +73,5 @@ export type AdminResponse={
 export type Notifications={
     episodeLink:string;
     episodeNotificationMessage:string;
+    isVisible:boolean;
 }

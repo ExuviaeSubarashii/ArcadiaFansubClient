@@ -40,12 +40,12 @@
 		ticketStatus = event.target.value;
 	}
 
-
-	async function DeleteAdminResponseHandle(e: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }): Promise<any> {
-		const inputValue=(e.target as HTMLInputElement)?.value;
+	async function DeleteAdminResponseHandle(
+		e: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
+	): Promise<any> {
+		const inputValue = (e.target as HTMLInputElement)?.value;
 		await DeleteAdminResponse(inputValue);
 		adminTicketReplies = await GetTicketReplies(ticketId);
-
 	}
 </script>
 
@@ -120,7 +120,13 @@
 	<div class="replies">
 		{#each replies as reply}
 			<div class="reply">
-				<button value="{reply.responseId}" on:click={(e)=>DeleteAdminResponseHandle(e)} class="delete-button">Delete</button>
+				{#if currentUser.userPermission === 'Admin'}
+					<button
+						value={reply.responseId}
+						on:click={(e) => DeleteAdminResponseHandle(e)}
+						class="delete-button">Delete</button
+					>
+				{/if}
 				<p>{reply.ticketAdminName}</p>
 				<p>{reply.ticketReply}</p>
 				<p>{reply.ticketReplyDate}</p>

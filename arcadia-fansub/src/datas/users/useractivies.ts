@@ -2,10 +2,10 @@ import type { User } from "../../types/types";
 import { baseUrl, responseMessageStore } from "../variables";
 import currentUser from "./user";
 
-export function LogOut() {
-    localStorage.clear();
-    location.reload();
-    localStorage.setItem("isLoggedIn","false");
+export async function LogOut() {
+    await localStorage.clear();
+    await location.reload();
+    await localStorage.setItem("isLoggedIn","false");
     window.location.href='/';
 }
 export async function Login(email: string, password: string) {

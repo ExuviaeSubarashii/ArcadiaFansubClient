@@ -1,13 +1,33 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { Notifications } from '../types/types';
-	import { GetUserNotifications } from '../datas/notifications/notification';
-	import { writable } from 'svelte/store';
+	import { GetUserNotifications, GetUserNotificationsIfOutOfDate } from '../datas/notifications/notification';
+	import { writable, type Writable } from 'svelte/store';
 	let notifications = writable<Notifications[]>([]);
 
+	async function GetUserNotificationsIfEmpty() {
+		if (localStorage.getItem('notifications') === null) {
+			notifications.set(await GetUserNotifications());
+		}
+	}
 	onMount(async () => {
-		notifications.set(await GetUserNotifications());
+		await GetUserNotificationsIfOutOfDate();
+		await GetUserNotificationsIfEmpty();
+		notifications.set(JSON.parse(localStorage.getItem('notifications') || '[]'));
 	});
+
+	async function HandleNotificationDeletion(num: number) {
+		notifications.update((array) => {
+        const updatedArray = array.map((notification, index) => {
+            if (index === num) {
+                return { ...notification, isVisible: !notification.isVisible };
+            }
+            return notification;
+        });
+        localStorage.setItem('notifications', JSON.stringify(updatedArray));
+        return updatedArray;
+    });
+	}
 </script>
 
 <div class="full-body">
@@ -17,16 +37,25 @@
 			{#await $notifications}
 				<div>Loading...</div>
 			{:then data}
-				{#if data.length > 0}
-				<div>Takip Ettiginiz Seriler</div>
+				{#if data.length >= 0}
+					<div>Takip Ettiginiz Seriler</div>
 					{#key $notifications}
 						{#each data as notification, index}
+							{#if notification.isVisible === true}
 								<div class="notification-item">
-									<button class="dropdown-item"
-									on:click={()=>window.location.href=`/video/${notification.episodeLink}`} >
+									<button
+										class="dropdown-item"
+										on:click={() => (window.location.href = `/video/${notification.episodeLink}`)}
+									>
 										{notification.episodeNotificationMessage}
 									</button>
+									<button
+										class="delete-notification"
+										on:click={() => HandleNotificationDeletion(index)}
+										>X
+									</button>
 								</div>
+							{/if}
 						{/each}
 					{/key}
 				{:else}

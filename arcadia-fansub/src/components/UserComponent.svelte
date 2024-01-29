@@ -4,8 +4,6 @@
 import currentUser from "../datas/users/user";
 	import { LogOut } from "../datas/users/useractivies";
 	import { IsAdmin } from "../datas/users/authentication";
-	import NotificationComponene from "./NotificationComponent.svelte";
-	import NotificationComponent from "./NotificationComponent.svelte";
 	let isAdmin:boolean=false;
 	onMount(async()=>{
 		let isAdminresponse= await IsAdmin();
@@ -18,10 +16,7 @@ import currentUser from "../datas/users/user";
     <div class="dropdown">
       <span><p>{currentUser.userName}</p></span>
       <div class="dropdown-content">
-        <a href="/account">Account <i class="bx bxs-right-top-arrow-circle" /></a>
         <a href="/user/{encodeURIComponent(currentUser.userId)}">Profile</a>
-        <span>Private Session</span>
-        <a href="/user/settings">Settings</a>
 		{#if isAdmin===true}
 		<a href="/addnew">Admin Panel</a>
 		{/if}

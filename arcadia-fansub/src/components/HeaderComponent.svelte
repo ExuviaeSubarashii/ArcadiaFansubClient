@@ -4,7 +4,7 @@
 	import UserComponent from './UserComponent.svelte';
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
 	import { responseMessageStore } from '../datas/variables';
-	import NotificationComponent from './NotificationComponent.svelte';
+	// import NotificationComponent from './NotificationComponent.svelte';
 	onMount(() => {
 		if (currentUser.isLoggedIn) {
 			console.log(currentUser);
@@ -33,23 +33,16 @@
 			<li><a href="/about" class="nav-link px-1 text-white">Hakkımızda</a></li>
 		</ul>
 
-		<form class="searchbar col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-			<input
-				type="search"
-				class="form-control form-control-dark text-bg-dark"
-				placeholder="Search..."
-				aria-label="Search"
-			/>
-		</form>
+
 		{#key $responseMessageStore}
 			<ResponseMessageComponent />
 		{/key}
 		<div class="userbar">
 			{#if currentUser.isLoggedIn === true}
 				<UserComponent />
-				<div class="notif-comp">
+				<!-- <div class="notif-comp">
 					<NotificationComponent />
-				</div>
+				</div> -->
 			{:else}
 				<div class="text-end">
 					<a type="button" class=" btn btn-outline-light me-2" href="/login">Giriş Yap</a>
