@@ -13,7 +13,6 @@ export async function GetAllAnimes(): Promise<Animes[]> {
             throw new Error(getAllAnimesResponse.statusText);
         }
         const animeData: Animes[] = await getAllAnimesResponse.json();
-        ExportedAnimeLists.set(animeData);
         return animeData;
     } catch (error) {
         console.error('Error:', error);
@@ -38,7 +37,6 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null) {
 
         const animeData: Animes[] = await getAllAnimesResponse.json();
         if (animeData.length>0) {
-            ExportedAnimeLists.set(animeData);
             return animeData;
         }
         window.location.href="/404";
@@ -47,4 +45,3 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null) {
         return [];
     }
 }
-export const ExportedAnimeLists = writable<Animes[]>([]);

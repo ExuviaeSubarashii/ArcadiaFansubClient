@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { ExportedAnimeLists } from '../datas/animes/getanimes';
+	import { onMount } from 'svelte';
+	import { GetAllAnimes } from '../datas/animes/getanimes';	
+	import type { Animes } from '../types/types';
+	let animes:Animes[] = [];
+	onMount(async () => {
+		animes=await GetAllAnimes();
+	});
 </script>
 
 <div class="row gap-2 ms-5">
 	<h1 class="text-light">Tüm Seriler</h1>
-	{#await $ExportedAnimeLists}
+	{#await animes}
 		<div>Seriler Yükleniyor...</div>
 	{:then animelist}
 		{#each animelist as anime}
