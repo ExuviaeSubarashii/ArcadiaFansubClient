@@ -11,8 +11,12 @@
 	import currentUser from '../../datas/users/user';
 	let ticketData: TicketDto[] = [];
 	let ticketIdValue: string;
-	let searchValue:string;
+	let searchValue: string;
 	async function SortTickets(event: any) {
+		if(event.target.value === '')
+		{
+			ticketData = await GetAllTickets();
+		}
 		ticketData = await GetTicketByType(event.target.value);
 	}
 	async function ResetTickets() {
@@ -25,13 +29,12 @@
 	onMount(async () => {
 		ticketData = await GetAllTickets();
 	});
-	async function HandleSearch(){
-		if(searchValue===undefined||searchValue===null||searchValue===""){
+	async function HandleSearch() {
+		if (searchValue === undefined || searchValue === null || searchValue === '') {
 			ResetTickets();
-		}
-		else if(searchValue!==undefined||searchValue!==null||searchValue!==""){ 
-			setTimeout(async() => {
-				ticketData=await GetTicketBySearch(searchValue)
+		} else if (searchValue !== undefined || searchValue !== null || searchValue !== '') {
+			setTimeout(async () => {
+				ticketData = await GetTicketBySearch(searchValue);
 			}, 1000);
 		}
 	}
@@ -42,51 +45,35 @@
 </div>
 <div class="sort-tickets">
 	<div>
-		<label for="ticket">Bölüm Problemi</label>
-		<input
-			type="radio"
-			name="ticket"
-			value="Bölüm Problemi"
-			on:click={(event) => SortTickets(event)}
-		/>
-	</div>
-	<div>
-		<label for="ticket">Kullanıcı Problemi</label>
-		<input
-			type="radio"
-			name="ticket"
-			value="Kullanıcı Sorunları"
-			on:click={(event) => SortTickets(event)}
-		/>
-	</div>
-	<div>
-		<label for="ticket">Site Problemi</label>
-		<input
-			type="radio"
-			name="ticket"
-			value="Site Sorunları"
-			on:click={(event) => SortTickets(event)}
-		/>
-	</div>
-	<div>
-		<button class="reset-button" on:click={() => ResetTickets()}>Sıfırla</button>
+		<label for="ticket">Ticket Type:</label>
+		<select name="ticket" on:change={(event) => SortTickets(event)}>
+			<option value="">Tüm Biletler</option>
+			<option value="Bölüm Sorunları">Bölüm Sorunları</option>
+			<option value="Kullanıcı Sorunları">Kullanıcı Sorunları</option>
+			<option value="Site Sorunları">Site Sorunları</option>
+		</select>
 	</div>
 	<div class="search-ticket">
 		<input
-			style="background: black; color:white; border-radius:10px;"
+			style="background: white; color:black; border-radius:10px;"
 			bind:value={ticketIdValue}
-			placeholder="Bilet Numarasi"
-		/>
-		<!-- svelte-ignore missing-declaration -->
-		<button
-			style="border-radius: 10px;
-		background-color:black; color:white;"
-			on:click={() => {
-				if (ticketIdValue !== undefined) {
-					GetTicketById(ticketIdValue);
+			placeholder="Direkt Bilet Numarasıyla Bilete Git"
+			on:keypress={async (event) => {
+				if (event.key === 'Enter') {
+					await GetTicketById(ticketIdValue);
 				}
-			}}>Bilet Ara</button>
-			<input bind:value={searchValue} on:input={async()=>await HandleSearch()}>
+			}}
+		/>
+		<input
+			bind:value={searchValue}
+			on:keypress={async (event) => {
+				if (event.key === 'Enter') {
+					await HandleSearch();
+				}
+			}}
+			placeholder="BİLETLERDE ARA"
+			class="search-input"
+		/>
 	</div>
 </div>
 
@@ -114,6 +101,7 @@
 				<div class="ticket-user-information">
 					<p>Bileti Açanın Adı: {ticket.senderName}</p>
 					<p>Biletin Açılış Tarihi: {ticket.ticketDate}</p>
+					<p>Bilet Numarası: {ticket.ticketId}</p>
 				</div>
 				<div class="ticket-information">
 					<p>Sebep: {ticket.ticketReason}</p>
@@ -125,30 +113,30 @@
 </div>
 
 <style>
+	.search-input{
+		background: white;
+		color:black;
+		border-radius:10px;
+	}
 	.create-ticket {
 		position: absolute;
-		left: 28%;
+		left: 15%;
 	}
 	.delete-ticket {
 		position: relative;
 		float: right;
 		border-radius: 5px;
 		background-color: navy;
-		background:linear-gradient(to right, rgb(109, 92, 106), rgb(84, 102, 184));
+		background: linear-gradient(to right, rgb(109, 92, 106), rgb(84, 102, 184));
 		margin: 0;
 		color: black;
-	}
-	.reset-button {
-		background-color: black;
-		color: beige;
-		border-radius: 7px;
 	}
 	.sort-tickets {
 		display: flex;
 		flex-direction: row;
 		color: white;
 		position: relative;
-		padding-left: 40em;
+		padding-left: 25em;
 		top: 2%;
 		gap: 10px;
 	}
