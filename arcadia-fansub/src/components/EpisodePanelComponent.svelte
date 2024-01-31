@@ -75,7 +75,6 @@
 					>
 					<p>{data.animeName}</p>
 					<p>{data.episodeNumber}. Bölüm</p>
-					<p>{data.episodeUploadDate}</p>
 					<img
 								src={`/src/lib/imajlar/${data.animeImage}`}
 								class="img-fluid rounded-start"

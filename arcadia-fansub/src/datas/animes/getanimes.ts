@@ -19,7 +19,7 @@ export async function GetAllAnimes(): Promise<Animes[]> {
         return [];
     }
 }
-export async function GetAnimeByAlphabet(AlphabetValue: string | null) {
+export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<Animes[]> {
     const body = {
         alphabetValue: AlphabetValue
     }
@@ -36,10 +36,10 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null) {
         }
 
         const animeData: Animes[] = await getAllAnimesResponse.json();
-        if (animeData.length>0) {
-            return animeData;
+        if (animeData.length < 0) {
+            window.location.href = "/404";
         }
-        window.location.href="/404";
+        return animeData;
     } catch (error) {
         console.error('Error:', error);
         return [];

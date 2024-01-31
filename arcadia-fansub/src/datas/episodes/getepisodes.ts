@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import type { Episodes } from "../../types/types";
 import { baseUrl } from "../variables";
 
-export async function GetAllEpisodes() {
+export async function GetAllEpisodes():Promise<Episodes[]> {
     const requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -13,12 +13,14 @@ export async function GetAllEpisodes() {
             throw new Error(getAllEpisodesResponse.statusText);
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();
-        ExportedEpisodeLists.set(episodeData);
+        // ExportedEpisodeLists.set(episodeData);
+        return episodeData;
     } catch (error) {
         console.error('Error:', error);
+        return [];
     }
 }
-export async function GetEpisodesByPageQuery(offSet:any){
+export async function GetEpisodesByPageQuery(offSet:any):Promise<Episodes[]>{
     const body={
         offSet:parseInt(offSet)
     }
@@ -35,10 +37,10 @@ export async function GetEpisodesByPageQuery(offSet:any){
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();
         
-        ExportedEpisodeLists.set(episodeData);
-        // return episodeData;
+        // ExportedEpisodeLists.set(episodeData);
+        return episodeData;
     } catch (error) {
         return [];
     }
 }
-export const ExportedEpisodeLists = writable<Episodes[]>([]);
+// export const ExportedEpisodeLists = writable<Episodes[]>([]);

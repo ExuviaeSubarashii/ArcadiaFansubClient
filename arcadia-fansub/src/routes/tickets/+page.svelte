@@ -13,8 +13,7 @@
 	let ticketIdValue: string;
 	let searchValue: string;
 	async function SortTickets(event: any) {
-		if(event.target.value === '')
-		{
+		if (event.target.value === '') {
 			ticketData = await GetAllTickets();
 		}
 		ticketData = await GetTicketByType(event.target.value);
@@ -45,7 +44,7 @@
 </div>
 <div class="sort-tickets">
 	<div>
-		<label for="ticket">Ticket Type:</label>
+		<label for="ticket">Bilet Türü:</label>
 		<select name="ticket" on:change={(event) => SortTickets(event)}>
 			<option value="">Tüm Biletler</option>
 			<option value="Bölüm Sorunları">Bölüm Sorunları</option>
@@ -83,40 +82,46 @@
 			<h1>Loading...</h1>
 		</div>
 	{:then data}
-		{#each data as ticket}
-			<div class="ticket-body">
-				{#if currentUser.userPermission === 'Admin'}
-					<div class="ticket-options">
-						<button class="delete-ticket" on:click={() => HandleTicketDelete(ticket.ticketId)}
-							>Bileti Sil</button
-						>
+		{#if data.length > 0}
+			{#each data as ticket}
+				<div class="ticket-body">
+					{#if currentUser.userPermission === 'Admin'}
+						<div class="ticket-options">
+							<button class="delete-ticket" on:click={() => HandleTicketDelete(ticket.ticketId)}
+								>Bileti Sil</button
+							>
+						</div>
+					{/if}
+					<div class="ticket-headers">
+						<a href="tickets/{ticket.ticketId}" style="text-decoration: none; color:white;">
+							<h1>{ticket.ticketTitle}</h1>
+							<p>{ticket.ticketMessage}</p>
+						</a>
 					</div>
-				{/if}
-				<div class="ticket-headers">
-					<a href="tickets/{ticket.ticketId}" style="text-decoration: none; color:white;">
-						<h1>{ticket.ticketTitle}</h1>
-						<p>{ticket.ticketMessage}</p>
-					</a>
+					<div class="ticket-user-information">
+						<p>Bileti Açanın Adı: {ticket.senderName}</p>
+						<p>Biletin Açılış Tarihi: {ticket.ticketDate}</p>
+						<p>Bilet Numarası: {ticket.ticketId}</p>
+					</div>
+					<div class="ticket-information">
+						<p>Sebep: {ticket.ticketReason}</p>
+						<p>Durum: {ticket.ticketStatus}</p>
+					</div>
 				</div>
-				<div class="ticket-user-information">
-					<p>Bileti Açanın Adı: {ticket.senderName}</p>
-					<p>Biletin Açılış Tarihi: {ticket.ticketDate}</p>
-					<p>Bilet Numarası: {ticket.ticketId}</p>
-				</div>
-				<div class="ticket-information">
-					<p>Sebep: {ticket.ticketReason}</p>
-					<p>Durum: {ticket.ticketStatus}</p>
-				</div>
+			{/each}
+		{:else}
+			<div>
+				<h1>Hiç Bu Etiketle Bilet Yok</h1>
 			</div>
-		{/each}
+		{/if}
 	{/await}
 </div>
 
 <style>
-	.search-input{
+	.search-input {
 		background: white;
-		color:black;
-		border-radius:10px;
+		color: black;
+		border-radius: 10px;
 	}
 	.create-ticket {
 		position: absolute;

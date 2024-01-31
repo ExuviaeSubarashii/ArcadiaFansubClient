@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ExportedEpisodeLists, GetAllEpisodes } from '../datas/episodes/getepisodes';
+	import {  GetAllEpisodes } from '../datas/episodes/getepisodes';
+	import type { Episodes } from '../types/types';
+	export let episodes: Episodes[] = [];
+	onMount(async () => {
+		episodes=await GetAllEpisodes();
+	});
 </script>
 
 <div class="row gap-2 ms-5">
 	<h1 class="text-light">Son Eklenenler</h1>
-	{#await $ExportedEpisodeLists}
+	{#await episodes}
 		<h1>Yukleniyor</h1>
 	{:then episodelist}
-		{#key $ExportedEpisodeLists}
+		{#key episodes}
 			{#each episodelist as episode}
 				<div class="bomba card mb-3 text-bg-dark border-5 rounded" style="max-width: 440px;">
 					<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">

@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { GetAllAnimes } from '../datas/animes/getanimes';	
 	import type { Animes } from '../types/types';
-	let animes:Animes[] = [];
+	export let animes:Animes[] = [];
 	onMount(async () => {
 		animes=await GetAllAnimes();
 	});
