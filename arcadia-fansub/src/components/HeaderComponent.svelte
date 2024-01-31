@@ -5,6 +5,8 @@
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
 	import { responseMessageStore } from '../datas/variables';
 	// import NotificationComponent from './NotificationComponent.svelte';
+	let searchParameter:string='';
+
 	onMount(() => {
 		if (currentUser.isLoggedIn) {
 			console.log(currentUser);
@@ -32,7 +34,18 @@
 			</li>
 			<li><a href="/about" class="nav-link-about">Hakkımızda</a></li>
 		</ul>
-
+		<form class="searchbar col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+			<input
+				class="form-control form-control-dark text-bg-light border-3 border-info p-3 "
+				placeholder="Ara"
+				bind:value={searchParameter}
+				on:keypress={e => {
+					if (e.key === 'Enter') {
+						window.location.href=`/anime/${searchParameter}`;
+					}
+				}}
+			/>
+		</form>
 		{#key $responseMessageStore}
 			<ResponseMessageComponent />
 		{/key}
