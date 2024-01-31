@@ -22,17 +22,16 @@
 			</header>
 		</a>
 
-		<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-			<li><a href="/anime" class="nav-link px-2 text-white">Seriler</a></li>
-			<li><a href="/tickets" class="nav-link px-2 text-white">Bilet Aç</a></li>
+		<ul class="nav">
+			<li><a href="/anime" class="nav-link-series">Seriler</a></li>
+			<li><a href="/tickets" class="nav-link-ticket">Bilet Aç</a></li>
 			<li>
-				<a href="https://discord.gg/wHVPuuKSjR" class="nav-link px-2 text-white"
+				<a href="https://discord.gg/wHVPuuKSjR" class="nav-link-discord"
 					><i class="bx bxl-discord-alt"></i>Discord Sunucumuz</a
 				>
 			</li>
-			<li><a href="/about" class="nav-link px-1 text-white">Hakkımızda</a></li>
+			<li><a href="/about" class="nav-link-about">Hakkımızda</a></li>
 		</ul>
-
 
 		{#key $responseMessageStore}
 			<ResponseMessageComponent />
@@ -54,10 +53,39 @@
 </div>
 
 <style>
-	.notif-comp{
-		position: absolute;
-		left: 63%;
-		top: 1%;
+	.nav {
+		list-style: none;
+		display: flex;
+		justify-content: center;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav-link-series,
+	.nav-link-ticket,
+	.nav-link-discord,
+	.nav-link-about {
+		text-decoration: none;
+		color: white;
+		padding: 0.5rem 1rem;
+	}
+	.nav-link-series:hover,
+	.nav-link-ticket:hover,
+	.nav-link-discord:hover,
+	.nav-link-about:hover {
+		background-color: #1f1f1f;
+		border-radius: 5px;
+		border-style: solid;
+		border-color: #ffffff;
+		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
+		-webkit-background-clip: text;
+		color: transparent;
+		background-clip: text;
+		margin: 0;
+
+	}
+	.userbar {
+		margin-left: auto;
 	}
 	h1 {
 		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));

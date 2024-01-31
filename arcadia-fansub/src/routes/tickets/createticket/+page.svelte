@@ -14,7 +14,8 @@
             ticketMessage:mainText,
             ticketTitle:mainTitle,
             ticketReason:reason,
-            ticketStatus:"Sent"
+            ticketStatus:"Sent",
+			senderToken:currentUser.userToken
         }
         await CreateTicket(ticketBody);
     }

@@ -48,6 +48,7 @@ export type TicketBody = {
     senderName: string;
     ticketReason: string;
     ticketStatus: string;
+    senderToken:string;
 }
 export type TicketReply={
     responseId:number;
