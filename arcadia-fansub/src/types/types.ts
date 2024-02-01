@@ -76,3 +76,24 @@ export type Notifications={
     episodeNotificationMessage:string;
     isVisible:boolean;
 }
+export type CreateCommentBody={
+    episodeId: string;
+    userId: number;
+    userName: string;
+    commentContent: string;
+}
+export type Comments={
+    commentId: number;
+    episodeId: string;
+    userId: number;
+    userName: string;
+    commentContent: string;
+    commentDate: Date;
+    commentTextDate: string;
+    isCommentOwner: boolean;
+}
+export type UpdateCommentBody={
+    commentId: string;
+    userId: number;
+    newComment: string;
+}

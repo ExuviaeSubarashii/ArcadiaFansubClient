@@ -1,14 +1,31 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Episodes } from '../../../types/types';
+	import type { Comments, CreateCommentBody, Episodes } from '../../../types/types';
 	import { GetEpisodeVideo } from '../../../datas/episodes/getepisodevideo';
+	import { CreateComment, GetComments } from '../../../datas/comments/comments';
+	import currentUser from '../../../datas/users/user';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
 	let episodeData: Episodes;
 	let linkArray: string[] = [];
 	let player: string;
+	let commentData: Comments[] = [];
+	let visiblediv: any = null;
 
+	let commentValue: string;
+	let isOptionsVisible: boolean = false;
+	async function HandleComment() {
+		if (commentValue != '' || commentValue != null || commentValue != undefined) {
+			let commentBody: CreateCommentBody = {
+				episodeId: episodeId,
+				commentContent: commentValue,
+				userId: currentUser.userId,
+				userName: currentUser.userName
+			};
+			await CreateComment(commentBody);
+		}
+	}
 	onMount(async () => {
 		console.log(episodeId);
 		episodeData = await GetEpisodeVideo(episodeId);
@@ -18,23 +35,35 @@
 		} else {
 			console.error('Episode data or episodeLinks is undefined.');
 		}
+		commentData = await GetComments(episodeId);
 	});
+
 	async function SetPlayer(playerName: string) {
 		player = playerName;
+	}
+
+	function updateComment(commentId: number) {
+		console.log(commentId);
+	}
+
+	function deleteComment(commentId: number) {
+		console.log(commentId);
 	}
 </script>
 
 <div class="col-sm-4">
 	<div
 		class="card d-flexbox align-items-center justify-content-center"
-		style="position:fixed; top:30%;right:30%;"
+		style="position:absolute; top:30%;right:30%;"
 	>
 		{#key player}
 			{#await episodeData}
 				<p>loading...</p>
 			{:then data}
 				{#if data}
-					<a href="/watch/{data.animeId}" style="text-decoration: none;">{data.animeName} {data.episodeNumber}. Bölüm</a>
+					<a href="/watch/{data.animeId}" style="text-decoration: none;"
+						>{data.animeName} {data.episodeNumber}. Bölüm</a
+					>
 					<iframe src={player} height="422" width="654" title="Iframe"></iframe>
 				{:else}
 					<p>No Video</p>
@@ -54,3 +83,81 @@
 		</div>
 	</div>
 </div>
+<hr />
+<div class="comments-label">Yorumlar</div>
+	<div class="comments">
+		<div class="comment-menu">
+			{#if currentUser.isLoggedIn === true}
+			<input type="text" placeholder="Yorum Yap" bind:value={commentValue} />
+			<button on:click={() => HandleComment()}>Yorum Yap</button>
+			{:else}
+			<p>Yorum yapmak için giriş yapmalısınız.</p>
+			{/if}
+		</div>
+		
+		{#await commentData}
+		<div>Yorumlar Yükleniyor...</div>
+		{:then data}
+		{#if commentData.length > 0}
+		{#each data as comment,index}
+		<div class="comment" id="{index.toString()}">
+			<p>{comment.commentContent}</p>
+			<p>{comment.userName}</p>
+			<p>{comment.commentTextDate}</p>
+
+			{#if comment.isCommentOwner === true}
+			<div class="dropdown">
+				<button
+				class="btn btn-secondary dropdown-toggle"
+				type="button"
+				id="dropdownMenuButton"
+				data-toggle="dropdown"
+				aria-haspopup="true"
+				aria-expanded="false"
+				on:click={()=>{
+					visiblediv=visiblediv===index?null:index;
+				}}
+				>
+				Actions
+			</button>
+			{#if visiblediv === index}
+			<div style="background-color: white;" id="{index.toString()}">
+				<button class="dropdown-item" on:click={() => updateComment(index)}>Update comment</button>
+				<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}>Delete comment</button>
+			</div>
+			{/if}
+		</div>
+		{/if}
+	</div>
+	{/each}
+	{:else}
+	<p>Yorum yok.</p>
+	{/if}
+	{/await}
+</div>
+<style>
+	.comments-label{
+		position: absolute;
+		top: 100%;
+		left: 40%;
+	}
+	.comment{
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		background-color: #121212;
+		color: white;
+		padding: 10px;
+		border-radius: 10px;
+		left: 0.2%;
+	}
+	.comments{
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 100%;
+		background-color: darkgray;
+		width: 99%;
+		gap:10px 20px;
+	}
+</style>

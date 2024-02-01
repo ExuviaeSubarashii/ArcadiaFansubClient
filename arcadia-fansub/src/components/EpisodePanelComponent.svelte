@@ -12,7 +12,7 @@
 	let episodeLinkInputVisibility: boolean = false;
 	let episodeLinkValue: any;
 	let episodeId: any;
-	
+
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
 	});
@@ -76,10 +76,10 @@
 					<p>{data.animeName}</p>
 					<p>{data.episodeNumber}. Bölüm</p>
 					<img
-								src={`/src/lib/imajlar/${data.animeImage}`}
-								class="img-fluid rounded-start"
-								alt={data.animeImage}
-							/>
+						src={`/src/lib/imajlar/${data.animeImage}`}
+						class="img-fluid rounded-start"
+						alt={data.animeImage}
+					/>
 					{#if visiblediv === index}
 						<div class="optionsdiv">
 							<button on:click={() => HandleEpisodeDeletion(data.episodeId)}>Bölümü Kaldır</button>
