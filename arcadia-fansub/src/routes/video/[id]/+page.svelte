@@ -23,7 +23,24 @@
 				userId: currentUser.userId,
 				userName: currentUser.userName
 			};
+
 			await CreateComment(commentBody);
+			commentData = await GetComments(episodeId);
+			commentValue = '';
+		}
+	}
+	let isSorted: boolean = false;
+	async function HandleSorting() {
+		if (isSorted === true) {
+			commentData = commentData.sort((a, b) => {
+				return new Date(b.commentDate).getTime() + new Date(a.commentDate).getTime();
+			});
+			isSorted = !isSorted;
+		} else {
+			commentData = commentData.sort((a, b) => {
+				return new Date(b.commentDate).getTime() - new Date(a.commentDate).getTime();
+			});
+			isSorted = !isSorted;
 		}
 	}
 	onMount(async () => {
@@ -85,87 +102,104 @@
 </div>
 <hr />
 <div class="comments-label">Yorumlar</div>
-	<div class="comments">
-		<div class="comment-menu">
-			{#if currentUser.isLoggedIn === true}
+<div class="comments">
+	<div class="comment-menu">
+		{#if currentUser.isLoggedIn === true}
 			<input class="comment-input" type="text" placeholder="Yorum Yap" bind:value={commentValue} />
 			<button class="send-button" on:click={() => HandleComment()}>Yorum Yap</button>
-			{:else}
+			<button class="sort-button" on:click={() => HandleSorting()}>Sirala</button>
+		{:else}
 			<p>Yorum yapmak için giriş yapmalısınız.</p>
-			{/if}
-		</div>
-		
-		{#await commentData}
-		<div>Yorumlar Yükleniyor...</div>
-		{:then data}
-		{#if commentData.length > 0}
-		{#each data as comment,index}
-		<div class="comment" id="{index.toString()}">
-			<p>{comment.commentContent}</p>
-			<p>{comment.userName}</p>
-			<p>{comment.commentTextDate}</p>
-
-			{#if comment.isCommentOwner === true}
-			<div class="dropdown">
-				<button
-				class="btn btn-secondary dropdown-toggle"
-				type="button"
-				id="dropdownMenuButton"
-				data-toggle="dropdown"
-				aria-haspopup="true"
-				aria-expanded="false"
-				on:click={()=>{
-					visiblediv=visiblediv===index?null:index;
-				}}
-				>
-				Actions
-			</button>
-			{#if visiblediv === index}
-			<div style="background-color: white;" id="{index.toString()}">
-				<button class="dropdown-item" on:click={() => updateComment(index)}>Update comment</button>
-				<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}>Delete comment</button>
-			</div>
-			{/if}
-		</div>
 		{/if}
 	</div>
-	{/each}
-	{:else}
-	<p>Yorum yok.</p>
-	{/if}
+
+	{#await commentData}
+		<div>Yorumlar Yükleniyor...</div>
+	{:then data}
+		{#if commentData.length > 0}
+			{#each data as comment, index}
+				<div class="comment" id={index.toString()}>
+					<p>{comment.userName}</p>
+					<p>{comment.commentContent}</p>
+					<p style="position:absolute; left:80%; top:70%">{comment.commentTextDate}</p>
+
+					{#if comment.isCommentOwner === true}
+						<div class="dropdown">
+							<button
+								class="btn btn-secondary dropdown-toggle"
+								type="button"
+								id="dropdownMenuButton"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
+								on:click={() => {
+									visiblediv = visiblediv === index ? null : index;
+								}}
+							>
+								Actions
+							</button>
+							{#if visiblediv === index}
+								<div class="actions" id={index.toString()}>
+									<button class="dropdown-item" on:click={() => updateComment(index)}
+										>Update comment</button
+									>
+									<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
+										>Delete comment</button
+									>
+								</div>
+							{/if}
+						</div>
+					{/if}
+				</div>
+			{/each}
+		{:else}
+			<p>Yorum yok.</p>
+		{/if}
 	{/await}
 </div>
+
 <style>
-	.send-button{
+	.sort-button {
+		background-color: #121212;
+		color: white;
+		border-radius: 10px;
+		border-color: #121212;
+		position: absolute;
+		left: 100%;
+	}
+	.send-button {
 		background-color: #121212;
 		color: white;
 		border-radius: 10px;
 		border-color: #121212;
 		position: relative;
-		right: 85%;
+		right: 86%;
 	}
-	.comment-input{
+	.comment-input {
 		position: relative;
 		right: 75%;
 		width: 750px;
 		height: 40px;
+		border-radius: 10px;
+		color:black;
+		
 	}
-	.comment-menu{
+	.comment-menu {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		position: relative;	
+		position: relative;
 		left: 40%;
 		width: 950px;
 		height: 50px;
 		top: 7px;
 	}
-	.comments-label{
+	.comments-label {
 		position: absolute;
 		top: 100%;
 		left: 40%;
 	}
-	.comment{
+	.comment {
 		display: flex;
 		flex-direction: column;
 		position: relative;
@@ -175,13 +209,13 @@
 		border-radius: 10px;
 		left: 0.2%;
 	}
-	.comments{
+	.comments {
 		display: flex;
 		flex-direction: column;
 		position: absolute;
-		top: 100%;
+		top: 90%;
 		background-color: darkgray;
 		width: 99%;
-		gap:10px 20px;
+		gap: 10px 20px;
 	}
 </style>
