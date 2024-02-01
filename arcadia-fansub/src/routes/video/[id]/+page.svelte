@@ -88,8 +88,8 @@
 	<div class="comments">
 		<div class="comment-menu">
 			{#if currentUser.isLoggedIn === true}
-			<input type="text" placeholder="Yorum Yap" bind:value={commentValue} />
-			<button on:click={() => HandleComment()}>Yorum Yap</button>
+			<input class="comment-input" type="text" placeholder="Yorum Yap" bind:value={commentValue} />
+			<button class="send-button" on:click={() => HandleComment()}>Yorum Yap</button>
 			{:else}
 			<p>Yorum yapmak için giriş yapmalısınız.</p>
 			{/if}
@@ -136,6 +136,30 @@
 	{/await}
 </div>
 <style>
+	.send-button{
+		background-color: #121212;
+		color: white;
+		border-radius: 10px;
+		border-color: #121212;
+		position: relative;
+		right: 85%;
+	}
+	.comment-input{
+		position: relative;
+		right: 75%;
+		width: 750px;
+		height: 40px;
+	}
+	.comment-menu{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		position: relative;	
+		left: 40%;
+		width: 950px;
+		height: 50px;
+		top: 7px;
+	}
 	.comments-label{
 		position: absolute;
 		top: 100%;
