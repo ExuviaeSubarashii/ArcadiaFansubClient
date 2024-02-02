@@ -1,9 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Comments, CreateCommentBody, Episodes, UpdateCommentBody } from '../../../types/types';
+	import type {
+		Comments,
+		CreateCommentBody,
+		Episodes,
+		UpdateCommentBody
+	} from '../../../types/types';
 	import { GetEpisodeVideo } from '../../../datas/episodes/getepisodevideo';
-	import { CreateComment, DeleteComment, GetComments, UpdateComment } from '../../../datas/comments/comments';
+	import {
+		CreateComment,
+		DeleteComment,
+		GetComments,
+		UpdateComment
+	} from '../../../datas/comments/comments';
 	import currentUser from '../../../datas/users/user';
 	import PopupModal from '../../../components/PopupModal.svelte';
 	import UserComponent from '../../../components/UserComponent.svelte';
@@ -19,7 +29,7 @@
 	let isModalVisible: boolean = false;
 
 	let newCommentValue: string;
-	
+
 	const updateBody = {
 		updateOldCommentValue: '',
 		updateCommentId: 0
@@ -70,18 +80,19 @@
 	}
 
 	async function updateComment() {
-		if(newCommentValue != '' || newCommentValue != null || newCommentValue != undefined){
+		if (newCommentValue) {
 			let commentBody: UpdateCommentBody = {
 				newComment: newCommentValue,
 				userId: currentUser.userId,
-				commentId: updateBody.updateCommentId
+				commentId: updateBody.updateCommentId,
+				userToken: currentUser.userToken
 			};
 			console.log(updateBody.updateCommentId);
 			console.log(commentBody);
 			await UpdateComment(commentBody);
+			isModalVisible = false;
 			commentData = await GetComments(episodeId);
 			newCommentValue = '';
-			isModalVisible = !isModalVisible;
 		}
 	}
 	function handleModal(commentId: number, oldCommentValue: string) {

@@ -96,4 +96,5 @@ export type UpdateCommentBody={
     commentId: number;
     userId: number;
     newComment: string;
+    userToken:string;
 }
