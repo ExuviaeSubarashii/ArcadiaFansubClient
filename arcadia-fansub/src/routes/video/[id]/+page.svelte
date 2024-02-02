@@ -173,7 +173,7 @@
 					<p>{comment.commentContent}</p>
 					<p style="position:absolute; left:80%; top:70%">{comment.commentTextDate}</p>
 
-					{#if comment.isCommentOwner === true}
+					{#if comment.isCommentOwner === true || currentUser.userPermission === 'Admin'}
 						<div class="dropdown">
 							<button
 								class="btn btn-secondary dropdown-toggle"
@@ -190,14 +190,21 @@
 							</button>
 							{#if visiblediv === index}
 								<div class="actions" id={comment.commentId.toString()}>
-									<button
-										class="dropdown-item"
-										on:click={() => handleModal(comment.commentId, comment.commentContent)}
-										>Update comment</button
-									>
-									<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
-										>Delete comment</button
-									>
+									{#if comment.isCommentOwner === true}
+										<button
+											class="dropdown-item"
+											on:click={() => handleModal(comment.commentId, comment.commentContent)}
+											>Update comment</button
+										>
+									{/if}
+									{#if comment.isCommentOwner === true}
+										<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
+											>Delete comment</button>
+									{/if}
+									{#if currentUser.userPermission === 'Admin'}
+										<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
+											>Admin Force Delete Comment</button>
+									{/if}
 								</div>
 							{/if}
 						</div>
