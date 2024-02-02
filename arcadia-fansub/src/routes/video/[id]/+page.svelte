@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Comments, CreateCommentBody, Episodes } from '../../../types/types';
+	import type { Comments, CreateCommentBody, Episodes, UpdateCommentBody } from '../../../types/types';
 	import { GetEpisodeVideo } from '../../../datas/episodes/getepisodevideo';
-	import { CreateComment, GetComments } from '../../../datas/comments/comments';
+	import { CreateComment, DeleteComment, GetComments, UpdateComment } from '../../../datas/comments/comments';
 	import currentUser from '../../../datas/users/user';
+	import PopupModal from '../../../components/PopupModal.svelte';
+	import UserComponent from '../../../components/UserComponent.svelte';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
 	let episodeData: Episodes;
@@ -12,9 +14,17 @@
 	let player: string;
 	let commentData: Comments[] = [];
 	let visiblediv: any = null;
-
 	let commentValue: string;
 	let isOptionsVisible: boolean = false;
+	let isModalVisible: boolean = false;
+
+	let newCommentValue: string;
+	
+	const updateBody = {
+		updateOldCommentValue: '',
+		updateCommentId: 0
+	};
+
 	async function HandleComment() {
 		if (commentValue != '' || commentValue != null || commentValue != undefined) {
 			let commentBody: CreateCommentBody = {
@@ -33,14 +43,14 @@
 	async function HandleSorting() {
 		if (isSorted === true) {
 			commentData = commentData.sort((a, b) => {
+				isSorted = !isSorted;
 				return new Date(b.commentDate).getTime() + new Date(a.commentDate).getTime();
 			});
-			isSorted = !isSorted;
 		} else {
 			commentData = commentData.sort((a, b) => {
+				isSorted = !isSorted;
 				return new Date(b.commentDate).getTime() - new Date(a.commentDate).getTime();
 			});
-			isSorted = !isSorted;
 		}
 	}
 	onMount(async () => {
@@ -59,14 +69,44 @@
 		player = playerName;
 	}
 
-	function updateComment(commentId: number) {
-		console.log(commentId);
+	async function updateComment() {
+		if(newCommentValue != '' || newCommentValue != null || newCommentValue != undefined){
+			let commentBody: UpdateCommentBody = {
+				newComment: newCommentValue,
+				userId: currentUser.userId,
+				commentId: updateBody.updateCommentId
+			};
+			console.log(updateBody.updateCommentId);
+			console.log(commentBody);
+			await UpdateComment(commentBody);
+			commentData = await GetComments(episodeId);
+			newCommentValue = '';
+			isModalVisible = !isModalVisible;
+		}
 	}
-
-	function deleteComment(commentId: number) {
+	function handleModal(commentId: number, oldCommentValue: string) {
+		isModalVisible = !isModalVisible;
+		updateBody.updateOldCommentValue = oldCommentValue;
+		updateBody.updateCommentId = commentId;
+	}
+	async function deleteComment(commentId: number) {
 		console.log(commentId);
+		await DeleteComment(commentId);
+		commentData = await GetComments(episodeId);
 	}
 </script>
+
+<PopupModal bind:showModal={isModalVisible}>
+	<div slot="header" class="modal-dialog">
+		<h5 class="modal-title">Yorumunu Düzenle</h5>
+	</div>
+	<div slot="body" class="modal-content">
+		<p>Eski Yorumun:{updateBody.updateOldCommentValue}</p>
+		<hr />
+		<input type="text" bind:value={newCommentValue} placeholder="Yeni Yorumunu Gir." />
+		<button on:click={() => updateComment()}>Değişikliği Kaydet</button>
+	</div>
+</PopupModal>
 
 <div class="col-sm-4">
 	<div
@@ -112,7 +152,6 @@
 			<p>Yorum yapmak için giriş yapmalısınız.</p>
 		{/if}
 	</div>
-
 	{#await commentData}
 		<div>Yorumlar Yükleniyor...</div>
 	{:then data}
@@ -139,8 +178,10 @@
 								Actions
 							</button>
 							{#if visiblediv === index}
-								<div class="actions" id={index.toString()}>
-									<button class="dropdown-item" on:click={() => updateComment(index)}
+								<div class="actions" id={comment.commentId.toString()}>
+									<button
+										class="dropdown-item"
+										on:click={() => handleModal(comment.commentId, comment.commentContent)}
 										>Update comment</button
 									>
 									<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
@@ -181,8 +222,7 @@
 		width: 750px;
 		height: 40px;
 		border-radius: 10px;
-		color:black;
-		
+		color: black;
 	}
 	.comment-menu {
 		display: flex;

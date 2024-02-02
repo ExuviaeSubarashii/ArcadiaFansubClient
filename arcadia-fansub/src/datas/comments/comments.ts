@@ -18,9 +18,6 @@ export async function CreateComment(commentBody:CreateCommentBody){
     }
 
 }
-
-
-
 export async function GetComments(episodeId:string):Promise<Comments[]>{
     try {
         const body={
@@ -49,7 +46,7 @@ export async function SortComments(comments:Comments[]):Promise<Comments[]>{
         throw new Error('Failed to sort comments.');
     }
 }
-export async function DeleteComment(commentToDeleteId:string){
+export async function DeleteComment(commentToDeleteId:number){
     try {
         const body={
             commentId:commentToDeleteId,
@@ -60,7 +57,7 @@ export async function DeleteComment(commentToDeleteId:string){
             headers: { 'Content-Type': 'application/json' },
         };
         const deleteComment=await fetch(`${baseUrl}/Comment/DeleteEpisodeComment`,requestOptions);
-        const commentData:Comments[]=await deleteComment.json();
+        const commentData=await deleteComment.text();
         return commentData;
     } catch (error) {
         console.error('Error:', error);

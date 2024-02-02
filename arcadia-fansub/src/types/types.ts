@@ -93,7 +93,7 @@ export type Comments={
     isCommentOwner: boolean;
 }
 export type UpdateCommentBody={
-    commentId: string;
+    commentId: number;
     userId: number;
     newComment: string;
 }
