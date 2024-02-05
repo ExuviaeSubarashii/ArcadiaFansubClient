@@ -4,6 +4,7 @@
 	import UserComponent from './UserComponent.svelte';
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
 	import { responseMessageStore } from '../datas/variables';
+	import WarningComponent from './WarningComponent.svelte';
 	// import NotificationComponent from './NotificationComponent.svelte';
 	let searchParameter:string='';
 
@@ -18,6 +19,10 @@
 	<div
 		class="topbar d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
 	>
+	<div class="warning">
+		<WarningComponent/>
+	</div>
+
 		<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
 			<header>
 				<h1>Arcadia Fansub</h1>
@@ -46,9 +51,11 @@
 				}}
 			/>
 		</form>
-		{#key $responseMessageStore}
+		<div class="response">
+			{#key $responseMessageStore}
 			<ResponseMessageComponent />
-		{/key}
+			{/key}
+		</div>
 		<div class="userbar">
 			{#if currentUser.isLoggedIn === true}
 				<UserComponent />
@@ -66,6 +73,14 @@
 </div>
 
 <style>
+	.response{
+		position: absolute;
+		right: 14%;
+	}
+	.warning{
+		position: absolute;
+		right: 20%;
+	}
 	.nav {
 		list-style: none;
 		display: flex;

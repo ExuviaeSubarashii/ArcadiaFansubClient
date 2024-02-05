@@ -37,19 +37,11 @@ export async function GetComments(episodeId:string):Promise<Comments[]>{
         throw new Error('Failed to get comments.');
     }
 }
-export async function SortComments(comments:Comments[]):Promise<Comments[]>{
-    try {
-        const sortedComments=comments.sort((a,b)=>b.commentDate.getTime()-a.commentDate.getTime());
-        return sortedComments;
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('Failed to sort comments.');
-    }
-}
 export async function DeleteComment(commentToDeleteId:number){
     try {
         const body={
             commentId:commentToDeleteId,
+            userToken:currentUser.userToken
         }
         const requestOptions = {
             method: 'DELETE',

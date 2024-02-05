@@ -12,7 +12,7 @@
 			setTimeout(() => {
 			isVisible.set(false)
 			responseMessageStore.set('');
-		}, 1000);
+		}, 100000000000);
 		})
 	})
 </script>
@@ -32,8 +32,8 @@
 		border-style: outset;
 		border-radius: 25px;
 		position: absolute;
-		top: 7px;
-		right: 35%;
+		/* top: 7px;
+		right: 35%; */
 		color: white;
 		font-size: 7px;
 		/* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
