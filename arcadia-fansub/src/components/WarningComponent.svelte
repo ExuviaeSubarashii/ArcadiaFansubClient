@@ -11,8 +11,8 @@ function setWarnings(){
         currentWarning.id=0;
     }
     currentWarning.message=warnings[currentWarning.id].description;
-    console.log(currentWarning);
 }
+
 onMount( ()=>{
     setWarnings();
     setInterval(setWarnings, 10000);
@@ -21,7 +21,7 @@ onMount( ()=>{
 </script>
 <div>
     <div>
-        <h1 style="color:white; font-size: medium; width:200px; overflow:visible">{currentWarning.message}</h1>
+        <h1 style="color:white; font-size: medium; width:200px; overflow:visible" >{currentWarning.message}</h1>
     </div>
 </div>
 <style>

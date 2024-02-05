@@ -79,7 +79,7 @@
 	}
 	.warning{
 		position: absolute;
-		right: 20%;
+		right: 2%;
 	}
 	.nav {
 		list-style: none;
