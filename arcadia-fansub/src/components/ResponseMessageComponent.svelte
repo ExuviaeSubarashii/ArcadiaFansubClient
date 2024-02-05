@@ -12,7 +12,7 @@
 			setTimeout(() => {
 			isVisible.set(false)
 			responseMessageStore.set('');
-		}, 100000000000);
+		}, 5000);
 		})
 	})
 </script>
