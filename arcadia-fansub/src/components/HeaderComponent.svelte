@@ -5,11 +5,12 @@
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
 	import { responseMessageStore } from '../datas/variables';
 	import WarningComponent from './WarningComponent.svelte';
+	import { IsAuthenticated } from '../datas/users/authentication';
 	// import NotificationComponent from './NotificationComponent.svelte';
 	let searchParameter:string='';
 
-	onMount(() => {
-		if (currentUser.isLoggedIn) {
+	onMount(async() => {
+		if (await IsAuthenticated()===true) {
 			console.log(currentUser);
 		}
 	});
@@ -57,7 +58,10 @@
 			{/key}
 		</div>
 		<div class="userbar">
-			{#if currentUser.isLoggedIn === true}
+			{#await IsAuthenticated()}
+				<div>Authenticating...</div>
+			{:then result} 
+			{#if result===true}
 				<UserComponent />
 				<!-- <div class="notif-comp">
 					<NotificationComponent />
@@ -67,7 +71,9 @@
 					<a type="button" class=" btn btn-outline-light me-2" href="/login">Giriş Yap</a>
 					<a type="button" class="btn btn-warning" href="/register">Kayıt ol</a>
 				</div>
-			{/if}
+			{/if}	
+			{/await}
+			
 		</div>
 	</div>
 </div>

@@ -1,3 +1,8 @@
+<script>
+
+	import { browser } from "$app/environment";
+
+</script>
 <div class="fullbody">
 
     <section class="container mt-5">

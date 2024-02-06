@@ -40,8 +40,9 @@
 </script>
 
 <div class="create-ticket">
-	<a href="tickets/createticket" type="button" class="btn btn-info relative">Bilet Oluştur</a>
+		<a href="tickets/createticket" type="button" class=" btn btn-info relative">Bilet Oluştur</a>
 </div>
+
 <div class="sort-tickets">
 	<div>
 		<label for="ticket">Bilet Türü:</label>
@@ -141,7 +142,7 @@
 		flex-direction: row;
 		color: white;
 		position: relative;
-		padding-left: 25em;
+		left: 24%;
 		top: 2%;
 		gap: 10px;
 	}

@@ -1,49 +1,43 @@
 <script lang="ts">
-	import currentUser from "../../datas/users/user";
-	import { Register } from "../../datas/users/useractivies";
-	import { responseMessageStore } from "../../datas/variables";
+	import { Register } from '../../datas/users/useractivies';
+	import { responseMessageStore } from '../../datas/variables';
 	var email = '';
 	var password = '';
 	var username = '';
-	
 </script>
 
 <div class="loginpage">
-	{#if currentUser.isLoggedIn===true}
-		{(window.location.href = '/')}
-	{:else}
-		<h1 class="tospotify">Sign up to start watching</h1>
-		<hr />
-		<br />
-		<input bind:value={email} placeholder="Email" class="email-input" />
-		<input bind:value={username} placeholder="Username" class="username-input" />
-		<input bind:value={password} placeholder="Password" class="password-input" />
-		<button
-			class="login-button"
-			on:click={() => {
-				if (email && password && username) {
-					Register(email, password, username);
-				} else {
-					responseMessageStore.set('Email and password are required');
-				}
-			}}>Sign up</button
-		>
-		<h1 style="color:white; text-align:center;">Or</h1>
-		<ul class="login-options">
-			<li>
-				<button>Continue with Google</button>
-			</li>
-			<li>
-				<button>Continue with Facebook</button>
-			</li>
-			<li>
-				<button>Continue with Apple</button>
-			</li>
-		</ul>
-		<h1 style="color:gray; text-align:center; font:sans-serif">
-			Already have an account? <a style="color:white;" href="/login">Log in here</a>
-		</h1>
-	{/if}
+	<h1 class="tospotify">Sign up to start watching</h1>
+	<hr />
+	<br />
+	<input bind:value={email} placeholder="Email" class="email-input" />
+	<input bind:value={username} placeholder="Username" class="username-input" />
+	<input bind:value={password} placeholder="Password" class="password-input" />
+	<button
+		class="login-button"
+		on:click={() => {
+			if (email && password && username) {
+				Register(email, password, username);
+			} else {
+				responseMessageStore.set('Email and password are required');
+			}
+		}}>Sign up</button
+	>
+	<h1 style="color:white; text-align:center;">Or</h1>
+	<ul class="login-options">
+		<li>
+			<button>Continue with Google</button>
+		</li>
+		<li>
+			<button>Continue with Facebook</button>
+		</li>
+		<li>
+			<button>Continue with Apple</button>
+		</li>
+	</ul>
+	<h1 style="color:gray; text-align:center; font:sans-serif">
+		Already have an account? <a style="color:white;" href="/login">Log in here</a>
+	</h1>
 </div>
 
 <style>
@@ -104,7 +98,9 @@
 		font-size: 1rem;
 		font-weight: 400;
 		font-family: sans-serif;
-		transition: box-shadow 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+		transition:
+			box-shadow 0.1s ease-in-out 0s,
+			color 0.1s ease-in-out 0s;
 		inline-size: 100%;
 		box-sizing: border-box;
 		-webkit-tap-highlight-color: transparent;

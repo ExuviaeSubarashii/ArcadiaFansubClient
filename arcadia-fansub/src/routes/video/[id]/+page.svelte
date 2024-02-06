@@ -17,6 +17,7 @@
 	import currentUser from '../../../datas/users/user';
 	import PopupModal from '../../../components/PopupModal.svelte';
 	import UserComponent from '../../../components/UserComponent.svelte';
+	import { IsAuthenticated } from '../../../datas/users/authentication';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
 	let episodeData: Episodes;
@@ -155,13 +156,18 @@
 <div class="comments-label">Yorumlar</div>
 <div class="comments">
 	<div class="comment-menu">
-		{#if currentUser.isLoggedIn === true}
+		{#await IsAuthenticated()}
+			<div>Authenticating...</div>
+		{:then result} 
+		{#if result===true}
 			<input class="comment-input" type="text" placeholder="Yorum Yap" bind:value={commentValue} />
 			<button class="send-button" on:click={() => HandleComment()}>Yorum Yap</button>
 			<button class="sort-button" on:click={() => HandleSorting()}>Sirala</button>
 		{:else}
 			<p>Yorum yapmak için giriş yapmalısınız.</p>
-		{/if}
+		{/if}	
+		{/await}
+		
 	</div>
 	{#await commentData}
 		<div>Yorumlar Yükleniyor...</div>

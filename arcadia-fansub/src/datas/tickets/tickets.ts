@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 import type { AdminResponse, TicketBody, TicketDto, TicketReply } from "../../types/types";
 import { baseUrl, responseMessageStore } from "../variables";
 import currentUser from "../users/user";
+import { IsAuthenticated } from "../users/authentication";
 
 export async function CreateTicket(ticketBody: TicketBody) {
     try {
@@ -40,45 +41,53 @@ export async function DeleteTicket(ticketId: string) {
     }
 }
 export async function GetAllTickets(): Promise<TicketDto[]> {
-    try {
-        if(currentUser.userPermission==="Admin"){
+    if (await IsAuthenticated() === true) {
+        try {
+            if (currentUser.userPermission === "Admin") {
 
-            const requestOptions = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            };
-            const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetAllTickets`, requestOptions);
-            if (!getAllTicketsResponse.ok) {
-                throw new Error(getAllTicketsResponse.statusText);
+                const requestOptions = {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                };
+                const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetAllTickets`, requestOptions);
+                if (!getAllTicketsResponse.ok) {
+                    throw new Error(getAllTicketsResponse.statusText);
+                }
+                const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
+                return responseMessage;
             }
-            const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
-            return responseMessage;
+            else {
+
+                const body = {
+                    userToken: currentUser.userToken
+                }
+                const requestOptions = {
+                    method: 'POST',
+                    body: JSON.stringify(body),
+                    headers: { 'Content-Type': 'application/json' },
+                };
+
+                const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetAllTicketsByUser`, requestOptions);
+                if (!getAllTicketsResponse.ok) {
+                    throw new Error(getAllTicketsResponse.statusText);
+                }
+                const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
+                return responseMessage;
+
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            throw new Error('Could not create ticket.');
         }
-        else{
-            const body={
-                userToken:currentUser.userToken
-            }
-            const requestOptions = {
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: { 'Content-Type': 'application/json' },
-            };
-            const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetAllTicketsByUser`, requestOptions);
-            if (!getAllTicketsResponse.ok) {
-                throw new Error(getAllTicketsResponse.statusText);
-            }
-            const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
-            return responseMessage;
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('Could not create ticket.');
+    }
+    else {
+        return [];
     }
 }
 export async function GetSpecificTickets(ticketId: string): Promise<TicketDto> {
     try {
-        const body={
-            userToken:currentUser.userToken
+        const body = {
+            userToken: currentUser.userToken
         }
         const requestOptions = {
             method: 'POST',
@@ -88,7 +97,7 @@ export async function GetSpecificTickets(ticketId: string): Promise<TicketDto> {
         const getSpecificTicketResponse = await fetch(`${baseUrl}/Ticket/GetSpecificTicket/${ticketId}`, requestOptions);
 
         if (!getSpecificTicketResponse.ok) {
-            window.location.href="/tickets"
+            window.location.href = "/tickets"
             throw new Error(getSpecificTicketResponse.statusText);
         }
 
@@ -143,8 +152,8 @@ export async function CreateAdminResponse(adminResponse: AdminResponse) {
 }
 export async function GetTicketByType(ticketType: string): Promise<TicketDto[]> {
     try {
-        const body={
-            userToken:currentUser.userToken
+        const body = {
+            userToken: currentUser.userToken
         }
         const requestOptions = {
             method: 'POST',
@@ -188,25 +197,25 @@ export async function UpdateTicketStatus(ticketStatus: string, ticketId: string)
         throw new Error('Could not create ticket.');
     }
 }
-export async function GetTicketById(ticketId:string){
-    let ticketBySearch:TicketDto;
-    ticketBySearch=await GetSpecificTickets(ticketId)
-    if(ticketBySearch.ticketId!==null){
-        window.location.href=`/tickets/${ticketId}`
+export async function GetTicketById(ticketId: string) {
+    let ticketBySearch: TicketDto;
+    ticketBySearch = await GetSpecificTickets(ticketId)
+    if (ticketBySearch.ticketId !== null) {
+        window.location.href = `/tickets/${ticketId}`
         console.log(ticketBySearch)
         return ticketBySearch;
     }
-    else{
-        window.location.href="/404"
+    else {
+        window.location.href = "/404"
     }
 
 }
-export async function GetTicketBySearch(inputValue:string):Promise<TicketDto[]>{
-    if (inputValue !== undefined && inputValue !== null && inputValue !== "" && inputValue.trim() !== ""){
-    try {
-        const body={
-            userToken:currentUser.userToken
-        }
+export async function GetTicketBySearch(inputValue: string): Promise<TicketDto[]> {
+    if (inputValue !== undefined && inputValue !== null && inputValue !== "" && inputValue.trim() !== "") {
+        try {
+            const body = {
+                userToken: currentUser.userToken
+            }
             const requestOptions = {
                 method: 'POST',
                 body: JSON.stringify(body),
@@ -223,14 +232,14 @@ export async function GetTicketBySearch(inputValue:string):Promise<TicketDto[]>{
             throw new Error('Could not create ticket.');
         }
     }
-    else{
+    else {
         return [];
     }
 }
-export async function DeleteAdminResponse(responseId:any){
+export async function DeleteAdminResponse(responseId: any) {
     const body = {
-        responseId:responseId,
-        userToken:currentUser.userToken
+        responseId: responseId,
+        userToken: currentUser.userToken
     }
     try {
         const requestOptions = {

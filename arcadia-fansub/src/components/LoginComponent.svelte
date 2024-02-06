@@ -1,16 +1,15 @@
 <script lang="ts">
-	import currentUser from "../datas/users/user";
-	import { Login } from "../datas/users/useractivies";
-	import { responseMessageStore } from "../datas/variables";
+	import { onMount } from 'svelte';
+	import currentUser from '../datas/users/user';
+	import { Login } from '../datas/users/useractivies';
+	import { responseMessageStore } from '../datas/variables';
 
-    var email = '';
+	var email = '';
 	var password = '';
 	
 </script>
+
 <div class="loginpage">
-	{#if currentUser.isLoggedIn}
-	{window.location.href='/'}
-	{:else}
 	<h1 class="tospotify">Log in to Arcadia</h1>
 	<ul class="login-options">
 		<li>
@@ -33,14 +32,15 @@
 			if (email && password) {
 				Login(email, password);
 			} else {
-				{responseMessageStore.set("Email or Password is empty.")}
+				{
+					responseMessageStore.set('Email or Password is empty.');
+				}
 			}
 		}}>Login</button
 	>
 	<h1 style="color:gray; text-align:center; font:sans-serif; margin;0 auto">
 		Already have an account? <a style="color:white;" href="/register">Sign up here</a>
 	</h1>
-	{/if}
 </div>
 
 <style>
@@ -103,7 +103,9 @@
 		font-size: 1rem;
 		font-weight: 400;
 		font-family: sans-serif;
-		transition: box-shadow 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+		transition:
+			box-shadow 0.1s ease-in-out 0s,
+			color 0.1s ease-in-out 0s;
 		inline-size: 100%;
 		box-sizing: border-box;
 		-webkit-tap-highlight-color: transparent;

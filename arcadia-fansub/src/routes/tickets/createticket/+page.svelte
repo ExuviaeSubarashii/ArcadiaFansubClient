@@ -3,6 +3,7 @@
 	import { CreateTicket } from "../../../datas/tickets/tickets";
 	import currentUser from "../../../datas/users/user";
 	import type { TicketBody } from "../../../types/types";
+	import { IsAuthenticated } from "../../../datas/users/authentication";
 
     let reason:string;
     let mainTitle:string;
@@ -22,8 +23,8 @@
     function ReasonSetter(event:any){
         reason=event.target.value;
     }
-    onMount(()=>{
-        if(!currentUser.isLoggedIn){
+    onMount(async ()=>{
+        if(await IsAuthenticated()===false){
             window.location.href="/login";
         }
     })
