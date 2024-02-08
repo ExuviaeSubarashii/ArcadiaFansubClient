@@ -51,6 +51,7 @@ export async function GetAllTickets(): Promise<TicketDto[]> {
                 };
                 const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetAllTickets`, requestOptions);
                 if (!getAllTicketsResponse.ok) {
+                    return[];
                     throw new Error(getAllTicketsResponse.statusText);
                 }
                 const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
@@ -69,6 +70,7 @@ export async function GetAllTickets(): Promise<TicketDto[]> {
 
                 const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetAllTicketsByUser`, requestOptions);
                 if (!getAllTicketsResponse.ok) {
+                    return[];
                     throw new Error(getAllTicketsResponse.statusText);
                 }
                 const responseMessage: TicketDto[] = await getAllTicketsResponse.json();
@@ -119,6 +121,7 @@ export async function GetTicketReplies(ticketId: string): Promise<TicketReply[]>
         const getSpecificTicketResponse = await fetch(`${baseUrl}/Ticket/GetTicketReply/${ticketId}`, requestOptions);
 
         if (!getSpecificTicketResponse.ok) {
+            return[];
             throw new Error(getSpecificTicketResponse.statusText);
         }
 
@@ -163,6 +166,7 @@ export async function GetTicketByType(ticketType: string): Promise<TicketDto[]> 
         const getSpecificTicketResponse = await fetch(`${baseUrl}/Ticket/GetTicketByType/${ticketType}`, requestOptions);
 
         if (!getSpecificTicketResponse.ok) {
+            return[];
             throw new Error(getSpecificTicketResponse.statusText);
         }
 
@@ -187,6 +191,7 @@ export async function UpdateTicketStatus(ticketStatus: string, ticketId: string)
         const updateTicketStatusResponse = await fetch(`${baseUrl}/Ticket/UpdateTicket`, requestOptions);
 
         if (!updateTicketStatusResponse.ok) {
+            
             throw new Error(updateTicketStatusResponse.statusText);
         }
 
@@ -223,6 +228,7 @@ export async function GetTicketBySearch(inputValue: string): Promise<TicketDto[]
             };
             const getAllTicketsResponse = await fetch(`${baseUrl}/Ticket/GetTicketsBySearch/${inputValue}`, requestOptions);
             if (!getAllTicketsResponse.ok) {
+                return [];
                 throw new Error(getAllTicketsResponse.statusText);
             }
             const responseMessage: TicketDto[] = await getAllTicketsResponse.json();

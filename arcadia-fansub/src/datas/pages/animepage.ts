@@ -33,6 +33,9 @@ export async function GetAnimeEpisodes(animeId:string):Promise<Episodes[]>{
             headers: { 'Content-Type': 'application/json' },
         };
         const getanimeProperties=await fetch(`${baseUrl}/Anime/GetAnimeEpisodes`,requestOptions)
+        if(!getanimeProperties.ok){
+            return[];
+        }
         const propertyData:Episodes[]=await getanimeProperties.json();
         return propertyData;
     } catch (error) {

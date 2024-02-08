@@ -12,6 +12,7 @@ export async function GetEpisodeVideo(episodeId: string): Promise<Episodes> {
         const getEpisodesResponse = await fetch(`${baseUrl}/Episode/GetVideo`,requestOptions);
 
         if (!getEpisodesResponse.ok) {
+            
             throw new Error(getEpisodesResponse.statusText);
         }
 

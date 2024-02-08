@@ -10,6 +10,7 @@ export async function GetAllEpisodes():Promise<Episodes[]> {
     try {
         const getAllEpisodesResponse = await fetch(`${baseUrl}/Episode/GetAllEpisodes`, requestOptions);
         if(!getAllEpisodesResponse.ok){
+            return[];
             throw new Error(getAllEpisodesResponse.statusText);
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();
@@ -33,6 +34,7 @@ export async function GetEpisodesByPageQuery(offSet:any):Promise<Episodes[]>{
     try {
         const getAllEpisodesResponse = await fetch(`${baseUrl}/Episode/GetEpisodesByPageNumber`, requestOptions);
         if(!getAllEpisodesResponse.ok){
+            return[];
             throw new Error(getAllEpisodesResponse.statusText);
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();

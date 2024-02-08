@@ -10,6 +10,9 @@ export async function CreateComment(commentBody:CreateCommentBody){
             headers: { 'Content-Type': 'application/json' },
         };
         const createComment=await fetch(`${baseUrl}/Comment/CreateEpisodeComment`,requestOptions);
+        if(!createComment.ok){
+            return [];
+        }
         const commentData=await createComment.text();
         responseMessageStore.set(commentData);
     } catch (error) {
@@ -29,6 +32,9 @@ export async function GetComments(episodeId:string):Promise<Comments[]>{
             headers: { 'Content-Type': 'application/json' },
         };
         const getComments=await fetch(`${baseUrl}/Comment/GetEpisodeComments/${episodeId}`,requestOptions);
+        if(!getComments.ok){
+            return[];
+        }
         const commentData:Comments[]=await getComments.json();
         return commentData;
     } catch (error) {
@@ -49,6 +55,9 @@ export async function DeleteComment(commentToDeleteId:number){
             headers: { 'Content-Type': 'application/json' },
         };
         const deleteComment=await fetch(`${baseUrl}/Comment/DeleteEpisodeComment`,requestOptions);
+        if(!deleteComment.ok){
+            return[];
+        }
         const commentData=await deleteComment.text();
         return commentData;
     } catch (error) {
@@ -64,6 +73,9 @@ export async function UpdateComment(updateCommentBody:UpdateCommentBody){
             headers: { 'Content-Type': 'application/json' },
         };
         const updateComment=await fetch(`${baseUrl}/Comment/UpdateEpisodeComment`,requestOptions);
+        if(!updateComment.ok){
+            return[];
+        }
         const commentData=await updateComment.text();
         responseMessageStore.set(commentData);
     } catch (error) {

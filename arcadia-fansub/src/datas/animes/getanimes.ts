@@ -10,6 +10,7 @@ export async function GetAllAnimes(): Promise<Animes[]> {
     try {
         const getAllAnimesResponse = await fetch(`${baseUrl}/Anime/GetAllAnimes`, requestOptions);
         if (!getAllAnimesResponse.ok) {
+            return [];
             throw new Error(getAllAnimesResponse.statusText);
         }
         const animeData: Animes[] = await getAllAnimesResponse.json();
@@ -32,7 +33,8 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<
         const getAllAnimesResponse = await fetch(`${baseUrl}/Anime/GetAnimeByAlphabet`, requestOptions);
 
         if (!getAllAnimesResponse.ok) {
-            throw new Error(getAllAnimesResponse.statusText);
+            return [];
+            // throw new Error(getAllAnimesResponse.statusText);
         }
 
         const animeData: Animes[] = await getAllAnimesResponse.json();
