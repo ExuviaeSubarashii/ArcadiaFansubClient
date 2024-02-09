@@ -13,11 +13,9 @@
 	onMount(async () => {
 		console.log('started');
 		userData = await GetUserProfile(userName);
-		// console.log(userData);
 		userFavoritedAnimes = userData.favoritedAnimes.split(',');
 		if (userFavoritedAnimes.length > 0) {
 			favoritedAnimes = await GetSpecificAnime(userFavoritedAnimes);
-			console.log(favoritedAnimes);
 		}
 	});
 </script>
@@ -115,15 +113,11 @@
 		border: 1px solid #ccc;
 		padding: 10px;
 		border-radius: 5px;
-		margin-bottom: 10px; /* Adjust spacing between series */
+		margin-bottom: 7px; /* Adjust spacing between series */
 		background-size: 70% 10% 100%; /* Make the background image stretch to fill the container */
 		background-repeat: no-repeat;
 		background-position: right;
 		width: 100%; /* Set width to fill the container */
 		height: 150px; /* Set height for the series container */
-	}
-
-	img {
-		inline-size: 10px;
 	}
 </style>

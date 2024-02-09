@@ -16,7 +16,11 @@ import currentUser from "../datas/users/user";
     <div class="dropdown">
       <span><p>{currentUser.userName}</p></span>
       <div class="dropdown-content">
-        <a href="/profile/{encodeURIComponent(currentUser.userName)}">Profile</a>
+       
+        <a class="hrefbutton" 
+			href="/profile/{encodeURIComponent(currentUser.userName)}"
+			target="_parent"
+		>Profile</a>
 		{#if isAdmin===true}
 		<a href="/addnew">Admin Panel</a>
 		{/if}
@@ -53,7 +57,7 @@ import currentUser from "../datas/users/user";
 		right: 1%;
 	}
 	.dropdown-content a,
-	span {
+	span{
 		color: lightgray;
 		padding: 12px 16px;
 		text-decoration: none;
