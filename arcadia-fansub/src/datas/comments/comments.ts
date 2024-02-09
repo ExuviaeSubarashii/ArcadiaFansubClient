@@ -83,3 +83,25 @@ export async function UpdateComment(updateCommentBody:UpdateCommentBody){
         throw new Error('Failed to update comment.');
     }
 }
+export async function GetUserComments(userName:string):Promise<Comments[]>{
+    try {
+        const body={
+            userToken:currentUser.userToken
+        }
+        const requestOptions = {
+            method: 'POST',
+            body:JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const getComments=await fetch(`${baseUrl}/Comment/GetUserComments/${userName}`,requestOptions);
+        if(!getComments.ok){
+            return[];
+        }
+        const commentData:Comments[]=await getComments.json();
+        return commentData;
+    } catch (error) {
+        
+        console.error('Error:', error);
+        throw new Error('Failed to get comments.');
+    }
+}
