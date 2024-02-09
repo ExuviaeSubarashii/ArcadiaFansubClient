@@ -27,7 +27,13 @@ export type User = {
     userEmail: string;
     isLoggedIn: boolean;
 }
-
+export type UserProfile={
+    userId: number;
+    userName: string;
+    userEmail: string;
+    userPermission: string;
+    favoritedAnimes:string;
+}
 export type AddAnime = {
     animeName: string;
     animeEpisodeAmount: number;

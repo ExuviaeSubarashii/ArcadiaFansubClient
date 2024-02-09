@@ -47,3 +47,26 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<
         return [];
     }
 }
+export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
+    const body = {
+        favoritedAnimes: AnimeId
+    }
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+    };
+    try {
+        const getSpecificAnimeResponse = await fetch(`${baseUrl}/Anime/GetSpecificAnime`, requestOptions);
+
+        if (!getSpecificAnimeResponse.ok) {
+            throw new Error(getSpecificAnimeResponse.statusText);
+        }
+
+        const animeData: Animes[] = await getSpecificAnimeResponse.json();
+        return animeData;
+    } catch (error) {
+        return [];
+        console.error('Error:', error);
+    }
+}

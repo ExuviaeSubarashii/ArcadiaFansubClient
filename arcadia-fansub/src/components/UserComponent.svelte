@@ -16,7 +16,7 @@ import currentUser from "../datas/users/user";
     <div class="dropdown">
       <span><p>{currentUser.userName}</p></span>
       <div class="dropdown-content">
-        <a href="/user/{encodeURIComponent(currentUser.userId)}">Profile</a>
+        <a href="/profile/{encodeURIComponent(currentUser.userName)}">Profile</a>
 		{#if isAdmin===true}
 		<a href="/addnew">Admin Panel</a>
 		{/if}
