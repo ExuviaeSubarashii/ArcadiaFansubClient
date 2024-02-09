@@ -7,6 +7,7 @@ export type Animes = {
     translator: string | null;
     editor: string | null;
     animeImage: string | null;
+    isFavorited:boolean;
 }
 export type Episodes = {
     episodeId: string;

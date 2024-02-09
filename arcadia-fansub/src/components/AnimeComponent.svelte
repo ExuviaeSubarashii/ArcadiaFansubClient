@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { GetAllAnimes } from '../datas/animes/getanimes';	
+	import { AddAnimeToFavorites, GetAllAnimes } from '../datas/animes/getanimes';	
 	import type { Animes } from '../types/types';
 	export let animes:Animes[] = [];
 	onMount(async () => {
@@ -38,6 +38,16 @@
 						</div>
 					</div>
 				</a>
+				<div class="like-dislike">
+					<!-- check if favorited or not -->
+					{#if anime.isFavorited===true}
+					<!-- favorites -->
+					<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
+					{:else}
+					<!-- unfavorites -->
+					<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
+					{/if}
+				</div>
 			</div>
 		{/each}
 		{:catch error}
@@ -46,6 +56,11 @@
 </div>
 
 <style>
+		.like-dislike {
+		position: absolute;
+		left: 90%;
+		top: 2%;
+	}
 	.bomba {
 		border-radius: 25px;
 		border-style: solid;

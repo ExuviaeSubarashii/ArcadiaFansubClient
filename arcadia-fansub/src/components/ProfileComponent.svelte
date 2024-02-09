@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { Animes, Comments, UserProfile } from '../types/types';
 	import { GetUserProfile } from '../datas/users/profile';
-	import { GetSpecificAnime } from '../datas/animes/getanimes';
+	import { AddAnimeToFavorites, GetSpecificAnime } from '../datas/animes/getanimes';
 	import AnimeComponent from './AnimeComponent.svelte';
 	import { DeleteComment, GetUserComments } from '../datas/comments/comments';
 
@@ -101,6 +101,16 @@
 							class="series"
 							style="background-image: url('../src/lib/imajlar/{anime.animeImage}')"
 						>
+						<div class="like-dislike">
+							<!-- check if favorited or not -->
+							{#if anime.isFavorited===true}
+							<!-- favorites -->
+							<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
+							{:else}
+							<!-- unfavorites -->
+							<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
+							{/if}
+						</div>
 							<p>{anime.animeName}</p>
 							<p>{anime.animeEpisodeAmount}</p>
 							<p>{anime.editor} | {anime.translator}</p>
@@ -209,6 +219,6 @@
 		background-repeat: no-repeat;
 		background-position: right;
 		width: 100%; /* Set width to fill the container */
-		height: 150px; /* Set height for the series container */
+		height: 200px; /* Set height for the series container */
 	}
 </style>
