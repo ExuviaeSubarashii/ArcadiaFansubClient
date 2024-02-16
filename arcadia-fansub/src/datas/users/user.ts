@@ -57,7 +57,7 @@ userName.subscribe((val) => {
     userId: userIdValue,
     isLoggedIn: userTokenValue !== undefined && userTokenValue !== "undefined",
     userName: userNameValue,
-    userPermission: userPermValue
+    // userPermission: userPermValue
   }
   export default currentUser;
   

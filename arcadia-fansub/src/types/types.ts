@@ -24,7 +24,7 @@ export type User = {
     userName: string;
     favoritedAnimes?: string;
     userToken: string;
-    userPermission: string;
+    // userPermission: string;
     userEmail: string;
     isLoggedIn: boolean;
 }

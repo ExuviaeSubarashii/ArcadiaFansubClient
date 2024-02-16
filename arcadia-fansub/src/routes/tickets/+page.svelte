@@ -9,6 +9,7 @@
 	} from '../../datas/tickets/tickets';
 	import type { TicketDto } from '../../types/types';
 	import currentUser from '../../datas/users/user';
+	import { IsAdmin } from '../../datas/users/authentication';
 	let ticketData: TicketDto[] = [];
 	let ticketIdValue: string;
 	let searchValue: string;
@@ -40,7 +41,7 @@
 </script>
 
 <div class="create-ticket">
-		<a href="tickets/createticket" type="button" class=" btn btn-info relative">Bilet Oluştur</a>
+	<a href="tickets/createticket" type="button" class=" btn btn-info relative">Bilet Oluştur</a>
 </div>
 
 <div class="sort-tickets">
@@ -86,13 +87,18 @@
 		{#if data.length > 0}
 			{#each data as ticket}
 				<div class="ticket-body">
-					{#if currentUser.userPermission === 'Admin'}
-						<div class="ticket-options">
-							<button class="delete-ticket" on:click={() => HandleTicketDelete(ticket.ticketId)}
-								>Bileti Sil</button
-							>
-						</div>
-					{/if}
+					{#await IsAdmin()}
+						<div>Checking if you are an admin...</div>
+					{:then isAdminResult}
+						{#if isAdminResult === true}
+							<div class="ticket-options">
+								<button class="delete-ticket" on:click={() => HandleTicketDelete(ticket.ticketId)}
+									>Bileti Sil</button
+								>
+							</div>
+						{/if}
+					{/await}
+
 					<div class="ticket-headers">
 						<a href="tickets/{ticket.ticketId}" style="text-decoration: none; color:white;">
 							<h1>{ticket.ticketTitle}</h1>

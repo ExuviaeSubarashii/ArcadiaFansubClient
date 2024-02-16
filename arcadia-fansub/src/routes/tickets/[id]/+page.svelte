@@ -9,6 +9,7 @@
 	} from '../../../datas/tickets/tickets.js';
 	import type { AdminResponse, TicketDto, TicketReply } from '../../../types/types.js';
 	import currentUser from '../../../datas/users/user.js';
+	import { IsAdmin } from '../../../datas/users/authentication.js';
 
 	export let data;
 	let userTicketMessage: TicketDto;
@@ -65,62 +66,66 @@
 		</div>
 	</div>
 {/await}
-{#if currentUser.userPermission === 'Admin'}
-	<div class="admin-reply">
-		<div class="ticket-status">
-			<input class="admin-input" type="text" bind:value={adminResponse} />
+{#await IsAdmin()}
+<div>Checking if you are an admin...</div>
+{:then isAdminResult} 
+{#if isAdminResult===true}
+<div class="admin-reply">
+	<div class="ticket-status">
+		<input class="admin-input" type="text" bind:value={adminResponse} />
 
-			<label for="completed">
-				<input
-					type="radio"
-					id="completed"
-					name="status"
-					value="Tamamlandı"
-					on:click={(e) => HandleStatusChange(e)}
-				/>
-				Tamamlandı
-			</label>
+		<label for="completed">
+			<input
+				type="radio"
+				id="completed"
+				name="status"
+				value="Tamamlandı"
+				on:click={(e) => HandleStatusChange(e)}
+			/>
+			Tamamlandı
+		</label>
 
-			<label for="examining">
-				<input
-					type="radio"
-					id="examining"
-					name="status"
-					value="İncelenecek"
-					on:click={(e) => HandleStatusChange(e)}
-				/>
-				İncelenecek
-			</label>
+		<label for="examining">
+			<input
+				type="radio"
+				id="examining"
+				name="status"
+				value="İncelenecek"
+				on:click={(e) => HandleStatusChange(e)}
+			/>
+			İncelenecek
+		</label>
 
-			<label for="progress">
-				<input
-					type="radio"
-					id="progress"
-					name="status"
-					value="Yapım Aşamasında"
-					on:click={(e) => HandleStatusChange(e)}
-				/>
-				Yapım Aşamasında
-			</label>
+		<label for="progress">
+			<input
+				type="radio"
+				id="progress"
+				name="status"
+				value="Yapım Aşamasında"
+				on:click={(e) => HandleStatusChange(e)}
+			/>
+			Yapım Aşamasında
+		</label>
 
-			<button on:click={() => HandleAdminResponse()}>Kaydet ve Gönder</button>
-			{#if ticketStatus}
-				<button
-					on:click={() => {
-						UpdateTicketStatus(ticketStatus, ticketId);
-					}}>Durumu Guncelle</button
-				>
-			{/if}
-		</div>
+		<button on:click={() => HandleAdminResponse()}>Kaydet ve Gönder</button>
+		{#if ticketStatus}
+			<button
+				on:click={() => {
+					UpdateTicketStatus(ticketStatus, ticketId);
+				}}>Durumu Guncelle</button
+			>
+		{/if}
 	</div>
+</div>
 {/if}
+
 {#await adminTicketReplies}
 	<div>Yanitlar Yukleniyor</div>
 {:then replies}
 	<div class="replies">
 		{#each replies as reply}
 			<div class="reply">
-				{#if currentUser.userPermission === 'Admin'}
+				{#if isAdminResult===true}
 					<button
 						value={reply.responseId}
 						on:click={(e) => DeleteAdminResponseHandle(e)}
@@ -134,6 +139,8 @@
 		{/each}
 	</div>
 {/await}
+{/await}
+
 
 <style>
 	.delete-button {

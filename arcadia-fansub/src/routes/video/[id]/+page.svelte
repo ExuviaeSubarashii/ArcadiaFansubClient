@@ -17,7 +17,7 @@
 	import currentUser from '../../../datas/users/user';
 	import PopupModal from '../../../components/PopupModal.svelte';
 	import UserComponent from '../../../components/UserComponent.svelte';
-	import { IsAuthenticated } from '../../../datas/users/authentication';
+	import { IsAdmin, IsAuthenticated } from '../../../datas/users/authentication';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
 	let episodeData: Episodes;
@@ -158,63 +158,74 @@
 	<div class="comment-menu">
 		{#await IsAuthenticated()}
 			<div>Authenticating...</div>
-		{:then result} 
-		{#if result===true}
-			<input class="comment-input" type="text" placeholder="Yorum Yap" bind:value={commentValue} />
-			<button class="send-button" on:click={() => HandleComment()}>Yorum Yap</button>
-			<button class="sort-button" on:click={() => HandleSorting()}>Sirala</button>
-		{:else}
-			<p>Yorum yapmak için giriş yapmalısınız.</p>
-		{/if}	
+		{:then result}
+			{#if result === true}
+				<input
+					class="comment-input"
+					type="text"
+					placeholder="Yorum Yap"
+					bind:value={commentValue}
+				/>
+				<button class="send-button" on:click={() => HandleComment()}>Yorum Yap</button>
+				<button class="sort-button" on:click={() => HandleSorting()}>Sirala</button>
+			{:else}
+				<p>Yorum yapmak için giriş yapmalısınız.</p>
+			{/if}
 		{/await}
-		
 	</div>
 	{#await commentData}
 		<div>Yorumlar Yükleniyor...</div>
 	{:then data}
-		{#if commentData.length > 0}
+		{#if data.length > 0}
 			{#each data as comment, index}
 				<div class="comment" id={index.toString()}>
-					<a href="/profile/{comment.userName}" style="text-decoration: none;">{comment.userName}</a>
+					<a href="/profile/{comment.userName}" style="text-decoration: none;">{comment.userName}</a
+					>
 					<p>{comment.commentContent}</p>
 					<p style="position:absolute; left:80%; top:70%">{comment.commentTextDate}</p>
-
-					{#if comment.isCommentOwner === true || currentUser.userPermission === 'Admin'}
-						<div class="dropdown">
-							<button
-								class="btn btn-secondary dropdown-toggle"
-								type="button"
-								id="dropdownMenuButton"
-								data-toggle="dropdown"
-								aria-haspopup="true"
-								aria-expanded="false"
-								on:click={() => {
-									visiblediv = visiblediv === index ? null : index;
-								}}
-							>
-								Actions
-							</button>
-							{#if visiblediv === index}
-								<div class="actions" id={comment.commentId.toString()}>
-									{#if comment.isCommentOwner === true}
-										<button
-											class="dropdown-item"
-											on:click={() => handleModal(comment.commentId, comment.commentContent)}
-											>Update comment</button
-										>
-									{/if}
-									{#if comment.isCommentOwner === true}
-										<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
-											>Delete comment</button>
-									{/if}
-									{#if currentUser.userPermission === 'Admin'}
-										<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
-											>Admin Force Delete Comment</button>
-									{/if}
-								</div>
-							{/if}
-						</div>
-					{/if}
+					{#await IsAdmin()}
+						<div>Checking if you are an admin...</div>
+					{:then isAdminResult}
+						{#if comment.isCommentOwner === true || isAdminResult === true}
+							<div class="dropdown">
+								<button
+									class="btn btn-secondary dropdown-toggle"
+									type="button"
+									id="dropdownMenuButton"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+									on:click={() => {
+										visiblediv = visiblediv === index ? null : index;
+									}}
+								>
+									Actions
+								</button>
+								{#if visiblediv === index}
+									<div class="actions" id={comment.commentId.toString()}>
+										{#if comment.isCommentOwner === true}
+											<button
+												class="dropdown-item"
+												on:click={() => handleModal(comment.commentId, comment.commentContent)}
+												>Update comment</button
+											>
+											<button
+												class="dropdown-item"
+												on:click={() => deleteComment(comment.commentId)}>Delete comment</button
+											>
+										{/if}
+										{#if isAdminResult === true}
+											<button
+												class="dropdown-item"
+												on:click={() => deleteComment(comment.commentId)}
+												>Admin Force Delete Comment</button
+											>
+										{/if}
+									</div>
+								{/if}
+							</div>
+						{/if}
+					{/await}
 				</div>
 			{/each}
 		{:else}

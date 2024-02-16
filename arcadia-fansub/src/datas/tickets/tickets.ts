@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import type { AdminResponse, TicketBody, TicketDto, TicketReply } from "../../types/types";
 import { baseUrl, responseMessageStore } from "../variables";
 import currentUser from "../users/user";
-import { IsAuthenticated } from "../users/authentication";
+import { IsAdmin, IsAuthenticated } from "../users/authentication";
 
 export async function CreateTicket(ticketBody: TicketBody) {
     try {
@@ -43,7 +43,7 @@ export async function DeleteTicket(ticketId: string) {
 export async function GetAllTickets(): Promise<TicketDto[]> {
     if (await IsAuthenticated() === true) {
         try {
-            if (currentUser.userPermission === "Admin") {
+            if (await IsAdmin()===true) {
 
                 const requestOptions = {
                     method: 'GET',
