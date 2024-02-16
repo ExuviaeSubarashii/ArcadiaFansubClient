@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import { AddAnimeToFavorites, GetAllAnimes } from '../datas/animes/getanimes';	
 	import type { Animes } from '../types/types';
+	import currentUser from '../datas/users/user';
+	import { IsAuthenticated } from '../datas/users/authentication';
 	export let animes:Animes[] = [];
 	onMount(async () => {
 		animes=await GetAllAnimes();
@@ -42,10 +44,23 @@
 					<!-- check if favorited or not -->
 					{#if anime.isFavorited===true}
 					<!-- favorites -->
-					<button title="Favorilerden Kaldır" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
+					<button title="Favorilerden Kaldır" on:click={async()=> {
+						if(await IsAuthenticated()===true){
+							await AddAnimeToFavorites(anime.animeId)}
+						else{
+							window.location.href="/login";
+						}}
+						}
+						 class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
 					{:else}
 					<!-- unfavorites -->
-					<button title="Favorilere Ekle" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
+					<button title="Favorilere Ekle" on:click={async()=> {
+						if(await IsAuthenticated()===true){
+							await AddAnimeToFavorites(anime.animeId)}
+						else{
+							window.location.href="/login";
+						}}
+						} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
 					{/if}
 				</div>
 			</div>
