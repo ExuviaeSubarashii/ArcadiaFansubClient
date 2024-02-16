@@ -11,9 +11,14 @@ export async function IsAdmin(): Promise<boolean> {
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' },
         };
-        const isUserAdmin = await fetch(`${baseUrl}/User/IsAdmin`, requestOptions)
-        const adminData = await isUserAdmin.json();
-        return Boolean(adminData);
+        if (body.userToken === null || body.userToken === undefined || body.userToken === "undefined" || body.userToken === "") {
+            return false;
+        }
+        else {
+            const isUserAdmin = await fetch(`${baseUrl}/User/IsAdmin`, requestOptions)
+            const adminData = await isUserAdmin.json();
+            return Boolean(adminData);
+        }
 
     } catch (error) {
         console.error('Error:', error);

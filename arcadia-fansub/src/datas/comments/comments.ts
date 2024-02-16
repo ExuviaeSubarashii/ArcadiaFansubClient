@@ -24,7 +24,7 @@ export async function CreateComment(commentBody:CreateCommentBody){
 export async function GetComments(episodeId:string):Promise<Comments[]>{
     try {
         const body={
-            userToken:currentUser.userToken
+            userToken:currentUser.userToken??""
         }
         const requestOptions = {
             method: 'POST',

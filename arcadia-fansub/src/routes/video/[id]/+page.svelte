@@ -24,6 +24,7 @@
 	let linkArray: string[] = [];
 	let player: string;
 	let commentData: Comments[] = [];
+	let isAdmin: boolean = false;
 	let visiblediv: any = null;
 	let commentValue: string;
 	let isOptionsVisible: boolean = false;
@@ -73,7 +74,7 @@
 		} else {
 			console.error('Episode data or episodeLinks is undefined.');
 		}
-		commentData = await GetComments(episodeId);
+		// commentData = await GetComments(episodeId);
 	});
 
 	async function SetPlayer(playerName: string) {
@@ -173,7 +174,7 @@
 			{/if}
 		{/await}
 	</div>
-	{#await commentData}
+	{#await GetComments(episodeId)}
 		<div>Yorumlar Yükleniyor...</div>
 	{:then data}
 		{#if data.length > 0}
