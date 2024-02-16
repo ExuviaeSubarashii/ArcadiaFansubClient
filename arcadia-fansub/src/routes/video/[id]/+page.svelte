@@ -175,7 +175,7 @@
 		{#if commentData.length > 0}
 			{#each data as comment, index}
 				<div class="comment" id={index.toString()}>
-					<p>{comment.userName}</p>
+					<a href="/profile/{comment.userName}" style="text-decoration: none;">{comment.userName}</a>
 					<p>{comment.commentContent}</p>
 					<p style="position:absolute; left:80%; top:70%">{comment.commentTextDate}</p>
 

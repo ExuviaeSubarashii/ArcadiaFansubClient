@@ -42,10 +42,10 @@
 					<!-- check if favorited or not -->
 					{#if anime.isFavorited===true}
 					<!-- favorites -->
-					<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
+					<button title="Favorilerden Kaldır" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
 					{:else}
 					<!-- unfavorites -->
-					<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
+					<button title="Favorilere Ekle" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
 					{/if}
 				</div>
 			</div>

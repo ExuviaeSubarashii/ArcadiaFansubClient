@@ -105,16 +105,16 @@
 							<!-- check if favorited or not -->
 							{#if anime.isFavorited===true}
 							<!-- favorites -->
-							<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
+							<button title="Favorilerden Kaldır" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
 							{:else}
 							<!-- unfavorites -->
-							<button on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
+							<button title="Favorilere Ekle" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
 							{/if}
 						</div>
-							<p>{anime.animeName}</p>
-							<p>{anime.animeEpisodeAmount}</p>
-							<p>{anime.editor} | {anime.translator}</p>
-							<p>{anime.releaseDate}</p>
+							<p>Seri Adı: {anime.animeName}</p>
+							<p>Bölüm Sayısı: {anime.animeEpisodeAmount}</p>
+							<p>Editör: {anime.editor} | Çevirmen: {anime.translator}</p>
+							<p>Çıkış Tarihi: {anime.releaseDate}</p>
 						</div>
 					{/each}
 				{/key}
