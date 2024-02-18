@@ -16,7 +16,7 @@
 {#key $userOption}
 
 <div class="container">
-    <div class="row">
+    <div class="row g-0">
         <button type="button" class="mt-2 col btn btn-dark border border-secondary"  on:click={()=>SetOption(0)}>Yeni Seri Ekle</button>
         <button type="button" class="mt-2 col btn btn-dark border border-secondary" on:click={()=>SetOption(1)}>Yeni Bölüm Ekle</button>
       <div class="w-100"></div>

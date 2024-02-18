@@ -5,12 +5,9 @@
 	import currentUser from '../datas/users/user';
 	import { IsAuthenticated } from '../datas/users/authentication';
 	export let animes:Animes[] = [];
-	onMount(async () => {
-		animes=await GetAllAnimes();
-	});
 </script>
 
-<div class="row gap-2 ms-5">
+<div class="row gap-2 ms-5 g-0">
 	<h1 class="text-light">Tüm Seriler</h1>
 	{#await animes}
 		<div>Seriler Yükleniyor...</div>
@@ -18,7 +15,7 @@
 		{#each animelist as anime}
 			<div
 				class="bomba card mb-3 text-bg-dark border-5 rounded border-secondary"
-				style="max-width: 540px;"
+				style="max-width: 440px;"
 			>
 				<a href="/watch/{anime.animeId}" class="text-decoration-none text-light">
 					<div class="row g-0">

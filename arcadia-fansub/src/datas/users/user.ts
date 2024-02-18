@@ -10,7 +10,7 @@ var userNameValue:any;
 const usertoken = writable(browser ? localStorage.getItem("userToken") || undefined:undefined);
 const userId = writable(browser ? localStorage.getItem("userId") || undefined :undefined);
 const userEmail = writable(browser ? localStorage.getItem("userEmail") || undefined:undefined);
-const userPerm=writable(browser ? localStorage.getItem("userPerm") || undefined:undefined);
+// const userPerm=writable(browser ? localStorage.getItem("userPerm") || undefined:undefined);
 const userName=writable(browser ? localStorage.getItem("userName") || undefined:undefined);
 
 
@@ -44,9 +44,9 @@ userName.subscribe((val) => {
   userEmail.subscribe(($userEmail)=>{
     userEmailValue=$userEmail;
   })
-  userPerm.subscribe(($userPerm)=>{
-    userPermValue=$userPerm;
-  })
+  // userPerm.subscribe(($userPerm)=>{
+  //   userPermValue=$userPerm;
+  // })
   userName.subscribe(($userName)=>{
     userNameValue=$userName;
   })

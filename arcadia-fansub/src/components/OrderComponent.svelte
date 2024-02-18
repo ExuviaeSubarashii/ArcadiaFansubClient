@@ -15,7 +15,7 @@ function handlePage(num:any){
 </script>
 
 <div class="fullbody mt-3">
-    <div class="mt-3 ms-5 row d-flex">
+    <div class="mt-3 ms-5 row d-flex g-0">
         <select class="form-select mb-3" style="width: 5%;" bind:value={letter} on:change={()=>handleAlphabet(letter)}>
             {#each alphabet as letter}
             <option value="{letter}">{letter}</option>

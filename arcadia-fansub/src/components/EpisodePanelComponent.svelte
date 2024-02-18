@@ -52,7 +52,7 @@
 
 <div class="fullbody">
 	<div class="buttoncontainer">
-		<div class="row">
+		<div class="row g-0">
 			{#each paneldata as data}
 				<button
 					class="drop-buttons"

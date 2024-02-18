@@ -6,7 +6,7 @@
 <div class="fullbody">
 
     <section class="container mt-5">
-        <div class="row">
+        <div class="row g-0">
             <div class="col-lg-6">
                 <header>
                     <h1>Arcadia Fansub</h1>

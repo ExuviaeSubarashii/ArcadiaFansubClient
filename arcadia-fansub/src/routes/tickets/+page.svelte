@@ -40,11 +40,11 @@
 	}
 </script>
 
-<div class="create-ticket">
-	<a href="tickets/createticket" type="button" class=" btn btn-info relative">Bilet Oluştur</a>
-</div>
-
-<div class="sort-tickets">
+<!-- <div class="create-ticket"> -->
+	<!-- </div> -->
+	
+	<div class="sort-tickets">
+	<a href="tickets/createticket" type="button" class="create-ticket btn btn-info relative">Bilet Oluştur</a>
 	<div>
 		<label for="ticket">Bilet Türü:</label>
 		<select name="ticket" on:change={(event) => SortTickets(event)}>
@@ -130,10 +130,7 @@
 		color: black;
 		border-radius: 10px;
 	}
-	.create-ticket {
-		position: absolute;
-		left: 15%;
-	}
+
 	.delete-ticket {
 		position: relative;
 		float: right;
@@ -148,7 +145,7 @@
 		flex-direction: row;
 		color: white;
 		position: relative;
-		left: 24%;
+		margin-left: 30%;
 		top: 2%;
 		gap: 10px;
 	}

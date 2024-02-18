@@ -40,7 +40,7 @@
 			</li>
 			<li><a href="/about" class="nav-link-about">Hakkımızda</a></li>
 		</ul>
-		<form class="searchbar col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+		<form class="searchbar col-12 col-sm-1 mb-3 mb-lg-0 me-lg-1" role="search">
 			<input
 				class="form-control form-control-dark text-bg-light border-3 border-info p-3 "
 				placeholder="Ara"
@@ -85,7 +85,7 @@
 	}
 	.warning{
 		position: absolute;
-		right: 2%;
+		right: 23%;
 	}
 	.nav {
 		list-style: none;

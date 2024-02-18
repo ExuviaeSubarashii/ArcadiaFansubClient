@@ -8,7 +8,7 @@
 	});
 </script>
 
-<div class="row gap-2 ms-5">
+<div class="row gap-2 ms-5 g-0">
 	<h1 class="text-light">Son Eklenenler</h1>
 	{#await episodes}
 		<h1>Yukleniyor</h1>
