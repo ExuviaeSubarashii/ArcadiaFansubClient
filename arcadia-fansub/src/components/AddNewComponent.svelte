@@ -3,6 +3,7 @@
 	import AddNewEpisodeComponent from "./AddNewEpisodeComponent.svelte";
 	import AddNewAnimeComponent from "./AddNewAnimeComponent.svelte";
 	import EpisodePanelComponent from "./EpisodePanelComponent.svelte";
+	import AnimePanelComponent from "./AnimePanelComponent.svelte";
 
 	let userOption=writable();
     function SetOption(option:number){
@@ -21,6 +22,7 @@
         <button type="button" class="mt-2 col btn btn-dark border border-secondary" on:click={()=>SetOption(1)}>Yeni Bölüm Ekle</button>
       <div class="w-100"></div>
       <button type="button" class="col btn btn-dark border border-secondary" on:click={()=>SetOption(2)}>Bölüm Paneli</button>
+      <button type="button" class="col btn btn-dark border border-secondary" on:click={()=>SetOption(3)}>Anime Paneli</button>
     </div>
   </div>
 <div class="full-body" style="display:flex; column-direction:column;">
@@ -36,6 +38,9 @@
     {/if}
     {#if $userOption===2}
         <EpisodePanelComponent/>
+    {/if}
+    {#if $userOption===3}
+        <AnimePanelComponent/>
     {/if}
 </div>
 {/key}
