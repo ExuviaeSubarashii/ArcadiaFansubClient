@@ -105,3 +105,11 @@ export type UpdateCommentBody={
     newComment: string;
     userToken:string;
 }
+export type UpdateAnimeBody={
+    animeId:string;
+    newAnimeName:string;
+    newEpisodeAmount:number;
+    newEditorName:string;
+    newTranslatorName:string;
+    newReleaseDate:Date;
+}
