@@ -1,3 +1,4 @@
+import { IsNullOrEmpty } from "../emptychecker";
 import { baseUrl } from "../variables";
 import currentUser from "./user";
 
@@ -11,7 +12,7 @@ export async function IsAdmin(): Promise<boolean> {
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' },
         };
-        if (body.userToken === null || body.userToken === undefined || body.userToken === "undefined" || body.userToken === "") {
+        if (IsNullOrEmpty(body.userToken)) {
             return false;
         }
         else {
@@ -32,7 +33,7 @@ export async function IsAuthenticated(): Promise<boolean> {
         const body = {
             userToken: currentUser.userToken
         }
-        if (body.userToken === null || body.userToken === undefined || body.userToken === "undefined" || body.userToken === "") {
+        if (IsNullOrEmpty(body.userToken)) {
             return false;
         }
         else {

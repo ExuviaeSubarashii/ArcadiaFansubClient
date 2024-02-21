@@ -27,6 +27,10 @@
 		animeData.set(await GetAnimeProperties(animeId));
 		console.log($animeData);
 		visiblediv = null;
+		newAnimeName = "";
+		newTranslatorName = "";
+		newEditorName = "";
+		newReleaseDate = new Date();
 	}
 	async function handleVisibility(index: any, paramepisodeId: any) {
 		animeId = paramepisodeId;
@@ -41,7 +45,7 @@
 	}
 	
 	async function HandleUpdates() {
-		if(IsNullOrEmpty(newEpisodeAmount)&&IsNullOrEmpty(newAnimeName)&&IsNullOrEmpty(newTranslatorName)&&IsNullOrEmpty(newEditorName)&&IsNullOrEmpty(newReleaseDate)){
+		if(IsNullOrEmpty(newEpisodeAmount)===true&&IsNullOrEmpty(newAnimeName)===true&&IsNullOrEmpty(newTranslatorName)===true&&IsNullOrEmpty(newEditorName)===true&&IsNullOrEmpty(newReleaseDate)===true){
 			return alert('En az bir alanın dolu olması gereklidir.');
 		}
 		const updateAnimeBody: UpdateAnimeBody = {
@@ -64,6 +68,7 @@
 					class="drop-buttons"
 					value={data.animeId}
 					on:click={() => HandleAnimeChange(data.animeId)}
+					style="background-image: url('../src/lib/imajlar/{data.animeImage}"
 				>
 					{data.animeName}
 				</button>
@@ -98,11 +103,14 @@
 			{/await}
 		</div>
 	{/key}
-{:else}
-	<div>Seri yok</div>
 {/if}
 
 <style>
+	.drop-buttons {
+		background-size: 70% 10% 100%;
+		padding: 10px;
+		background-position: center;
+	}
 	.animeInput {
 		overflow: auto;
 		padding: 1em;

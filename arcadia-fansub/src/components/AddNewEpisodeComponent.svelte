@@ -3,6 +3,7 @@
 	import { GetAllAnimes } from '../datas/animes/getanimes';
 	import { AddEpisodeFunction, GetAddEpisodeNumber } from '../datas/episodes/addEpisode';
 	import type { AddEpisode, Animes } from '../types/types';
+	import { IsNullOrEmpty } from '../datas/emptychecker';
 	let animes: Animes[] = [];
 
 	//add episode
@@ -13,7 +14,7 @@
 	//add episode
 	let animeEpisodeNumber: any;
 	async function handleAnimeChange(animeId: string) {
-		if (animeId === 'undefined' || animeId === null || animeId === '') {
+		if (IsNullOrEmpty(animeId)) {
 			return;
 		} else {
 			animeEpisodeNumber = await GetAddEpisodeNumber(animeId);

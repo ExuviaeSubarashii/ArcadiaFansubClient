@@ -10,9 +10,9 @@
 	let userData: UserProfile;
 	let userFavoritedAnimes: string[] = [];
 	let favoritedAnimes: Animes[] = [];
-	let userComments:Comments[]=[];
+	let userComments: Comments[] = [];
 	let currentlyLoadedAnimeAmount = 5;
-	let currentlyLoadedCommentAmount=5;
+	let currentlyLoadedCommentAmount = 5;
 	onMount(async () => {
 		console.log('started');
 		userData = await GetUserProfile(userName);
@@ -20,13 +20,12 @@
 		if (userFavoritedAnimes.length > 0) {
 			favoritedAnimes = await GetSpecificAnime(userFavoritedAnimes);
 		}
-		userComments=await GetUserComments(userName);
+		userComments = await GetUserComments(userName);
 	});
 	async function deleteComment(commentId: number) {
 		console.log(commentId);
 		await DeleteComment(commentId);
-		userComments=await GetUserComments(userName);
-
+		userComments = await GetUserComments(userName);
 	}
 </script>
 
@@ -50,44 +49,45 @@
 		{#if userComments.length > 0}
 			{#await userComments}
 				<div>Yorumlar Yukleniyor</div>
-			{:then commentData} 
+			{:then commentData}
 				{#key currentlyLoadedCommentAmount}
 					{#each commentData.slice(0, currentlyLoadedCommentAmount) as comment}
 						<div class="comment">
 							<p>{comment.commentContent}</p>
 							<p>{comment.commentTextDate}</p>
-							{#if comment.isCommentOwner===true}
-							<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
-								>Yorumu Kaldir</button>
+							{#if comment.isCommentOwner === true}
+								<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
+									>Yorumu Kaldir</button
+								>
 							{/if}
 						</div>
 					{/each}
 					{#if commentData.length > 5}
-					<button on:click={() => {
-						if(currentlyLoadedCommentAmount>=commentData.length){
-							return;
-						}
-						else{
-							currentlyLoadedCommentAmount += 5;
-						}
-					}}>Daha Fazla Goster</button>
-					{#if currentlyLoadedCommentAmount>5}
-
-					<button on:click={() => {
-						if(currentlyLoadedCommentAmount===5){
-							return;
-						}
-						else if(currentlyLoadedCommentAmount>5){
-							currentlyLoadedCommentAmount -= 5;
-						}
-					}}>Daha Az Goster</button>
+						<button
+							on:click={() => {
+								if (currentlyLoadedCommentAmount >= commentData.length) {
+									return;
+								} else {
+									currentlyLoadedCommentAmount += 5;
+								}
+							}}>Daha Fazla Goster</button
+						>
+						{#if currentlyLoadedCommentAmount > 5}
+							<button
+								on:click={() => {
+									if (currentlyLoadedCommentAmount === 5) {
+										return;
+									} else if (currentlyLoadedCommentAmount > 5) {
+										currentlyLoadedCommentAmount -= 5;
+									}
+								}}>Daha Az Goster</button
+							>
+						{/if}
 					{/if}
-
-				{/if}
 				{/key}
 			{/await}
 		{:else}
-		<div>Bu kullanici daha yorum yazmamis.</div>
+			<div>Bu kullanici daha yorum yazmamis.</div>
 		{/if}
 	</div>
 	<div class="favorited-series">
@@ -101,45 +101,55 @@
 							class="series"
 							style="background-image: url('../src/lib/imajlar/{anime.animeImage}')"
 						>
-						<div class="like-dislike">
-							<!-- check if favorited or not -->
-							{#if anime.isFavorited===true}
-							<!-- favorites -->
-							<button title="Favorilerden Kaldır" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
-							{:else}
-							<!-- unfavorites -->
-							<button title="Favorilere Ekle" on:click={async()=> await AddAnimeToFavorites(anime.animeId)} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
-							{/if}
-						</div>
-							<p>Seri Adı: {anime.animeName}</p>
-							<p>Bölüm Sayısı: {anime.animeEpisodeAmount}</p>
-							<p>Editör: {anime.editor} | Çevirmen: {anime.translator}</p>
-							<p>Çıkış Tarihi: {anime.releaseDate}</p>
+							<div class="like-dislike">
+								<!-- check if favorited or not -->
+								{#if anime.isFavorited === true}
+									<!-- favorites -->
+									<button
+										title="Favorilerden Kaldır"
+										on:click={async () => await AddAnimeToFavorites(anime.animeId)}
+										class="btn btn-light"><i class="bx bxs-bookmark"></i></button
+									>
+								{:else}
+									<!-- unfavorites -->
+									<button
+										title="Favorilere Ekle"
+										on:click={async () => await AddAnimeToFavorites(anime.animeId)}
+										class="btn btn-light"><i class="bx bx-bookmark"></i></button
+									>
+								{/if}
+							</div>
+							<a href="/watch/{anime.animeId}" style="color:white; text-decoration:none;">
+								<p>Seri Adı: {anime.animeName}</p>
+								<p>Bölüm Sayısı: {anime.animeEpisodeAmount}</p>
+								<p>Editör: {anime.editor} | Çevirmen: {anime.translator}</p>
+								<p>Çıkış Tarihi: {anime.releaseDate}</p>
+							</a>
 						</div>
 					{/each}
 				{/key}
 
 				{#if animeData.length > 5}
-					<button on:click={() => {
-						if(currentlyLoadedAnimeAmount>=animeData.length){
-							return;
-						}
-						else{
-							currentlyLoadedAnimeAmount += 5;
-						}
-					}}>Daha Fazla Goster</button>
-					{#if currentlyLoadedAnimeAmount>5}
-
-					<button on:click={() => {
-						if(currentlyLoadedAnimeAmount===5){
-							return;
-						}
-						else if(currentlyLoadedAnimeAmount>5){
-							currentlyLoadedAnimeAmount -= 5;
-						}
-					}}>Daha Az Goster</button>
+					<button
+						on:click={() => {
+							if (currentlyLoadedAnimeAmount >= animeData.length) {
+								return;
+							} else {
+								currentlyLoadedAnimeAmount += 5;
+							}
+						}}>Daha Fazla Goster</button
+					>
+					{#if currentlyLoadedAnimeAmount > 5}
+						<button
+							on:click={() => {
+								if (currentlyLoadedAnimeAmount === 5) {
+									return;
+								} else if (currentlyLoadedAnimeAmount > 5) {
+									currentlyLoadedAnimeAmount -= 5;
+								}
+							}}>Daha Az Goster</button
+						>
 					{/if}
-
 				{/if}
 			{/await}
 		{:else}
@@ -152,33 +162,33 @@
 
 <style>
 	.user-comments {
-        margin-top: 20px; /* Add margin to separate from other content */
-    }
+		margin-top: 20px; /* Add margin to separate from other content */
+	}
 
-    /* New styles for .comment */
-    .comment {
-        border: 1px solid #ccc; /* Border for each comment */
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 10px; /* Adjust spacing between comments */
-    }
+	/* New styles for .comment */
+	.comment {
+		border: 1px solid #ccc; /* Border for each comment */
+		padding: 10px;
+		border-radius: 5px;
+		margin-bottom: 10px; /* Adjust spacing between comments */
+	}
 
-    .comment p {
-        margin: 5px 0; /* Add margin to paragraph elements within comments */
-    }
+	.comment p {
+		margin: 5px 0; /* Add margin to paragraph elements within comments */
+	}
 
-    .comment button {
-        background-color: blue; /* Button background color */
-        color: white; /* Button text color */
-        border: none;
-        padding: 5px 10px;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+	.comment button {
+		background-color: blue; /* Button background color */
+		color: white; /* Button text color */
+		border: none;
+		padding: 5px 10px;
+		border-radius: 3px;
+		cursor: pointer;
+	}
 
-    .comment button:hover {
-        background-color: darkblue; /* Button background color on hover */
-    }
+	.comment button:hover {
+		background-color: darkblue; /* Button background color on hover */
+	}
 	.fullbody {
 		display: flex;
 		justify-content: space-between;

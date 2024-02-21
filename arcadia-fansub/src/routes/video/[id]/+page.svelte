@@ -18,6 +18,7 @@
 	import PopupModal from '../../../components/PopupModal.svelte';
 	import UserComponent from '../../../components/UserComponent.svelte';
 	import { IsAdmin, IsAuthenticated } from '../../../datas/users/authentication';
+	import { IsNullOrEmpty } from '../../../datas/emptychecker';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
 	let episodeData: Episodes;
@@ -38,7 +39,7 @@
 	};
 
 	async function HandleComment() {
-		if (commentValue != '' || commentValue != null || commentValue != undefined) {
+		if (IsNullOrEmpty(commentValue) === false) {
 			let commentBody: CreateCommentBody = {
 				episodeId: episodeId,
 				commentContent: commentValue,

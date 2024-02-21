@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { AddAnimeFunction } from '../datas/animes/addAnime';
+	import { IsNullOrEmpty } from '../datas/emptychecker';
 	import type { AddAnime } from '../types/types';
 
 	//add anime
@@ -10,13 +11,7 @@
 	let releaseDate: any;
     let imageLink:any;
 
-	async function SendAddAnimeRequest(
-		animeName: any,
-		episodeAmount: any,
-		editor: any,
-		translator: any,
-		releaseDate: any,
-        imageLink:any) {
+	async function SendAddAnimeRequest() {
 		const addAnime: AddAnime = {
 			animeName: animeName,
 			animeEpisodeAmount: episodeAmount,
@@ -27,7 +22,6 @@
 		};
         await AddAnimeFunction(addAnime)
 	}
-	//add anime
 </script>
 
 <div class="mt-3" id="fullbody">
@@ -52,8 +46,8 @@
 	  <div class="d-flex justify-content-center">
 
 		  <button class="btn btn-light text-center" on:click={()=>{
-			  if(animeName!=='undefined' || animeName!==null ||episodeAmount!=='undefined' || episodeAmount!==null ||editor!=='undefined' || translator!==null ||translator!=='undefined' || releaseDate!==null ||releaseDate!=='undefined'||imageLink!=='undefined' || imageLink!==null){
-				  SendAddAnimeRequest(animeName,episodeAmount,editor,translator,releaseDate,imageLink)}
+			  if(IsNullOrEmpty(animeName)!==false || IsNullOrEmpty(episodeAmount)!==false || IsNullOrEmpty(editor)!==false || IsNullOrEmpty(translator)!==false || IsNullOrEmpty(releaseDate)!==false || IsNullOrEmpty(imageLink)!==false){
+				  SendAddAnimeRequest()}
 				}
 			}>Yeni Seri Oluştur</button>
 			</div>

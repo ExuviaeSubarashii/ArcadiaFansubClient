@@ -3,6 +3,7 @@ import type { AdminResponse, TicketBody, TicketDto, TicketReply } from "../../ty
 import { baseUrl, responseMessageStore } from "../variables";
 import currentUser from "../users/user";
 import { IsAdmin, IsAuthenticated } from "../users/authentication";
+import { IsNullOrEmpty } from "../emptychecker";
 
 export async function CreateTicket(ticketBody: TicketBody) {
     try {
@@ -216,7 +217,7 @@ export async function GetTicketById(ticketId: string) {
 
 }
 export async function GetTicketBySearch(inputValue: string): Promise<TicketDto[]> {
-    if (inputValue !== undefined && inputValue !== null && inputValue !== "" && inputValue.trim() !== "") {
+    if (IsNullOrEmpty(inputValue)===false) {
         try {
             const body = {
                 userToken: currentUser.userToken

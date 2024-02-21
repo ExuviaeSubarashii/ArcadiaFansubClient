@@ -10,6 +10,7 @@
 	import type { TicketDto } from '../../types/types';
 	import currentUser from '../../datas/users/user';
 	import { IsAdmin } from '../../datas/users/authentication';
+	import { IsNullOrEmpty } from '../../datas/emptychecker';
 	let ticketData: TicketDto[] = [];
 	let ticketIdValue: string;
 	let searchValue: string;
@@ -30,9 +31,9 @@
 		ticketData = await GetAllTickets();
 	});
 	async function HandleSearch() {
-		if (searchValue === undefined || searchValue === null || searchValue === '') {
+		if (IsNullOrEmpty(searchValue)) {
 			ResetTickets();
-		} else if (searchValue !== undefined || searchValue !== null || searchValue !== '') {
+		} else if (IsNullOrEmpty(searchValue)) {
 			setTimeout(async () => {
 				ticketData = await GetTicketBySearch(searchValue);
 			}, 1000);
