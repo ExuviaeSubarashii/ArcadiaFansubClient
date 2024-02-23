@@ -46,7 +46,7 @@
 	  <div class="d-flex justify-content-center">
 
 		  <button class="btn btn-light text-center" on:click={()=>{
-			  if(IsNullOrEmpty(animeName)!==false || IsNullOrEmpty(episodeAmount)!==false || IsNullOrEmpty(editor)!==false || IsNullOrEmpty(translator)!==false || IsNullOrEmpty(releaseDate)!==false || IsNullOrEmpty(imageLink)!==false){
+			  if(IsNullOrEmpty(animeName)===false || IsNullOrEmpty(episodeAmount)===false || IsNullOrEmpty(editor)===false || IsNullOrEmpty(translator)===false || IsNullOrEmpty(releaseDate)===false || IsNullOrEmpty(imageLink)===false){
 				  SendAddAnimeRequest()}
 				}
 			}>Yeni Seri Oluştur</button>

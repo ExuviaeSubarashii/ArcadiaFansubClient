@@ -81,7 +81,8 @@
 <style>
 	.response{
 		position: absolute;
-		right: 14%;
+		right: 0;
+		top: 6px;
 	}
 	.warning{
 		position: absolute;

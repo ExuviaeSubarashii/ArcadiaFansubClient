@@ -2,10 +2,18 @@ import type { AddAnime } from "../../types/types";
 import { baseUrl, responseMessageStore } from "../variables";
 
 export async function AddAnimeFunction(anime: AddAnime) {
+    const body={
+        animeName:anime.animeName,
+        animeEpisodeAmount:anime.animeEpisodeAmount,
+        releaseDate:anime.releaseDate,
+        translator:anime.translator,
+        editor:anime.editor,
+        imageLink:anime.imageLink,
+    }
     try {
         const requestOptions = {
             method: 'POST',
-            body: JSON.stringify(anime),
+            body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' },
         };
         const addAnimeResponse = await fetch(`${baseUrl}/Anime/CreateNewAnime`, requestOptions);

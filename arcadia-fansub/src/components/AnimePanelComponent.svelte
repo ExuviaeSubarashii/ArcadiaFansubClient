@@ -6,6 +6,8 @@
 	import { GetAnimeProperties } from '../datas/pages/animepage';
 	import { UpdateAnimeFunction } from '../datas/animes/updateAnime';
 	import { IsNullOrEmpty } from '../datas/emptychecker';
+	import { DeleteAnime } from '../datas/animes/deleteAnimes';
+	import PopupModal from './PopupModal.svelte';
 	let paneldata: Animes[] = [];
 	let visiblediv: any = null;
 	let currentAnime: string;
@@ -17,7 +19,8 @@
 	let newTranslatorName: string;
 	let newEditorName: string;
 	let newReleaseDate: Date;
-
+	let isModalVisible: boolean = false;
+	let selectedAnime: string;
 	const animeData = writable<Animes>();
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
@@ -27,9 +30,9 @@
 		animeData.set(await GetAnimeProperties(animeId));
 		console.log($animeData);
 		visiblediv = null;
-		newAnimeName = "";
-		newTranslatorName = "";
-		newEditorName = "";
+		newAnimeName = '';
+		newTranslatorName = '';
+		newEditorName = '';
 		newReleaseDate = new Date();
 	}
 	async function handleVisibility(index: any, paramepisodeId: any) {
@@ -43,9 +46,15 @@
 		animeInputVisibility = !animeInputVisibility;
 		// episodeLinkValue = null;
 	}
-	
+
 	async function HandleUpdates() {
-		if(IsNullOrEmpty(newEpisodeAmount)===true&&IsNullOrEmpty(newAnimeName)===true&&IsNullOrEmpty(newTranslatorName)===true&&IsNullOrEmpty(newEditorName)===true&&IsNullOrEmpty(newReleaseDate)===true){
+		if (
+			IsNullOrEmpty(newEpisodeAmount) === true &&
+			IsNullOrEmpty(newAnimeName) === true &&
+			IsNullOrEmpty(newTranslatorName) === true &&
+			IsNullOrEmpty(newEditorName) === true &&
+			IsNullOrEmpty(newReleaseDate) === true
+		) {
 			return alert('En az bir alanın dolu olması gereklidir.');
 		}
 		const updateAnimeBody: UpdateAnimeBody = {
@@ -58,21 +67,42 @@
 		};
 		animeData.set(await UpdateAnimeFunction(updateAnimeBody));
 	}
+
+	async function HandleAnimeDelete(animeId: string) {
+		await DeleteAnime(animeId);
+		paneldata = await GetAllAnimes();
+		isModalVisible = false;
+	}
 </script>
+
+{#key isModalVisible}
+	<PopupModal bind:showModal={isModalVisible}>
+		<div slot="header" class="modal-dialog">
+			<h5 class="modal-title">Yorumunu Düzenle</h5>
+		</div>
+		<div slot="body" class="modal-content">
+			<p>Silmek Istediginize Emin Misiniz?</p>
+			<hr />
+			<button on:click={() => HandleAnimeDelete(selectedAnime)}>Sil</button>
+		</div>
+	</PopupModal>
+{/key}
 
 <div class="fullbody">
 	<div class="buttoncontainer">
 		<div class="row g-0">
-			{#each paneldata as data}
-				<button
-					class="drop-buttons"
-					value={data.animeId}
-					on:click={() => HandleAnimeChange(data.animeId)}
-					style="background-image: url('../src/lib/imajlar/{data.animeImage}"
-				>
-					{data.animeName}
-				</button>
-			{/each}
+			{#key paneldata}
+				{#each paneldata as data}
+					<button
+						class="drop-buttons"
+						value={data.animeId}
+						on:click={() => HandleAnimeChange(data.animeId)}
+						style="background-image: url('../src/lib/imajlar/{data.animeImage}"
+					>
+						{data.animeName}
+					</button>
+				{/each}
+			{/key}
 		</div>
 	</div>
 </div>
@@ -99,6 +129,12 @@
 					<input bind:value={newEditorName} class="animeInput" placeholder={data.editor} />
 					<input class="animeInput" value={data.releaseDate} type="datetime" />
 					<button on:click={async () => HandleUpdates()}>Değişiklikleri Kaydet</button>
+					<button
+						on:click={async () => {
+							isModalVisible = !isModalVisible;
+							selectedAnime = data.animeId;
+						}}>Delete Anime</button
+					>
 				</div>
 			{/await}
 		</div>

@@ -7,7 +7,7 @@ export async function DeleteEpisode(episodeId:string,currentAnime:string) {
             episodeId:episodeId
         }
         const requestOptions = {
-            method: 'POST',
+            method: 'DELETE',
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' },
         };

@@ -27,15 +27,15 @@
 <style>
 	.response-header{
 		font-size: medium;
+		text-align: center;
 	}
 	.response-div {
 		border-style: outset;
-		border-radius: 25px;
-		position: absolute;
-		/* top: 7px;
-		right: 35%; */
+		border-radius: 7px;
+		position: relative;
 		color: white;
-		font-size: 7px;
-		/* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+		overflow: hidden;
+		max-width: 230px;
+		text-align: center;
 	}
 </style>
