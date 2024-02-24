@@ -13,6 +13,7 @@
 	let userComments: Comments[] = [];
 	let currentlyLoadedAnimeAmount = 5;
 	let currentlyLoadedCommentAmount = 5;
+
 	onMount(async () => {
 		console.log('started');
 		userData = await GetUserProfile(userName);
@@ -26,6 +27,20 @@
 		console.log(commentId);
 		await DeleteComment(commentId);
 		userComments = await GetUserComments(userName);
+	}
+	let isEpisodeSorted: boolean = false;
+
+	async function SortFavoritedAnimesByEpisodeAmount() {
+		if (isEpisodeSorted === true) {
+			favoritedAnimes = favoritedAnimes.sort((a, b) => {
+				return a.animeEpisodeAmount - b.animeEpisodeAmount;
+			});
+		} else {
+			favoritedAnimes = favoritedAnimes.sort((a, b) => {
+				return b.animeEpisodeAmount - a.animeEpisodeAmount;
+			});
+		}
+		isEpisodeSorted = !isEpisodeSorted;
 	}
 </script>
 
@@ -91,72 +106,77 @@
 		{/if}
 	</div>
 	<div class="favorited-series">
-		{#if favoritedAnimes.length > 0}
-			{#await favoritedAnimes}
-				<div>Favorilenmis Seriler Yukleniyor...</div>
-			{:then animeData}
-				{#key currentlyLoadedAnimeAmount}
-					{#each animeData.slice(0, currentlyLoadedAnimeAmount) as anime}
-						<div
-							class="series"
-							style="background-image: url('../src/lib/imajlar/{anime.animeImage}')"
-						>
-							<div class="like-dislike">
-								<!-- check if favorited or not -->
-								{#if anime.isFavorited === true}
-									<!-- favorites -->
-									<button
-										title="Favorilerden Kaldır"
-										on:click={async () => await AddAnimeToFavorites(anime.animeId)}
-										class="btn btn-light"><i class="bx bxs-bookmark"></i></button
-									>
-								{:else}
-									<!-- unfavorites -->
-									<button
-										title="Favorilere Ekle"
-										on:click={async () => await AddAnimeToFavorites(anime.animeId)}
-										class="btn btn-light"><i class="bx bx-bookmark"></i></button
-									>
-								{/if}
+		<button on:click={async () => await SortFavoritedAnimesByEpisodeAmount()}
+			>Sort By Episode Amount</button
+		>
+		{#key favoritedAnimes}
+			{#if favoritedAnimes.length > 0}
+				{#await favoritedAnimes}
+					<div>Favorilenmis Seriler Yukleniyor...</div>
+				{:then animeData}
+					{#key currentlyLoadedAnimeAmount}
+						{#each animeData.slice(0, currentlyLoadedAnimeAmount) as anime}
+							<div
+								class="series"
+								style="background-image: url('../src/lib/imajlar/{anime.animeImage}')"
+							>
+								<div class="like-dislike">
+									<!-- check if favorited or not -->
+									{#if anime.isFavorited === true}
+										<!-- favorites -->
+										<button
+											title="Favorilerden Kaldır"
+											on:click={async () => await AddAnimeToFavorites(anime.animeId)}
+											class="btn btn-light"><i class="bx bxs-bookmark"></i></button
+										>
+									{:else}
+										<!-- unfavorites -->
+										<button
+											title="Favorilere Ekle"
+											on:click={async () => await AddAnimeToFavorites(anime.animeId)}
+											class="btn btn-light"><i class="bx bx-bookmark"></i></button
+										>
+									{/if}
+								</div>
+								<a href="/watch/{anime.animeId}" style="color:white; text-decoration:none;">
+									<p>Seri Adı: {anime.animeName}</p>
+									<p>Bölüm Sayısı: {anime.animeEpisodeAmount}</p>
+									<p>Editör: {anime.editor} | Çevirmen: {anime.translator}</p>
+									<p>Çıkış Tarihi: {anime.releaseDate}</p>
+								</a>
 							</div>
-							<a href="/watch/{anime.animeId}" style="color:white; text-decoration:none;">
-								<p>Seri Adı: {anime.animeName}</p>
-								<p>Bölüm Sayısı: {anime.animeEpisodeAmount}</p>
-								<p>Editör: {anime.editor} | Çevirmen: {anime.translator}</p>
-								<p>Çıkış Tarihi: {anime.releaseDate}</p>
-							</a>
-						</div>
-					{/each}
-				{/key}
+						{/each}
+					{/key}
 
-				{#if animeData.length > 5}
-					<button
-						on:click={() => {
-							if (currentlyLoadedAnimeAmount >= animeData.length) {
-								return;
-							} else {
-								currentlyLoadedAnimeAmount += 5;
-							}
-						}}>Daha Fazla Goster</button
-					>
-					{#if currentlyLoadedAnimeAmount > 5}
+					{#if animeData.length > 5}
 						<button
 							on:click={() => {
-								if (currentlyLoadedAnimeAmount === 5) {
+								if (currentlyLoadedAnimeAmount >= animeData.length) {
 									return;
-								} else if (currentlyLoadedAnimeAmount > 5) {
-									currentlyLoadedAnimeAmount -= 5;
+								} else {
+									currentlyLoadedAnimeAmount += 5;
 								}
-							}}>Daha Az Goster</button
+							}}>Daha Fazla Goster</button
 						>
+						{#if currentlyLoadedAnimeAmount > 5}
+							<button
+								on:click={() => {
+									if (currentlyLoadedAnimeAmount === 5) {
+										return;
+									} else if (currentlyLoadedAnimeAmount > 5) {
+										currentlyLoadedAnimeAmount -= 5;
+									}
+								}}>Daha Az Goster</button
+							>
+						{/if}
 					{/if}
-				{/if}
-			{/await}
-		{:else}
-			<div>
-				<p>Henüz favori seri bulunmamaktadır.</p>
-			</div>
-		{/if}
+				{/await}
+			{:else}
+				<div>
+					<p>Henüz favori seri bulunmamaktadır.</p>
+				</div>
+			{/if}
+		{/key}
 	</div>
 </div>
 

@@ -58,6 +58,7 @@
 					class="drop-buttons"
 					value={data.animeId}
 					on:click={() => HandleAnimeChange(data.animeId)}
+					style="background-image: url('../src/lib/imajlar/{data.animeImage}"
 				>
 					{data.animeName}
 				</button>
@@ -102,6 +103,11 @@
 {/if}
 
 <style>
+	.drop-buttons{
+		background-size: 70% 10% 100%;
+		padding: 10px;
+		background-position: center;
+	}
 	img {
 		inline-size: 150px;
 	}

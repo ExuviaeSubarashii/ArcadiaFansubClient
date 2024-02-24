@@ -119,21 +119,26 @@
 						alt="..."
 					/>
 					<hr />
+					<label for="animeName">Anime Adı</label>
 					<input
 						bind:value={newEpisodeAmount}
 						class="animeInput"
 						placeholder={data.animeEpisodeAmount.toString()}
 					/>
+					<label for="newAnimeName">Anime Adı</label>
 					<input bind:value={newAnimeName} class="animeInput" placeholder={data.animeName} />
+					<label for="newTranslatorName">Çevirmen</label>
 					<input bind:value={newTranslatorName} class="animeInput" placeholder={data.translator} />
+					<label for="newEditorName">Editör</label>
 					<input bind:value={newEditorName} class="animeInput" placeholder={data.editor} />
+					<label for="newReleaseDate">Yayın Tarihi</label>
 					<input class="animeInput" value={data.releaseDate} type="datetime" />
 					<button on:click={async () => HandleUpdates()}>Değişiklikleri Kaydet</button>
 					<button
 						on:click={async () => {
 							isModalVisible = !isModalVisible;
 							selectedAnime = data.animeId;
-						}}>Delete Anime</button
+						}}>Seriyi Sil</button
 					>
 				</div>
 			{/await}
@@ -142,6 +147,11 @@
 {/if}
 
 <style>
+	.anime {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 	.drop-buttons {
 		background-size: 70% 10% 100%;
 		padding: 10px;
@@ -159,7 +169,7 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		max-width: 350px;
+		max-width: 650px;
 		padding-left: 30px;
 		top: 10px;
 		border-style: groove;
