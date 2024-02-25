@@ -40,20 +40,20 @@
 	<div class="reason-panel">
 		<div class="reason">
 			<label for="reason">Bölüm Problemi</label>
-			<input type="radio" name="reason" value="Bölüm Sorunları" on:click={(e) => ReasonSetter(e)} />
+			<input type="radio" name="reason" value="EpisodeProblems" on:click={(e) => ReasonSetter(e)} />
 		</div>
 		<div class="reason">
 			<label for="reason">Kullanıcı Problemi</label>
 			<input
 				type="radio"
 				name="reason"
-				value="Kullanıcı Sorunları"
+				value="UserProblems"
 				on:click={(e) => ReasonSetter(e)}
 			/>
 		</div>
 		<div class="reason">
 			<label for="reason">Site Problemi</label>
-			<input type="radio" name="reason" value="Site Sorunları" on:click={(e) => ReasonSetter(e)} />
+			<input type="radio" name="reason" value="SiteProblems" on:click={(e) => ReasonSetter(e)} />
 		</div>
 	</div>
 	<button

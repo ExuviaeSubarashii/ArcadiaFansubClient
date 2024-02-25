@@ -15,8 +15,8 @@
 	let ticketIdValue: string;
 	let searchValue: string;
 	async function SortTickets(event: any) {
-		if (event.target.value === '') {
-			ticketData = await GetAllTickets();
+		if (IsNullOrEmpty(event.target.value)) {
+			ResetTickets();
 		}
 		ticketData = await GetTicketByType(event.target.value);
 	}
@@ -25,7 +25,7 @@
 	}
 	async function HandleTicketDelete(ticketId: string) {
 		await DeleteTicket(ticketId);
-		ticketData = await GetAllTickets();
+		ResetTickets();
 	}
 	onMount(async () => {
 		ticketData = await GetAllTickets();
@@ -33,7 +33,7 @@
 	async function HandleSearch() {
 		if (IsNullOrEmpty(searchValue)) {
 			ResetTickets();
-		} else if (IsNullOrEmpty(searchValue)) {
+		} else if (IsNullOrEmpty(searchValue)===false) {
 			setTimeout(async () => {
 				ticketData = await GetTicketBySearch(searchValue);
 			}, 1000);
@@ -41,18 +41,18 @@
 	}
 </script>
 
-<!-- <div class="create-ticket"> -->
-	<!-- </div> -->
-	
-	<div class="sort-tickets">
-	<a href="tickets/createticket" type="button" class="create-ticket btn btn-info relative">Bilet Oluştur</a>
+<div class="sort-tickets">
+	<a href="tickets/createticket" type="button" class="create-ticket btn btn-info relative"
+		>Bilet Oluştur</a
+	>
+
 	<div>
 		<label for="ticket">Bilet Türü:</label>
 		<select name="ticket" on:change={(event) => SortTickets(event)}>
 			<option value="">Tüm Biletler</option>
-			<option value="Bölüm Sorunları">Bölüm Sorunları</option>
-			<option value="Kullanıcı Sorunları">Kullanıcı Sorunları</option>
-			<option value="Site Sorunları">Site Sorunları</option>
+			<option value="EpisodeProblems">Bölüm Sorunları</option>
+			<option value="UserProblems">Kullanıcı Sorunları</option>
+			<option value="SiteProblems">Site Sorunları</option>
 		</select>
 	</div>
 	<div class="search-ticket">
@@ -80,49 +80,61 @@
 </div>
 
 <div class="tickets">
-	{#await ticketData}
-		<div>
-			<h1>Loading...</h1>
-		</div>
-	{:then data}
-		{#if data.length > 0}
-			{#each data as ticket}
-				<div class="ticket-body">
-					{#await IsAdmin()}
-						<div>Checking if you are an admin...</div>
-					{:then isAdminResult}
-						{#if isAdminResult === true}
-							<div class="ticket-options">
-								<button class="delete-ticket" on:click={() => HandleTicketDelete(ticket.ticketId)}
-									>Bileti Sil</button
-								>
-							</div>
-						{/if}
-					{/await}
-
-					<div class="ticket-headers">
-						<a href="tickets/{ticket.ticketId}" style="text-decoration: none; color:white;">
-							<h1>{ticket.ticketTitle}</h1>
-							<p>{ticket.ticketMessage}</p>
-						</a>
-					</div>
-					<div class="ticket-user-information">
-						<p>Bileti Açanın Adı: {ticket.senderName}</p>
-						<p>Biletin Açılış Tarihi: {ticket.ticketDate}</p>
-						<p>Bilet Numarası: {ticket.ticketId}</p>
-					</div>
-					<div class="ticket-information">
-						<p>Sebep: {ticket.ticketReason}</p>
-						<p>Durum: {ticket.ticketStatus}</p>
-					</div>
-				</div>
-			{/each}
-		{:else}
+	{#key ticketData}
+		{#await ticketData}
 			<div>
-				<h1>Hiç Bu Etiketle Bilet Yok</h1>
+				<h1>Loading...</h1>
 			</div>
-		{/if}
-	{/await}
+		{:then data}
+			{#if data.length > 0}
+				{#each data as ticket}
+					<div class="ticket-body">
+						{#await IsAdmin()}
+							<div>Checking if you are an admin...</div>
+						{:then isAdminResult}
+							{#if isAdminResult === true}
+								<div class="ticket-options">
+									<button class="delete-ticket" on:click={() => HandleTicketDelete(ticket.ticketId)}
+										>Bileti Sil</button
+									>
+								</div>
+							{/if}
+						{/await}
+
+						<div class="ticket-headers">
+							<a href="tickets/{ticket.ticketId}" style="text-decoration: none; color:white;">
+								<h1>{ticket.ticketTitle}</h1>
+								<p>{ticket.ticketMessage}</p>
+							</a>
+						</div>
+						<div class="ticket-user-information">
+							<p>Bileti Açanın Adı: {ticket.senderName}</p>
+							<p>Biletin Açılış Tarihi: {ticket.ticketDate}</p>
+							<p>Bilet Numarası: {ticket.ticketId}</p>
+						</div>
+						<div class="ticket-information">
+							{#if ticket.ticketStatus === 'Completed'}
+								<p>Durum: Bilet Tamamlandı</p>
+							{:else if ticket.ticketStatus === 'WIP'}
+								<p>Durum: Bilet Yapım Aşamasında</p>
+							{/if}
+							{#if ticket.ticketReason === 'EpisodeProblems'}
+								<p>Sebep: Bölüm Sorunları</p>
+							{:else if ticket.ticketReason === 'UserProblems'}
+								<p>Sebep: Kullanıcı Sorunları</p>
+							{:else if ticket.ticketReason === 'SiteProblems'}
+								<p>Sebep: Site Sorunları</p>
+							{/if}
+						</div>
+					</div>
+				{/each}
+			{:else}
+				<div>
+					<h1>Hiç Bu Etiketle Bilet Yok</h1>
+				</div>
+			{/if}
+		{/await}
+	{/key}
 </div>
 
 <style>

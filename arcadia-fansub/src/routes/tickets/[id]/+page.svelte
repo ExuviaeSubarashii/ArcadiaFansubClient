@@ -79,21 +79,10 @@
 				type="radio"
 				id="completed"
 				name="status"
-				value="Tamamlandı"
+				value="Completed"
 				on:click={(e) => HandleStatusChange(e)}
 			/>
 			Tamamlandı
-		</label>
-
-		<label for="examining">
-			<input
-				type="radio"
-				id="examining"
-				name="status"
-				value="İncelenecek"
-				on:click={(e) => HandleStatusChange(e)}
-			/>
-			İncelenecek
 		</label>
 
 		<label for="progress">
@@ -101,7 +90,7 @@
 				type="radio"
 				id="progress"
 				name="status"
-				value="Yapım Aşamasında"
+				value="WIP"
 				on:click={(e) => HandleStatusChange(e)}
 			/>
 			Yapım Aşamasında
