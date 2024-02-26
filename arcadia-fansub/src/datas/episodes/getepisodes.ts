@@ -14,7 +14,6 @@ export async function GetAllEpisodes():Promise<Episodes[]> {
             throw new Error(getAllEpisodesResponse.statusText);
         }
         const episodeData: Episodes[] = await getAllEpisodesResponse.json();
-        // ExportedEpisodeLists.set(episodeData);
         return episodeData;
     } catch (error) {
         console.error('Error:', error);
@@ -43,6 +42,25 @@ export async function GetEpisodesByPageQuery(offSet:any):Promise<Episodes[]>{
         return episodeData;
     } catch (error) {
         return [];
+    }
+}
+export async function GetPageAmount():Promise<number>{
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const getPageAmount = await fetch(`${baseUrl}/Episode/GetPageAmount`, requestOptions);
+        if(!getPageAmount.ok){
+            return 0;
+            throw new Error(getPageAmount.statusText);
+        }
+        const episodeData: number= await getPageAmount.json();
+        
+        // ExportedEpisodeLists.set(episodeData);
+        return episodeData;
+    } catch (error) {
+        return 0;
     }
 }
 // export const ExportedEpisodeLists = writable<Episodes[]>([]);

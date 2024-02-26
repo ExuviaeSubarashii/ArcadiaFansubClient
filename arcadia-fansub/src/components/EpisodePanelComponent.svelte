@@ -157,8 +157,8 @@
 	.episodepanel {
 		position: relative;
 		top: 50%;
-		height: 776px;
-		overflow-x: auto;
+		overflow-x: scroll;
+		height: 750px;
 		white-space: nowrap;
 	}
 	.buttoncontainer button {

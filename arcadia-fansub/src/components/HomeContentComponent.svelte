@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import {  GetAllEpisodes } from '../datas/episodes/getepisodes';
+	import {  GetAllEpisodes, GetEpisodesByPageQuery } from '../datas/episodes/getepisodes';
 	import type { Episodes } from '../types/types';
 	export let episodes: Episodes[] = [];
-	onMount(async () => {
-		episodes=await GetAllEpisodes();
-	});
+	
 </script>
 
 <div class="row gap-2 ms-5 g-0">
