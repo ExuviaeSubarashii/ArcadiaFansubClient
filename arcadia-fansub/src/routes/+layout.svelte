@@ -5,7 +5,6 @@
 	import ResponseMessageComponent from "../components/ResponseMessageComponent.svelte";
 	import { responseMessageStore } from "../datas/variables";
 	import WarningComponent from "../components/WarningComponent.svelte";
-	
 	onMount(()=>{
 		document.title="Arcadia Fansub";
 	})
@@ -15,4 +14,5 @@
 <HeaderComponent/>
 {/key}
 <slot/>
+
 

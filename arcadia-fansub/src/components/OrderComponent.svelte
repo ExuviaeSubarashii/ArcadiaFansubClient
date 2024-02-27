@@ -58,7 +58,7 @@
 				<option value={letter}>{letter}</option>
 			{/each}
 		</select>
-		<select
+		<!-- <select
 			class="form-select mb-3"
 			style="width: 8%;"
 			bind:value={pageNumber}
@@ -69,6 +69,24 @@
 					<option value={i}>{i}. Sayfa</option>
 				{/if}
 			{/each}
-		</select>
+		</select> -->
+		<!-- <div class="pagebuttons">
+			{#each Array(numbers) as num, i}
+				{#if i !== 0}
+					<button class="btn btn-primary" on:click={() => handlePage(i)}>
+						{i}
+					</button>
+				{/if}
+			{/each}
+		</div> -->
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+			  {#each Array(numbers) as num, i}
+				{#if i !== 0}
+			  <li class="page-item"><button class="page-link" on:click={() => handlePage(i)}>{i}</button></li>
+			  {/if}
+			  {/each}
+			</ul>
+		  </nav>
 	</div>
 </div>

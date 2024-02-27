@@ -5,6 +5,7 @@
 	import { AddAnimeToFavorites, GetSpecificAnime } from '../datas/animes/getanimes';
 	import AnimeComponent from './AnimeComponent.svelte';
 	import { DeleteComment, GetUserComments } from '../datas/comments/comments';
+	import PopupModal from './PopupModal.svelte';
 
 	export let userName: string;
 	let userData: UserProfile;
@@ -13,7 +14,8 @@
 	let userComments: Comments[] = [];
 	let currentlyLoadedAnimeAmount = 5;
 	let currentlyLoadedCommentAmount = 5;
-
+	let isModalVisible: boolean = false;
+	let selectedComment: number;
 	onMount(async () => {
 		console.log('started');
 		userData = await GetUserProfile(userName);
@@ -42,7 +44,25 @@
 		}
 		isEpisodeSorted = !isEpisodeSorted;
 	}
+
+	async function HandleCommentDeletion() {
+		await deleteComment(selectedComment);
+		isModalVisible = !isModalVisible;
+	}
 </script>
+
+{#key isModalVisible}
+	<PopupModal bind:showModal={isModalVisible}>
+		<div slot="header" class="modal-dialog">
+			<h5 class="modal-title">Yorumunu Düzenle</h5>
+		</div>
+		<div slot="body" class="modal-content">
+			<p>Silmek Istediginize Emin Misiniz?</p>
+			<hr />
+			<button on:click={() => HandleCommentDeletion()}>Sil</button>
+		</div>
+	</PopupModal>
+{/key}
 
 <div class="fullbody">
 	<div class="user-body">
@@ -71,22 +91,28 @@
 							<p>{comment.commentContent}</p>
 							<p>{comment.commentTextDate}</p>
 							{#if comment.isCommentOwner === true}
-								<button class="dropdown-item" on:click={() => deleteComment(comment.commentId)}
-									>Yorumu Kaldir</button
+								<button
+									class="dropdown-item"
+									on:click={() => {
+										isModalVisible = !isModalVisible;
+										selectedComment = comment.commentId;
+									}}>Yorumu Kaldir</button
 								>
 							{/if}
 						</div>
 					{/each}
 					{#if commentData.length > 5}
-						<button
-							on:click={() => {
-								if (currentlyLoadedCommentAmount >= commentData.length) {
-									return;
-								} else {
-									currentlyLoadedCommentAmount += 5;
-								}
-							}}>Daha Fazla Goster</button
-						>
+						{#if currentlyLoadedCommentAmount < commentData.length}
+							<button
+								on:click={() => {
+									if (currentlyLoadedCommentAmount >= commentData.length) {
+										return;
+									} else {
+										currentlyLoadedCommentAmount += 5;
+									}
+								}}>Daha Fazla Goster</button
+							>
+						{/if}
 						{#if currentlyLoadedCommentAmount > 5}
 							<button
 								on:click={() => {
@@ -106,9 +132,11 @@
 		{/if}
 	</div>
 	<div class="favorited-series">
-		<button on:click={async () => await SortFavoritedAnimesByEpisodeAmount()}
-			>Sort By Episode Amount</button
-		>
+		{#if favoritedAnimes.length > 0}
+			<button on:click={async () => await SortFavoritedAnimesByEpisodeAmount()}
+				>Sort By Episode Amount</button
+			>
+		{/if}
 		{#key favoritedAnimes}
 			{#if favoritedAnimes.length > 0}
 				{#await favoritedAnimes}
