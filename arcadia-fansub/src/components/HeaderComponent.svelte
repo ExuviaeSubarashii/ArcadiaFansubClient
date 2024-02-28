@@ -120,7 +120,8 @@
 
 	}
 	.userbar {
-		margin-left: auto;
+		position: relative;
+		left: 30%;
 	}
 	h1 {
 		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
