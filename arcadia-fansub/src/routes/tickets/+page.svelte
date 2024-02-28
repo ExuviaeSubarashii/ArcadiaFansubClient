@@ -14,6 +14,7 @@
 	let ticketData: TicketDto[] = [];
 	let ticketIdValue: string;
 	let searchValue: string;
+	let isAdmin: boolean = false;
 	async function SortTickets(event: any) {
 		if (IsNullOrEmpty(event.target.value)) {
 			ResetTickets();
@@ -29,11 +30,12 @@
 	}
 	onMount(async () => {
 		ticketData = await GetAllTickets();
+		isAdmin = await IsAdmin();
 	});
 	async function HandleSearch() {
 		if (IsNullOrEmpty(searchValue)) {
 			ResetTickets();
-		} else if (IsNullOrEmpty(searchValue)===false) {
+		} else if (IsNullOrEmpty(searchValue) === false) {
 			setTimeout(async () => {
 				ticketData = await GetTicketBySearch(searchValue);
 			}, 1000);
@@ -89,7 +91,7 @@
 			{#if data.length > 0}
 				{#each data as ticket}
 					<div class="ticket-body">
-						{#await IsAdmin()}
+						{#await isAdmin}
 							<div>Checking if you are an admin...</div>
 						{:then isAdminResult}
 							{#if isAdminResult === true}

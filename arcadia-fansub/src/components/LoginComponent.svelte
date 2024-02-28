@@ -10,7 +10,7 @@
 </script>
 
 <div class="loginpage">
-	<h1 class="tospotify">Log in to Arcadia</h1>
+	<h1 class="toArcadia">Log in to Arcadia</h1>
 	<ul class="login-options">
 		<li>
 			<button>Continue with Google</button>
@@ -44,16 +44,17 @@
 </div>
 
 <style>
-	.tospotify {
+	.toArcadia {
 		color: white;
 		position: fixed;
-		top: 23%;
-		right: 40%;
+		top: 15%;
+		margin-left: 10%;
 	}
 	.loginpage {
+		
 		position: fixed;
-		top: 30%;
-		right: 30%;
+		margin-top: 10%;
+		margin-left: 35%;
 	}
 	.login-options li {
 		list-style: none;
@@ -121,37 +122,18 @@
 		text-overflow: ellipsis;
 	}
 	.login-button {
-		--parents-essential-base: #ffffff;
-		font-weight: 700;
-		font-family: var(
-			--font-family,
-			CircularSp,
-			CircularSp-Arab,
-			CircularSp-Hebr,
-			CircularSp-Cyrl,
-			CircularSp-Grek,
-			CircularSp-Deva,
-			var(--fallback-fonts, sans-serif)
-		);
-		text-align: center;
-		text-transform: none;
-		user-select: none;
-		box-sizing: border-box;
-		-webkit-tap-highlight-color: transparent;
 		position: relative;
-		background-color: var(--background-base, #1ed760);
-		color: var(--text-base, #000000);
 		display: flex;
-		border-radius: 500px;
-		font-size: inherit;
+		border-radius: 25px;
 		min-block-size: 48px;
-		-webkit-box-align: center;
 		align-items: center;
-		-webkit-box-pack: center;
 		justify-content: center;
-		padding-block: 8px;
 		padding-inline: 32px;
-		overflow-wrap: anywhere;
 		margin: auto;
+		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
+		-webkit-background-clip: text;
+		color: transparent;
+		background-clip: text;
+		
 	}
 </style>

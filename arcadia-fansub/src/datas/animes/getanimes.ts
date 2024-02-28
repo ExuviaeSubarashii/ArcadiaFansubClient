@@ -2,10 +2,12 @@ import { writable } from "svelte/store";
 import type { Animes } from "../../types/types";
 import { baseUrl } from "../variables";
 import currentUser from "../users/user";
+import { IsNullOrEmpty } from "../emptychecker";
+import { IsAuthenticated } from "../users/authentication";
 
 export async function GetAllAnimes(): Promise<Animes[]> {
-    const body={
-        userToken:currentUser.userToken
+    const body = {
+        userToken: currentUser.userToken
     }
     const requestOptions = {
         method: 'POST',
@@ -54,7 +56,7 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<
 }
 export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
     const body = {
-        userToken:currentUser.userToken,
+        userToken: currentUser.userToken,
         favoritedAnimes: AnimeId
     }
     const requestOptions = {
@@ -76,25 +78,32 @@ export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
         console.error('Error:', error);
     }
 }
-export async function AddAnimeToFavorites(animeId:string){
-    const body = {
-        userToken:currentUser.userToken,
-        animeId:animeId
+export async function AddAnimeToFavorites(animeId: string) {
+    if (await IsAuthenticated()===false) {
+        window.location.href = '/login'
     }
-    const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' },
-    };
-    try {
-        const addAnimeToFavoritesResponse = await fetch(`${baseUrl}/Anime/AddAnimeToFavorites`, requestOptions);
+    else {
 
-        if (!addAnimeToFavoritesResponse.ok) {
-            throw new Error(addAnimeToFavoritesResponse.statusText);
+        const body = {
+            userToken: currentUser.userToken,
+            animeId: animeId
         }
-        return true;
-    } catch (error) {
-        console.error('Error:', error);
-        return false;
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        try {
+            const addAnimeToFavoritesResponse = await fetch(`${baseUrl}/Anime/AddAnimeToFavorites`, requestOptions);
+
+            if (!addAnimeToFavoritesResponse.ok) {
+                throw new Error(addAnimeToFavoritesResponse.statusText);
+            }
+            return true;
+        } catch (error) {
+            console.error('Error:', error);
+            return false;
+        }
     }
+
 }

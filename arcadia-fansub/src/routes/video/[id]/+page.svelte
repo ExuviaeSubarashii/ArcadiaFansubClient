@@ -52,29 +52,27 @@
 			commentValue = '';
 		}
 	}
-	let isSorted: boolean = false;
+	let isSorted = false;
+
 	async function HandleSorting() {
-		if (isSorted === true) {
-			commentData = commentData.sort((a, b) => {
-				isSorted = !isSorted;
-				return new Date(b.commentDate).getTime() + new Date(a.commentDate).getTime();
-			});
-		} else {
-			commentData = commentData.sort((a, b) => {
-				isSorted = !isSorted;
-				return new Date(b.commentDate).getTime() - new Date(a.commentDate).getTime();
-			});
-		}
-	}
+    isSorted = !isSorted;
+    commentData = commentData.sort((a, b) => {
+        if (isSorted) {
+            return new Date(b.commentDate).getTime() - new Date(a.commentDate).getTime();
+        } else {
+            return new Date(a.commentDate).getTime() - new Date(b.commentDate).getTime();
+        }
+    });
+}
+
 	onMount(async () => {
-		console.log(episodeId);
 		episodeData = await GetEpisodeVideo(episodeId);
-		console.log(episodeData);
 		if (episodeData && episodeData.episodeLinks) {
 			linkArray = episodeData.episodeLinks.split(',');
 		} else {
 			console.error('Episode data or episodeLinks is undefined.');
 		}
+		isAdmin = await IsAdmin();
 		commentData = await GetComments(episodeId);
 	});
 
@@ -155,7 +153,6 @@
 	</div>
 </div>
 <hr />
-<div class="comments-label">Yorumlar</div>
 <div class="comments">
 	<div class="comment-menu">
 		{#await IsAuthenticated()}
@@ -169,75 +166,76 @@
 					bind:value={commentValue}
 				/>
 				<button class="send-button" on:click={() => HandleComment()}>Yorum Yap</button>
-				<button class="sort-button" on:click={() => HandleSorting()}>Sirala</button>
+				<button class="sort-button" on:click={() => HandleSorting()}>Sırala </button>
 			{:else}
-				<p>Yorum yapmak için giriş yapmalısınız.</p>
+				<a href="/login" style="text-decoration: none; color:black;"
+					>Yorum yapmak için giriş yapmalısınız.</a
+				>
 			{/if}
 		{/await}
 	</div>
 	{#key commentData}
-		
-	{#await commentData}
-		<div>Yorumlar Yükleniyor...</div>
-	{:then data}
-		{#if data.length > 0}
-			{#each data as comment, index}
-				<div class="comment" id={index.toString()}>
-					<a href="/profile/{comment.userName}" style="text-decoration: none;">{comment.userName}</a
-					>
-					<p>{comment.commentContent}</p>
-					<p style="position:absolute; left:80%; top:70%">{comment.commentTextDate}</p>
-					{#await IsAdmin()}
-						<div>Checking if you are an admin...</div>
-					{:then isAdminResult}
-						{#if comment.isCommentOwner === true || isAdminResult === true}
-							<div class="dropdown">
-								<button
-									class="btn btn-secondary dropdown-toggle"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									on:click={() => {
-										visiblediv = visiblediv === index ? null : index;
-									}}
-								>
-									Actions
-								</button>
-								{#if visiblediv === index}
-									<div class="actions" id={comment.commentId.toString()}>
-										{#if comment.isCommentOwner === true}
-											<button
-												class="dropdown-item"
-												on:click={() => handleModal(comment.commentId, comment.commentContent)}
-												>Update comment</button
-											>
-											<button
-												class="dropdown-item"
-												on:click={() => deleteComment(comment.commentId)}>Delete comment</button
-											>
-										{/if}
-										{#if isAdminResult === true}
-											<button
-												class="dropdown-item"
-												on:click={() => deleteComment(comment.commentId)}
-												>Admin Force Delete Comment</button
-											>
-										{/if}
-									</div>
-								{/if}
-							</div>
-						{/if}
-					{/await}
-				</div>
-			{/each}
-		{:else}
-			<p>Yorum yok.</p>
-		{/if}
-	{/await}
+		{#await commentData}
+			<div>Yorumlar Yükleniyor...</div>
+		{:then data}
+			{#if data.length > 0}
+				{#each data as comment, index}
+					<div class="comment" id={index.toString()}>
+						<a href="/profile/{comment.userName}" style="text-decoration: none;"
+							>{comment.userName}</a
+						>
+						<p>{comment.commentContent}</p>
+						<p style="position:absolute; left:80%; top:70%">{comment.commentTextDate}</p>
+						{#await isAdmin}
+							<div>Checking if you are an admin...</div>
+						{:then isAdminResult}
+							{#if comment.isCommentOwner === true || isAdminResult === true}
+								<div class="dropdown">
+									<button
+										class="btn btn-secondary dropdown-toggle"
+										type="button"
+										id="dropdownMenuButton"
+										data-toggle="dropdown"
+										aria-haspopup="true"
+										aria-expanded="false"
+										on:click={() => {
+											visiblediv = visiblediv === index ? null : index;
+										}}
+									>
+										Actions
+									</button>
+									{#if visiblediv === index}
+										<div class="actions" id={comment.commentId.toString()}>
+											{#if comment.isCommentOwner === true}
+												<button
+													class="dropdown-item"
+													on:click={() => handleModal(comment.commentId, comment.commentContent)}
+													>Update comment</button
+												>
+												<button
+													class="dropdown-item"
+													on:click={() => deleteComment(comment.commentId)}>Delete comment</button
+												>
+											{/if}
+											{#if isAdminResult === true}
+												<button
+													class="dropdown-item"
+													on:click={() => deleteComment(comment.commentId)}
+													>Admin Force Delete Comment</button
+												>
+											{/if}
+										</div>
+									{/if}
+								</div>
+							{/if}
+						{/await}
+					</div>
+				{/each}
+			{:else}
+				<p>Yorum yok.</p>
+			{/if}
+		{/await}
 	{/key}
-
 </div>
 
 <style>
