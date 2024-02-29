@@ -1,18 +1,13 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import HeaderComponent from "../components/HeaderComponent.svelte";
-	import currentUser from "../datas/users/user";
-	import ResponseMessageComponent from "../components/ResponseMessageComponent.svelte";
-	import { responseMessageStore } from "../datas/variables";
-	import WarningComponent from "../components/WarningComponent.svelte";
-	onMount(()=>{
-		document.title="Arcadia Fansub";
-	})
+	import { onMount } from 'svelte';
+	import HeaderComponent from '../components/HeaderComponent.svelte';
+	import currentUser from '../datas/users/user';
+	onMount(() => {
+		document.title = 'Arcadia Fansub';
+	});
 </script>
 
-{#key currentUser.isLoggedIn===true}
-<HeaderComponent/>
+{#key currentUser.isLoggedIn === true}
+	<HeaderComponent />
 {/key}
-<slot/>
-
-
+<slot />

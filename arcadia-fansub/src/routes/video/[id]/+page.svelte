@@ -30,7 +30,6 @@
 	let commentValue: string;
 	let isOptionsVisible: boolean = false;
 	let isModalVisible: boolean = false;
-
 	let newCommentValue: string;
 
 	const updateBody = {
@@ -272,11 +271,6 @@
 		width: 950px;
 		height: 50px;
 		top: 7px;
-	}
-	.comments-label {
-		position: absolute;
-		top: 100%;
-		left: 40%;
 	}
 	.comment {
 		display: flex;
