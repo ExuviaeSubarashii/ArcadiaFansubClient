@@ -7,7 +7,7 @@ export type Animes = {
     translator: string | null;
     editor: string | null;
     animeImage: string | null;
-    isFavorited:boolean;
+    isFavorited: boolean;
 }
 export type Episodes = {
     episodeId: string;
@@ -28,12 +28,12 @@ export type User = {
     userEmail: string;
     isLoggedIn: boolean;
 }
-export type UserProfile={
+export type UserProfile = {
     userId: number;
     userName: string;
     userEmail: string;
     userPermission: string;
-    favoritedAnimes:string;
+    favoritedAnimes: string;
 }
 export type AddAnime = {
     animeName: string;
@@ -55,41 +55,41 @@ export type TicketBody = {
     senderName: string;
     ticketReason: string;
     ticketStatus: string;
-    senderToken:string;
+    senderToken: string;
 }
-export type TicketReply={
-    responseId:number;
-    ticketId:string;
-    ticketAdminName:string;
-    ticketReply:string;
-    ticketReplyDate:Date;
+export type TicketReply = {
+    responseId: number;
+    ticketId: string;
+    ticketAdminName: string;
+    ticketReply: string;
+    ticketReplyDate: Date;
 }
-export type TicketDto={
-    ticketId:string;
-    ticketTitle:string;
-    ticketMessage:string;
-    senderName:string;
-    ticketDate:Date;
-    ticketReason:string;
-    ticketStatus :string;
+export type TicketDto = {
+    ticketId: string;
+    ticketTitle: string;
+    ticketMessage: string;
+    senderName: string;
+    ticketDate: Date;
+    ticketReason: string;
+    ticketStatus: string;
 }
-export type AdminResponse={
-    ticketId:string;
-    adminName:string;
-    adminReply:string;
+export type AdminResponse = {
+    ticketId: string;
+    adminName: string;
+    adminReply: string;
 }
-export type Notifications={
-    episodeLink:string;
-    episodeNotificationMessage:string;
-    isVisible:boolean;
+export type Notifications = {
+    episodeLink: string;
+    episodeNotificationMessage: string;
+    isVisible: boolean;
 }
-export type CreateCommentBody={
+export type CreateCommentBody = {
     episodeId: string;
     userId: number;
     userName: string;
     commentContent: string;
 }
-export type Comments={
+export type Comments = {
     commentId: number;
     episodeId: string;
     userId: number;
@@ -99,17 +99,28 @@ export type Comments={
     commentTextDate: string;
     isCommentOwner: boolean;
 }
-export type UpdateCommentBody={
+export type UpdateCommentBody = {
     commentId: number;
     userId: number;
     newComment: string;
-    userToken:string;
+    userToken: string;
 }
-export type UpdateAnimeBody={
-    animeId:string;
-    newAnimeName:string;
-    newEpisodeAmount:number;
-    newEditorName:string;
-    newTranslatorName:string;
-    newReleaseDate:Date;
+export type UpdateAnimeBody = {
+    animeId: string;
+    newAnimeName: string;
+    newEpisodeAmount: number;
+    newEditorName: string;
+    newTranslatorName: string;
+    newReleaseDate: Date;
+}
+export type Member = {
+    memberName: string;
+    memberRole: string;
+}
+export type AllMember = {
+    translators: Member[];
+    editors: Member[];
+    coders: Member[];
+    admins: Member[];
+    uploaders: Member[];
 }
