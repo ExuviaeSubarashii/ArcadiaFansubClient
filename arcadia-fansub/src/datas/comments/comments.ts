@@ -24,7 +24,7 @@ export async function CreateComment(commentBody:CreateCommentBody){
 export async function GetComments(episodeId:string):Promise<Comments[]>{
     try {
         const body={
-            userToken:currentUser.userToken??""
+            userToken:currentUser.userToken||""
         }
         const requestOptions = {
             method: 'POST',
@@ -47,7 +47,7 @@ export async function DeleteComment(commentToDeleteId:number){
     try {
         const body={
             commentId:commentToDeleteId,
-            userToken:currentUser.userToken
+            userToken:currentUser.userToken||""
         }
         const requestOptions = {
             method: 'DELETE',
@@ -86,7 +86,7 @@ export async function UpdateComment(updateCommentBody:UpdateCommentBody){
 export async function GetUserComments(userName:string):Promise<Comments[]>{
     try {
         const body={
-            userToken:currentUser.userToken
+            userToken:currentUser.userToken||""
         }
         const requestOptions = {
             method: 'POST',

@@ -7,14 +7,15 @@ import { IsAuthenticated } from "../users/authentication";
 
 export async function GetAllAnimes(): Promise<Animes[]> {
     const body = {
-        userToken: currentUser.userToken
+        userToken: currentUser.userToken||""
     }
-    const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' },
-    };
     try {
+
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        };
         const getAllAnimesResponse = await fetch(`${baseUrl}/Anime/GetAllAnimes`, requestOptions);
         if (!getAllAnimesResponse.ok) {
             return [];
@@ -56,7 +57,7 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<
 }
 export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
     const body = {
-        userToken: currentUser.userToken,
+        userToken: currentUser.userToken||"",
         favoritedAnimes: AnimeId
     }
     const requestOptions = {
@@ -79,7 +80,7 @@ export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
     }
 }
 export async function AddAnimeToFavorites(animeId: string) {
-    if (await IsAuthenticated()===false) {
+    if (await IsAuthenticated() === false) {
         window.location.href = '/login'
     }
     else {

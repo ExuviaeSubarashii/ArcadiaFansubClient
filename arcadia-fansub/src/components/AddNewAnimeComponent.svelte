@@ -47,8 +47,8 @@
 	}
 </script>
 
-<div class="mt-3" id="fullbody">
-	<div class="input-group mb-3">
+<div class="fullbody mt-3">
+	<div class="input-group mb-3 gap-3">
 		<input
 			type="text"
 			class="form-control"
@@ -58,7 +58,7 @@
 			aria-describedby="basic-addon2"
 		/>
 	</div>
-	<div class="input-group mb-3">
+	<div class="input-group mb-3 gap-3">
 		<input
 			type="text"
 			class="form-control"
@@ -68,7 +68,7 @@
 			aria-describedby="basic-addon2"
 		/>
 	</div>
-	<div class="input-group mb-3">
+	<div class="input-group mb-3 gap-3">
 		<label for="editor">Editör Adı</label>
 		<input
 			type="checkbox"
@@ -76,11 +76,12 @@
 				editorExists = !editorExists;
 			}}
 		/>
-		{#if !editorExists}
+		{#if !editorExists && allMembers.editors.length > 0}
 			<select bind:value={editor} on:change={() => console.log(editor)}>
+				<option value="">Editör Seçin</option>
 				{#if allMembers.editors}
-					{#each allMembers.editors as editor}
-						<option value={editor.memberName}>{editor.memberName}</option>
+					{#each allMembers.editors as editorItem}
+						<option value={editorItem.memberName}>{editorItem.memberName}</option>
 					{/each}
 				{/if}
 			</select>
@@ -89,24 +90,24 @@
 				type="text"
 				class="form-control"
 				bind:value={editor}
-				on:input={()=>console.log(editor)}
-
+				on:input={() => console.log(editor)}
 				placeholder="Editör Adı"
 				aria-label="Links"
 				aria-describedby="basic-addon2"
 			/>
 		{/if}
 	</div>
-	<div class="input-group mb-3">
-		<label for="translator">Çevirmen Adı</label>
+	<div class="input-group mb-3 gap-3">
+		<label for="translator"> Çevirmen Adı </label>
 		<input
 			type="checkbox"
 			on:click={() => {
 				translatorExists = !translatorExists;
 			}}
 		/>
-		{#if !translatorExists}
+		{#if !translatorExists && allMembers.translators.length > 0}
 			<select bind:value={translator} on:change={() => console.log(translator)}>
+				<option value="">Çevirmen Seçiniz</option>
 				{#if allMembers.translators}
 					{#each allMembers.translators as translator}
 						<option value={translator.memberName}>{translator.memberName}</option>
@@ -118,7 +119,7 @@
 				type="text"
 				class="form-control"
 				bind:value={translator}
-				on:input={()=>console.log(translator)}
+				on:input={() => console.log(translator)}
 				placeholder="Çevirmen Adı"
 				aria-label="Links"
 				aria-describedby="basic-addon2"
@@ -166,7 +167,7 @@
 </div>
 
 <style>
-	#fullbody {
+	.fullbody {
 		padding: 10px;
 		position: relative;
 		left: 30%;
