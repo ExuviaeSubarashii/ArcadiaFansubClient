@@ -20,6 +20,7 @@
 				<a href="/watch/{anime.animeId}" class="text-decoration-none text-light">
 					<div class="row g-0">
 						<div class="col-md-4 mt-4">
+							
 							<img
 								src={`../src/lib/imajlar/${anime.animeImage}` ?? ''}
 								class="img-fluid rounded-start"

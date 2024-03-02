@@ -3,6 +3,7 @@
 	import currentUser from '../datas/users/user';
 	import { Login } from '../datas/users/useractivies';
 	import { responseMessageStore } from '../datas/variables';
+	import { IsNullOrEmpty } from '../datas/emptychecker';
 
 	var email = '';
 	var password = '';
@@ -24,12 +25,12 @@
 	</ul>
 	<hr />
 	<br />
-	<input bind:value={email} placeholder="Email" class="email-input" />
-	<input bind:value={password} placeholder="Password" class="password-input" />
+	<input bind:value={email} placeholder="E-Posta" class="email-input" />
+	<input bind:value={password} placeholder="Şifre" class="password-input" />
 	<button
 		class="login-button"
 		on:click={() => {
-			if (email && password) {
+			if (!IsNullOrEmpty(email)&&!IsNullOrEmpty(password)) {
 				Login(email, password);
 			} else {
 				{
@@ -39,7 +40,7 @@
 		}}>Login</button
 	>
 	<h1 style="color:gray; text-align:center; font:sans-serif; margin;0 auto">
-		Already have an account? <a style="color:white;" href="/register">Sign up here</a>
+		Hesabın Yok Mu? <a style="color:white;" href="/register">Buradan Kayıt Ol</a>
 	</h1>
 </div>
 

@@ -25,6 +25,7 @@ export async function Login(email: string, password: string) {
         };
         const loginResponse = await fetch(`${baseUrl}/User/Login`, requestOptions);
         if (!loginResponse.ok) {
+            responseMessageStore.set('E-Posta veya Şifre Hatalı!')
             throw new Error(loginResponse.statusText);
         }
         const data: User = await loginResponse.json();

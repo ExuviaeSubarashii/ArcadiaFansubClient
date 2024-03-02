@@ -1,5 +1,5 @@
 export function IsNullOrEmpty(value:any){
-if(value === null || value === undefined || value === ""||value===''||value==='undefined'){
+if(value.trim() === null || value.trim() === undefined || value.trim() === ""||value.trim()===''||value.trim()==='undefined'){
     return true;
 }
 else{

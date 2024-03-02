@@ -18,6 +18,7 @@
 						<div class="row g-0">
 							<div class="col-md-4 mt-4">
 								<!-- svelte-ignore a11y-missing-attribute -->
+								
 								<img
 									src={`../src/lib/imajlar/${episode.animeImage}`}
 									class="img-fluid rounded-start"

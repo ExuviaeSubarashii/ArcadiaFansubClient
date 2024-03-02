@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { IsNullOrEmpty } from '../../datas/emptychecker';
 	import { Register } from '../../datas/users/useractivies';
 	import { responseMessageStore } from '../../datas/variables';
 	var email = '';
@@ -16,7 +17,7 @@
 	<button
 		class="login-button"
 		on:click={() => {
-			if (email && password && username) {
+			if (!IsNullOrEmpty(email)&&!IsNullOrEmpty(password)&&!IsNullOrEmpty(username)) {
 				Register(email, password, username);
 			} else {
 				responseMessageStore.set('Email and password are required');
