@@ -7,7 +7,7 @@ import { IsAuthenticated } from "../users/authentication";
 
 export async function GetAllAnimes(): Promise<Animes[]> {
     const body = {
-        userToken: currentUser.userToken||""
+        userToken: currentUser.userToken || ""
     }
     try {
 
@@ -57,7 +57,7 @@ export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<
 }
 export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
     const body = {
-        userToken: currentUser.userToken||"",
+        userToken: currentUser.userToken || "",
         favoritedAnimes: AnimeId
     }
     const requestOptions = {
@@ -80,31 +80,24 @@ export async function GetSpecificAnime(AnimeId: string[]): Promise<Animes[]> {
     }
 }
 export async function AddAnimeToFavorites(animeId: string) {
-    if (await IsAuthenticated() === false) {
-        window.location.href = '/login'
+    const body = {
+        userToken: currentUser.userToken,
+        animeId: animeId
     }
-    else {
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+    };
+    try {
+        const addAnimeToFavoritesResponse = await fetch(`${baseUrl}/Anime/AddAnimeToFavorites`, requestOptions);
 
-        const body = {
-            userToken: currentUser.userToken,
-            animeId: animeId
+        if (!addAnimeToFavoritesResponse.ok) {
+            throw new Error(addAnimeToFavoritesResponse.statusText);
         }
-        const requestOptions = {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' },
-        };
-        try {
-            const addAnimeToFavoritesResponse = await fetch(`${baseUrl}/Anime/AddAnimeToFavorites`, requestOptions);
-
-            if (!addAnimeToFavoritesResponse.ok) {
-                throw new Error(addAnimeToFavoritesResponse.statusText);
-            }
-            return true;
-        } catch (error) {
-            console.error('Error:', error);
-            return false;
-        }
+        return true;
+    } catch (error) {
+        console.error('Error:', error);
+        return false;
     }
-
 }

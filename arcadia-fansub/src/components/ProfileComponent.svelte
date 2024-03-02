@@ -6,7 +6,7 @@
 	import AnimeComponent from './AnimeComponent.svelte';
 	import { DeleteComment, GetUserComments } from '../datas/comments/comments';
 	import PopupModal from './PopupModal.svelte';
-
+	import { IsAuthenticated } from '../datas/users/authentication';
 	export let userName: string;
 	let userData: UserProfile;
 	let userFavoritedAnimes: string[] = [];
@@ -154,14 +154,26 @@
 										<!-- favorites -->
 										<button
 											title="Favorilerden Kaldır"
-											on:click={async () => await AddAnimeToFavorites(anime.animeId)}
+											on:click={async () => {
+												if ((await IsAuthenticated()) === true) {
+													await AddAnimeToFavorites(anime.animeId);
+												} else {
+													window.location.href = '/login';
+												}
+											}}
 											class="btn btn-light"><i class="bx bxs-bookmark"></i></button
 										>
 									{:else}
 										<!-- unfavorites -->
 										<button
 											title="Favorilere Ekle"
-											on:click={async () => await AddAnimeToFavorites(anime.animeId)}
+											on:click={async () => {
+												if ((await IsAuthenticated()) === true) {
+													await AddAnimeToFavorites(anime.animeId);
+												} else {
+													window.location.href = '/login';
+												}
+											}}
 											class="btn btn-light"><i class="bx bx-bookmark"></i></button
 										>
 									{/if}

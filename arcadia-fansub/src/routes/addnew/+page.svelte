@@ -17,6 +17,6 @@
     {#if adminCheck===true}
     <AddNewComponent/>
     {:else}
-    <p>Redirecting...</p>
+    <p>Yönlendiriliyor...</p>
     {/if}
 </div>

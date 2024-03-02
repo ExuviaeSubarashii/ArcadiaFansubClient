@@ -17,7 +17,7 @@
         <button type="button" class="mt-2 col btn btn-dark border border-secondary {$userOption === 1 ? 'selected' : ''}" on:click={() => SetOption(1)}>Yeni Bölüm Ekle</button>
         <div class="w-100"></div>
         <button type="button" class="col btn btn-dark border border-secondary {$userOption === 2 ? 'selected' : ''}" on:click={() => SetOption(2)}>Bölüm Paneli</button>
-        <button type="button" class="col btn btn-dark border border-secondary {$userOption === 3 ? 'selected' : ''}" on:click={() => SetOption(3)}>Anime Paneli</button>
+        <button type="button" class="col btn btn-dark border border-secondary {$userOption === 3 ? 'selected' : ''}" on:click={() => SetOption(3)}>Seri Paneli</button>
     </div>
 </div>
 

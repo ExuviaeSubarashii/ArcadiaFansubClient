@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { AddAnimeToFavorites, GetAllAnimes } from '../datas/animes/getanimes';	
+	import { AddAnimeToFavorites, GetAllAnimes } from '../datas/animes/getanimes';
 	import type { Animes } from '../types/types';
 	import currentUser from '../datas/users/user';
 	import { IsAuthenticated } from '../datas/users/authentication';
-	export let animes:Animes[] = [];
+	export let animes: Animes[] = [];
 </script>
 
 <div class="row gap-2 ms-5 g-0">
@@ -39,36 +39,43 @@
 				</a>
 				<div class="like-dislike">
 					<!-- check if favorited or not -->
-					{#if anime.isFavorited===true}
-					<!-- favorites -->
-					<button title="Favorilerden Kaldır" on:click={async()=> {
-						if(await IsAuthenticated()===true){
-							await AddAnimeToFavorites(anime.animeId)}
-						else{
-							window.location.href="/login";
-						}}
-						}
-						 class="btn btn-light"><i class='bx bxs-bookmark'></i></button> 
+					{#if anime.isFavorited === true}
+						<!-- favorites -->
+						<button
+							title="Favorilerden Kaldır"
+							on:click={async () => {
+								if ((await IsAuthenticated()) === true) {
+									await AddAnimeToFavorites(anime.animeId);
+								} else {
+									window.location.href = '/login';
+								}
+							}}
+							class="btn btn-light"><i class="bx bxs-bookmark"></i></button
+						>
 					{:else}
-					<!-- unfavorites -->
-					<button title="Favorilere Ekle" on:click={async()=> {
-						if(await IsAuthenticated()===true){
-							await AddAnimeToFavorites(anime.animeId)}
-						else{
-							window.location.href="/login";
-						}}
-						} class="btn btn-light"><i class='bx bx-bookmark' ></i></button>
+						<!-- unfavorites -->
+						<button
+							title="Favorilere Ekle"
+							on:click={async () => {
+								if ((await IsAuthenticated()) === true) {
+									await AddAnimeToFavorites(anime.animeId);
+								} else {
+									window.location.href = '/login';
+								}
+							}}
+							class="btn btn-light"><i class="bx bx-bookmark"></i></button
+						>
 					{/if}
 				</div>
 			</div>
 		{/each}
-		{:catch error}
-	<p>error loading comments: {error.message}</p>
+	{:catch error}
+		<p>error loading comments: {error.message}</p>
 	{/await}
 </div>
 
 <style>
-		.like-dislike {
+	.like-dislike {
 		position: absolute;
 		left: 90%;
 		top: 2%;
