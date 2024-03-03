@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { AddAnimeFunction } from '../datas/animes/addAnime';
+	import { AddAnimeFunction, UploadImage } from '../datas/animes/addAnime';
 	import { IsNullOrEmpty } from '../datas/emptychecker';
 	import { GetAllMembers } from '../datas/members/members';
 	import type { AddAnime, AllMember, Member } from '../types/types';
@@ -19,6 +19,7 @@
 		admins: [],
 		uploaders: []
 	};
+	let selectedImage:FormData;
 	let editorExists: boolean = false;
 	let translatorExists: boolean = false;
 
@@ -44,6 +45,13 @@
 			imageLink: imageLink
 		};
 		await AddAnimeFunction(addAnime);
+		sendimage();
+	}
+	let files: any;
+	function sendimage() {
+		let fd=new FormData();
+		fd.append('form',files[0])
+		UploadImage(fd);
 	}
 </script>
 
@@ -135,6 +143,8 @@
 			aria-label="Links"
 			aria-describedby="basic-addon2"
 		/>
+		<!-- <input bind:files id="many" multiple type="file" accept=".jpg, .jpeg, .png, .webp" required />
+<button on:click={() => sendimage()}>Send</button> -->
 	</div>
 	<div class="input-group mb-3">
 		<input
