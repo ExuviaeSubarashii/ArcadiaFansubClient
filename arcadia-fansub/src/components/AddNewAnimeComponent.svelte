@@ -4,6 +4,7 @@
 	import { IsNullOrEmpty } from '../datas/emptychecker';
 	import { GetAllMembers } from '../datas/members/members';
 	import type { AddAnime, AllMember, Member } from '../types/types';
+	import { responseMessageStore } from '../datas/variables';
 
 	let animeName: any;
 	let episodeAmount: any;
@@ -22,6 +23,7 @@
 	let selectedImage:FormData;
 	let editorExists: boolean = false;
 	let translatorExists: boolean = false;
+	let files: any;
 
 	onMount(async () => {
 		members = await GetAllMembers();
@@ -47,11 +49,12 @@
 		await AddAnimeFunction(addAnime);
 		sendimage();
 	}
-	let files: any;
 	function sendimage() {
-		let fd=new FormData();
-		fd.append('form',files[0])
-		UploadImage(fd);
+		if(files){
+			let fd=new FormData();
+			fd.append('form',files[0])
+			UploadImage(fd);
+		}
 	}
 </script>
 
