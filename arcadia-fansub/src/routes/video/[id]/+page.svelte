@@ -73,6 +73,7 @@
 		}
 		isAdmin = await IsAdmin();
 		commentData = await GetComments(episodeId);
+		
 	});
 
 	async function SetPlayer(playerName: string) {
@@ -119,10 +120,9 @@
 	</div>
 </PopupModal>
 
-<div class="col-sm-4">
+<div class="body-div">
 	<div
-		class="card d-flexbox align-items-center justify-content-center"
-		style="position:absolute; top:30%;right:30%;"
+	class="watch-div"
 	>
 		{#key player}
 			{#await episodeData}
@@ -130,26 +130,31 @@
 			{:then data}
 				{#if data}
 					<a href="/watch/{data.animeId}" style="text-decoration: none;"
-						>{data.animeName} {data.episodeNumber}. Bölüm</a
+						>{data.animeName} </a
 					>
+					<p>{data.episodeNumber}. Bölüm</p>
+					{#if !player}
+					<iframe src={linkArray[0]} height="422" width="654" title="Iframe"></iframe>
+					{:else}
 					<iframe src={player} height="422" width="654" title="Iframe"></iframe>
+					{/if}
 				{:else}
 					<p>No Video</p>
 				{/if}
 			{/await}
 		{/key}
+	</div>
 
-		<div class="btn-group">
+		<div class="links">
 			{#each linkArray as link}
-				<button
-					type="button"
-					on:click={() => SetPlayer(link)}
-					class="btn btn-primary"
-					style="width:50px; height:50px; text-align:center; overflow:hidden;">{link}</button
-				>
+			<button
+			type="button"
+			on:click={() => SetPlayer(link)}
+			class="link-button btn btn-primary"
+			>{link.split('/')[2]}</button
+			>
 			{/each}
 		</div>
-	</div>
 </div>
 <hr />
 <div class="comments">
@@ -238,6 +243,24 @@
 </div>
 
 <style>
+	.links{
+		display: flex;
+		flex-direction: row;
+	}
+	.body-div{
+		position: relative;
+		margin-top: 4%;
+	}
+	.watch-div{
+		position: relative;
+		margin-left: 30%;
+	}
+	.link-button{
+		width: 100px;
+		height: 100px;
+		text-align: center;
+		overflow: hidden;
+	}
 	.sort-button {
 		background-color: #121212;
 		color: white;

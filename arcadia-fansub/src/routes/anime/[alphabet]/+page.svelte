@@ -20,4 +20,3 @@
 {:then animeData}
 	<AnimeComponent animes={animeData} />
 {/await}
-<OrderComponent />
