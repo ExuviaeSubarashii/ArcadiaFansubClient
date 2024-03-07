@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import {  GetAllEpisodes, GetEpisodesByPageQuery } from '../datas/episodes/getepisodes';
 	import type { Episodes } from '../types/types';
+	import OrderComponent from './OrderComponent.svelte';
 	export let episodes: Episodes[] = [];
-	
 </script>
 
 <div class="row gap-2 ms-5 g-0">
@@ -18,7 +16,7 @@
 						<div class="row g-0">
 							<div class="col-md-4 mt-4">
 								<!-- svelte-ignore a11y-missing-attribute -->
-								
+
 								<img
 									src={`../src/lib/imajlar/${episode.animeImage}`}
 									class="img-fluid rounded-start"
@@ -38,14 +36,17 @@
 							</div>
 						</div>
 					</a>
-					<div class="like-dislike">
+					<!-- <div class="like-dislike">
 						<button class="btn btn-light"><i class="bx bxs-heart"></i></button>
-					</div>
+					</div> -->
 				</div>
 			{/each}
 		{/key}
 	{/await}
 </div>
+<footer>
+	<OrderComponent />
+</footer> 
 
 <style>
 	.bomba {
@@ -55,7 +56,7 @@
 		border-image: linear-gradient(to right, rgb(192, 1, 156) 0%, rgb(84, 102, 184) 100%);
 		border-image-slice: 1;
 	}
-	.like-dislike {
+	/* .like-dislike {
 		position: absolute;
 		left: 90%;
 		top: 2%;
@@ -66,7 +67,7 @@
 	}
 	.btn-light:hover i.bxs-heart {
 		color: white;
-	}
+	} */
 	img {
 		inline-size: 100px;
 	}

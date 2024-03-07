@@ -54,15 +54,15 @@
 	let isSorted = false;
 
 	async function HandleSorting() {
-    isSorted = !isSorted;
-    commentData = commentData.sort((a, b) => {
-        if (isSorted) {
-            return new Date(b.commentDate).getTime() - new Date(a.commentDate).getTime();
-        } else {
-            return new Date(a.commentDate).getTime() - new Date(b.commentDate).getTime();
-        }
-    });
-}
+		isSorted = !isSorted;
+		commentData = commentData.sort((a, b) => {
+			if (isSorted) {
+				return new Date(b.commentDate).getTime() - new Date(a.commentDate).getTime();
+			} else {
+				return new Date(a.commentDate).getTime() - new Date(b.commentDate).getTime();
+			}
+		});
+	}
 
 	onMount(async () => {
 		episodeData = await GetEpisodeVideo(episodeId);
@@ -73,7 +73,6 @@
 		}
 		isAdmin = await IsAdmin();
 		commentData = await GetComments(episodeId);
-		
 	});
 
 	async function SetPlayer(playerName: string) {
@@ -121,40 +120,28 @@
 </PopupModal>
 
 <div class="body-div">
-	<div
-	class="watch-div"
-	>
+	<div class="watch-div">
 		{#key player}
 			{#await episodeData}
 				<p>loading...</p>
 			{:then data}
 				{#if data}
-					<a href="/watch/{data.animeId}" style="text-decoration: none;"
-						>{data.animeName} </a
-					>
+					<a href="/watch/{data.animeId}" style="text-decoration: none;">{data.animeName} </a>
 					<p>{data.episodeNumber}. Bölüm</p>
-					{#if !player}
-					<iframe src={linkArray[0]} height="422" width="654" title="Iframe"></iframe>
-					{:else}
 					<iframe src={player} height="422" width="654" title="Iframe"></iframe>
-					{/if}
 				{:else}
-					<p>No Video</p>
+					<p style="color:white;">No Video</p>
 				{/if}
 			{/await}
 		{/key}
 	</div>
-
-		<div class="links">
-			{#each linkArray as link}
-			<button
-			type="button"
-			on:click={() => SetPlayer(link)}
-			class="link-button btn btn-primary"
-			>{link.split('/')[2]}</button
+	<div class="links">
+		{#each linkArray as link}
+			<button type="button" on:click={() => SetPlayer(link)} class="link-button btn btn-primary"
+				>{link.split('/')[2]}</button
 			>
-			{/each}
-		</div>
+		{/each}
+	</div>
 </div>
 <hr />
 <div class="comments">
@@ -243,19 +230,19 @@
 </div>
 
 <style>
-	.links{
+	.links {
 		display: flex;
 		flex-direction: row;
 	}
-	.body-div{
+	.body-div {
 		position: relative;
 		margin-top: 4%;
 	}
-	.watch-div{
+	.watch-div {
 		position: relative;
 		margin-left: 30%;
 	}
-	.link-button{
+	.link-button {
 		width: 100px;
 		height: 100px;
 		text-align: center;

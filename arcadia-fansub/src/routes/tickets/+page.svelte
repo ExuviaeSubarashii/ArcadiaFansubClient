@@ -170,7 +170,7 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
-		overflow: scroll;
+		
 		color: antiquewhite;
 	}
 	.ticket-body {

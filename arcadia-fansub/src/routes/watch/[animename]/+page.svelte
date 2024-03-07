@@ -38,7 +38,7 @@
 
 <style>
 	img {
-		inline-size: 150px;
+		inline-size: 100px;
 	}
 	.episode-group {
 		border-color: #914747;
