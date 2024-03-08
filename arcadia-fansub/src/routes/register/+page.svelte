@@ -11,9 +11,9 @@
 	<h1 class="tospotify">Sign up to start watching</h1>
 	<hr />
 	<br />
-	<input bind:value={email} placeholder="Email" class="email-input" />
-	<input bind:value={username} placeholder="Username" class="username-input" />
-	<input bind:value={password} placeholder="Password" class="password-input" />
+	<input bind:value={email} placeholder="Email" class="email-input" maxlength="250"/>
+	<input bind:value={username} placeholder="Username" class="username-input" maxlength="25"/>
+	<input bind:value={password} placeholder="Password" class="password-input" maxlength="250"/>
 	<button
 		class="login-button"
 		on:click={() => {

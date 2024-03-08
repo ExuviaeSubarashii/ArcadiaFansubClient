@@ -26,7 +26,7 @@
 	}
 	async function HandleTicketDelete(ticketId: string) {
 		await DeleteTicket(ticketId);
-		ResetTickets();
+		await ResetTickets();
 	}
 	onMount(async () => {
 		ticketData = await GetAllTickets();

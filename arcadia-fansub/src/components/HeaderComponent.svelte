@@ -89,7 +89,8 @@
 		top: 0;
 		width: 100%;
 		z-index: 1000; /* Ensure the navbar is above other content */
-		background-color: #121212;
+		/* background-color: #121212; */
+		background-color: #1f1f1f;
 		border-style: double;
 		border-color: gray;
 		border-radius: 0 0 15px 15px;
@@ -135,7 +136,7 @@
 
 	.userbar {
 		position: relative;
-		left: 50%;
+		left: 40%;
 	}
 
 	h1 {

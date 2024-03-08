@@ -14,7 +14,7 @@ import currentUser from "../datas/users/user";
 </script>
 <div class="top-right-user-component">
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle overflow-hidden p-1 d-inline-block text-truncate" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             {currentUser.userName}
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

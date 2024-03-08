@@ -18,6 +18,7 @@ export async function CreateTicket(ticketBody: TicketBody) {
         }
         const responseMessage = await createTicketResponse.text();
         responseMessageStore.set(responseMessage);
+        window.location.href='/tickets';
     } catch (error) {
         console.error('Error:', error);
         throw new Error('Could not create ticket.');
