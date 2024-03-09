@@ -11,10 +11,10 @@
 	{:then episodelist}
 		{#key episodes}
 			{#each episodelist as episode}
-				<div class="bomba card mb-3 text-bg-dark border-5 rounded" style="max-width: 440px;">
+				<div class="episode" style="max-width: 440px;">
 					<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">
 						<div class="row g-0">
-							<div class="col-md-4 mt-4">
+							<div class="col-md-4 ">
 								<!-- svelte-ignore a11y-missing-attribute -->
 
 								<img
@@ -23,7 +23,7 @@
 									alt={episode.animeImage}
 								/>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-8 mt-4">
 								<div class="card-body">
 									<h5 class="card-title">{episode.animeName} - {episode.episodeNumber}</h5>
 									<p class="card-text">
@@ -46,15 +46,17 @@
 </div>
 <footer>
 	<OrderComponent />
-</footer> 
+</footer>
 
 <style>
-	.bomba {
+	.episode {
 		border-radius: 25px;
 		border-style: solid;
-		border-width: 1px;
+		border-width: 5px;
 		border-image: linear-gradient(to right, rgb(192, 1, 156) 0%, rgb(84, 102, 184) 100%);
 		border-image-slice: 1;
+		align-items: center;
+		margin-bottom: 0.7rem;
 	}
 	/* .like-dislike {
 		position: absolute;
