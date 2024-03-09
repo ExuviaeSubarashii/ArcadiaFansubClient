@@ -52,7 +52,7 @@ userName.subscribe((val) => {
   })
 
   export const currentUser:User={
-    userToken: userTokenValue,
+    userToken: userTokenValue||undefined,
     userEmail: userEmailValue,
     userId: userIdValue,
     isLoggedIn: userTokenValue !== undefined && userTokenValue !== "undefined",

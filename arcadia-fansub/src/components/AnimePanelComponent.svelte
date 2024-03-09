@@ -78,7 +78,7 @@
 {#key isModalVisible}
 	<PopupModal bind:showModal={isModalVisible}>
 		<div slot="header" class="modal-dialog">
-			<h5 class="modal-title">Yorumunu Düzenle</h5>
+			<h5 class="modal-title">Seriyi Sil</h5>
 		</div>
 		<div slot="body" class="modal-content">
 			<p>Silmek Istediginize Emin Misiniz?</p>

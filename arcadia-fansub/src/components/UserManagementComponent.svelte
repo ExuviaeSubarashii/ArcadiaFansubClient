@@ -1,61 +1,168 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Member, Roles } from '../types/types';
-	import { GetAllMembers, AddOrRemoveMemberRole } from '../datas/members/members';
+	import type { Member, Roles, User } from '../types/types';
+	import { GetAllMembers, AddOrRemoveMemberRole, GetMemberByQuery } from '../datas/members/members';
+	import PopupModal from './PopupModal.svelte';
+	import { IsNullOrEmpty } from '../datas/emptychecker';
 
 	let allMembers: Member[] = [];
 	onMount(async () => {
 		allMembers = await GetAllMembers();
 		console.log(allMembers);
 	});
-	let RoleName = ['Kodlama', 'Kodlama', 'Çevirmen', 'Admin', 'Editör', 'Redaktör'];
-    let userId:number;
-    let roleName:string;
-    
-    async function HandleRoleRemove(e:any){
-        roleName=e.target.value;
-        await AddOrRemoveMemberRole(roleName,userId);
-    }
-    function HandleUserName(e:any){
-        userId=e.target.value;
-    }
+	let RoleName = ['Kodlama', 'Çevirmen', 'Admin', 'Editör', 'Redaktör'];
+	let userId: number;
+	let isModalVisible: boolean = false;
+
+	async function HandleRoleRemove(e: any) {
+		let selectedRoleName = e.target.value;
+		console.log(selectedRoleName, userId);
+		await AddOrRemoveMemberRole(selectedRoleName, userId);
+		allMembers = await GetAllMembers();
+	}
+	function HandleUserName(e: any) {
+		userId = e.target.value;
+	}
+
+	const newMember: any = {
+		newMemberName: String,
+		newMemberRole: []
+	};
+	function AddRoles(e: any) {
+		let selectedRoles = document.getElementById(e.target.id) as HTMLButtonElement;
+		if (newMember.newMemberRole.includes(e.target.value)) {
+			newMember.newMemberRole = newMember.newMemberRole.filter(
+				(item: any) => item !== e.target.value
+			);
+			selectedRoles.style.color = 'black';
+			console.log(newMember.newMemberRole);
+			console.log(e.target.id);
+		} else {
+			newMember.newMemberRole.push(e.target.value);
+			selectedRoles.style.color = 'green';
+			console.log(newMember.newMemberRole);
+			console.log(e.target.id);
+		}
+	}
+	function HandleMemberCreation() {
+		if (newMember.newMemberRole.length > 0 && IsNullOrEmpty(newMember.newMemberName) === false) {
+			console.log(newMember);
+			isModalVisible = !isModalVisible;
+			newMember.newMemberName = '';
+			sortingParam = '';
+			queriedUsers = [];
+			newMember.newMemberRole = [];
+		} else {
+			return alert('Kullanıcı adı veya Rol Seçilmemiş!');
+		}
+	}
+	let sortingParam: string;
+	let queriedUsers: User[] = [];
+	async function HandleUserReceiving() {
+		if (IsNullOrEmpty(sortingParam) === false) {
+			queriedUsers = await GetMemberByQuery(sortingParam);
+			console.log(queriedUsers);
+		}
+	}
+	let selectedUserButton: HTMLButtonElement;
+	function SetSelectedUser(e: any) {
+		const userId = e.currentTarget.dataset.userId;
+		console.log('User ID:', userId);
+		if (selectedUserButton) {
+			selectedUserButton.style.color = '';
+		}
+		selectedUserButton = e.currentTarget;
+		selectedUserButton.style.color = 'purple';
+
+		newMember.newMemberName = e.target.value;
+		console.log(newMember.newMemberName);
+	}
 </script>
 
+{#key isModalVisible}
+	<PopupModal bind:showModal={isModalVisible}>
+		<div slot="header" class="modal-dialog">
+			<h5 class="modal-title">Yeni Üye Oluştur</h5>
+		</div>
+		<div slot="body" class="modal-content">
+			<p>Yeni Üye Oluşturmak İstiyor Musunuz?</p>
+			<hr />
+			<input
+				placeholder="Üye Adı"
+				bind:value={sortingParam}
+				on:input={async () => HandleUserReceiving()}
+			/>
+			{#key queriedUsers}
+				{#if queriedUsers}
+					{#each queriedUsers as user, i}
+						<button value={user.userName} data-user-id={i} on:click={(e) => SetSelectedUser(e)}
+							>{user.userName}</button
+						>
+					{/each}
+				{/if}
+			{/key}
+			{#if RoleName}
+				{#each RoleName as role, i}
+					<li style="display: flex;">
+						<button
+							class="dropdown-item"
+							id={i.toString()}
+							value={role}
+							on:click={(e) => AddRoles(e)}>{role}</button
+						>
+					</li>
+				{/each}
+			{/if}
+			<button on:click={() => HandleMemberCreation()}>Oluştur</button>
+		</div>
+	</PopupModal>
+{/key}
 {#if allMembers}
-	<div class="members">
-		{#each allMembers as member}
-			<div class="member">
-				<p>{member.memberName}</p>
-				<div class="roles">
-					<button
-						class="btn btn-secondary dropdown-toggle"
-						type="button"
-						id="roleDropdown"
-						data-bs-toggle="dropdown"
-						aria-expanded="false"
-                        value="{member.memberId}"
-                        on:click={(e)=>HandleUserName(e)}
-					>
-						Roller
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="roleDropdown">
-						{#if RoleName}
-							{#each RoleName as role, i}
-								<li style="display: flex;">
-									<button class="dropdown-item">{role}</button>
-									{#if member.memberRole.split(',').includes(role.trim())}
-										<button value="{role}" on:click={(e)=>HandleRoleRemove(e)}>X</button>
-                                        {:else}
-										<button value="{role}" on:click={(e)=>HandleRoleRemove(e)}>+</button>
-									{/if}
-								</li>
-							{/each}
-						{/if}
-					</ul>
+	{#key allMembers}
+		<div class="members">
+			{#each allMembers as member}
+				<div class="member">
+					<p>{member.memberName}</p>
+					<div class="roles">
+						<button
+							class="btn btn-secondary dropdown-toggle"
+							type="button"
+							id="roleDropdown"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+							value={member.memberId}
+							on:click={(e) => HandleUserName(e)}
+						>
+							Roller
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="roleDropdown">
+							{#if RoleName}
+								{#each RoleName as role, i}
+									<li style="display: flex;">
+										<button class="dropdown-item">{role}</button>
+										{#if member.memberRole.split(',').includes(role.trim())}
+											<button
+												value={role}
+												on:click={(e) => HandleRoleRemove(e)}
+												style="font-size:medium; margin-top:5px;">X</button
+											>
+										{:else}
+											<button
+												value={role}
+												on:click={(e) => HandleRoleRemove(e)}
+												style="font-size:medium; margin-top:5px;">+</button
+											>
+										{/if}
+									</li>
+								{/each}
+							{/if}
+						</ul>
+					</div>
 				</div>
-			</div>
-		{/each}
-	</div>
+			{/each}
+			<button on:click={() => (isModalVisible = !isModalVisible)}>Yeni Üye Oluştur</button>
+		</div>
+	{/key}
 {/if}
 
 <style>
@@ -64,15 +171,15 @@
 		align-content: center;
 		flex-direction: row;
 		padding: 2em;
-        margin: auto;
+		margin: auto;
 	}
 	.member {
 		display: flex;
 		align-items: center;
 	}
-    .roles{
-        display: flex;
-        padding: 0.7em;
-        align-items: center;
-    }
+	.roles {
+		display: flex;
+		padding: 0.7em;
+		align-items: center;
+	}
 </style>
