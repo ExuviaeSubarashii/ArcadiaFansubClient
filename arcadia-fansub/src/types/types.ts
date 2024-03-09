@@ -114,6 +114,7 @@ export type UpdateAnimeBody = {
     newReleaseDate: Date;
 }
 export type Member = {
+    memberId:number;
     memberName: string;
     memberRole: string;
 }
@@ -123,4 +124,7 @@ export type AllMember = {
     coders: Member[];
     admins: Member[];
     uploaders: Member[];
+}
+export type Roles={
+    RoleName:string;
 }
