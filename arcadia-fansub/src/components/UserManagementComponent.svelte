@@ -64,6 +64,8 @@
 			sortingParam = '';
 			queriedUsers = [];
 			newMember.newMemberRole = [];
+		allMembers = await GetAllMembers();
+
 		} else {
 			return alert('Kullanıcı adı veya Rol Seçilmemiş!');
 		}
