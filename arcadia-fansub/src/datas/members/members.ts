@@ -1,5 +1,5 @@
 import { error, json } from "@sveltejs/kit";
-import type { Member, User } from "../../types/types";
+import type { CreateNewMemberBody, Member, User } from "../../types/types";
 import currentUser from "../users/user";
 import { baseUrl, responseMessageStore } from "../variables";
 
@@ -61,5 +61,22 @@ export async function GetMemberByQuery(param: string): Promise<User[]> {
         return userQuery;
     } catch (error) {
         return [];
+    }
+}
+export async function CreateNewMember(newUser: CreateNewMemberBody) {
+    try {
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const createNewMemberResponse = await fetch(`${baseUrl}/Member/CreateNewMember`, requestOptions);
+        if (!createNewMemberResponse.ok) {
+            throw new Error(createNewMemberResponse.statusText);
+        }
+        responseMessageStore.set(await createNewMemberResponse.statusText);
+
+    } catch (error) {
+        throw error;
     }
 }

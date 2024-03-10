@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Member, Roles, User } from '../types/types';
-	import { GetAllMembers, AddOrRemoveMemberRole, GetMemberByQuery } from '../datas/members/members';
+	import type { CreateNewMemberBody, Member, Roles, User } from '../types/types';
+	import {
+		GetAllMembers,
+		AddOrRemoveMemberRole,
+		GetMemberByQuery,
+		CreateNewMember
+	} from '../datas/members/members';
 	import PopupModal from './PopupModal.svelte';
 	import { IsNullOrEmpty } from '../datas/emptychecker';
 
@@ -12,6 +17,7 @@
 	});
 	let RoleName = ['Kodlama', 'Çevirmen', 'Admin', 'Editör', 'Redaktör'];
 	let userId: number;
+	let newUserId: number;
 	let isModalVisible: boolean = false;
 
 	async function HandleRoleRemove(e: any) {
@@ -44,9 +50,15 @@
 			console.log(e.target.id);
 		}
 	}
-	function HandleMemberCreation() {
+	async function HandleMemberCreation() {
 		if (newMember.newMemberRole.length > 0 && IsNullOrEmpty(newMember.newMemberName) === false) {
 			console.log(newMember);
+			const newUser: CreateNewMemberBody = {
+				memberName: newMember.newMemberName,
+				memberRoles: newMember.newMemberRole
+			};
+			console.log('look:', newUser);
+			await CreateNewMember(newUser);
 			isModalVisible = !isModalVisible;
 			newMember.newMemberName = '';
 			sortingParam = '';
@@ -66,14 +78,13 @@
 	}
 	let selectedUserButton: HTMLButtonElement;
 	function SetSelectedUser(e: any) {
-		const userId = e.currentTarget.dataset.userId;
-		console.log('User ID:', userId);
+		newUserId = e.currentTarget.dataset.userId;
+		console.log('User ID:', newUserId);
 		if (selectedUserButton) {
 			selectedUserButton.style.color = '';
 		}
 		selectedUserButton = e.currentTarget;
 		selectedUserButton.style.color = 'purple';
-
 		newMember.newMemberName = e.target.value;
 		console.log(newMember.newMemberName);
 	}

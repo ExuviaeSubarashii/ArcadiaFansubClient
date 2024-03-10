@@ -128,3 +128,7 @@ export type AllMember = {
 export type Roles={
     RoleName:string;
 }
+export type CreateNewMemberBody={
+    memberName:string;
+    memberRoles:string[];
+}
