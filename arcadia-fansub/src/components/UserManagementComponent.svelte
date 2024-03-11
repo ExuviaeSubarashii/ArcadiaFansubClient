@@ -15,7 +15,7 @@
 		allMembers = await GetAllMembers();
 		console.log(allMembers);
 	});
-	let RoleName = ['Kodlama', 'Çevirmen', 'Admin', 'Editör', 'Redaktör'];
+	let RoleName = ['Kodlama', 'Çevirmen', 'Editör', 'Redaktör'];
 	let userId: number;
 	let newUserId: number;
 	let isModalVisible: boolean = false;
@@ -64,8 +64,7 @@
 			sortingParam = '';
 			queriedUsers = [];
 			newMember.newMemberRole = [];
-		allMembers = await GetAllMembers();
-
+			allMembers = await GetAllMembers();
 		} else {
 			return alert('Kullanıcı adı veya Rol Seçilmemiş!');
 		}
@@ -95,7 +94,7 @@
 {#key isModalVisible}
 	<PopupModal bind:showModal={isModalVisible}>
 		<div slot="header" class="modal-dialog">
-			<h5 class="modal-title">Yeni Üye Oluştur</h5>
+			<h5 class="modal-title">Yeni Ekip Üyesi Oluştur</h5>
 		</div>
 		<div slot="body" class="modal-content">
 			<p>Yeni Üye Oluşturmak İstiyor Musunuz?</p>

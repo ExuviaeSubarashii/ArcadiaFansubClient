@@ -19,7 +19,7 @@
         <div class="w-100"></div>
         <button type="button" class="col btn btn-dark border border-secondary {$userOption === 2 ? 'selected' : ''}" on:click={() => SetOption(2)}>Bölüm Paneli</button>
         <button type="button" class="col btn btn-dark border border-secondary {$userOption === 3 ? 'selected' : ''}" on:click={() => SetOption(3)}>Seri Paneli</button>
-        <button type="button" class="col btn btn-dark border border-secondary {$userOption === 4 ? 'selected' : ''}" on:click={() => SetOption(4)}>Üye Paneli</button>
+        <button type="button" class="col btn btn-dark border border-secondary {$userOption === 4 ? 'selected' : ''}" on:click={() => SetOption(4)}>Ekip Üyesi Paneli</button>
     </div>
 </div>
 
