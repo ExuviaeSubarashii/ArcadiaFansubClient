@@ -15,7 +15,7 @@
 		allMembers = await GetAllMembers();
 		console.log(allMembers);
 	});
-	let RoleName = ['Kodlama', 'Çevirmen', 'Editör', 'Redaktör'];
+	let RoleName = ['Kodlama', 'Admin', 'Çevirmen', 'Editör', 'Redaktör'];
 	let userId: number;
 	let newUserId: number;
 	let isModalVisible: boolean = false;

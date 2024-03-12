@@ -21,6 +21,7 @@
 	let newReleaseDate: Date;
 	let isModalVisible: boolean = false;
 	let selectedAnime: string;
+	let isAnimePanelVisible:boolean=false;
 	const animeData = writable<Animes>();
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
@@ -34,6 +35,7 @@
 		newTranslatorName = '';
 		newEditorName = '';
 		newReleaseDate = new Date();
+		isAnimePanelVisible=!isAnimePanelVisible;
 	}
 	async function handleVisibility(index: any, paramepisodeId: any) {
 		animeId = paramepisodeId;
@@ -71,7 +73,8 @@
 	async function HandleAnimeDelete(animeId: string) {
 		await DeleteAnime(animeId);
 		paneldata = await GetAllAnimes();
-		isModalVisible = false;
+		isModalVisible = !isModalVisible;
+		isAnimePanelVisible=!isAnimePanelVisible;
 	}
 </script>
 
@@ -106,7 +109,8 @@
 		</div>
 	</div>
 </div>
-{#if $animeData}
+
+{#if $animeData&&isAnimePanelVisible}
 	{#key $animeData}
 		<div class="animepanel">
 			{#await $animeData}
