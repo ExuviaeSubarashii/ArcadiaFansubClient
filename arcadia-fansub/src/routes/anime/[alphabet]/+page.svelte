@@ -15,7 +15,7 @@
 	});
 </script>
 
-{#await GetAnimeByAlphabet(letter)}
+{#await animes}
 	<div>Seriler Yükleniyor...</div>
 {:then animeData}
 	<AnimeComponent animes={animeData} />

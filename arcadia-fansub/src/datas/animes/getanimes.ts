@@ -29,15 +29,16 @@ export async function GetAllAnimes(): Promise<Animes[]> {
     }
 }
 export async function GetAnimeByAlphabet(AlphabetValue: string | null): Promise<Animes[]> {
-    const body = {
-        alphabetValue: AlphabetValue
-    }
-    const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' },
-    };
+    
     try {
+        const body = {
+            alphabetValue: AlphabetValue
+        }
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        };
         const getAllAnimesResponse = await fetch(`${baseUrl}/Anime/GetAnimeByAlphabet`, requestOptions);
 
         if (!getAllAnimesResponse.ok) {
