@@ -4,42 +4,43 @@
 	export let episodes: Episodes[] = [];
 </script>
 
-<div class="row gap-2 ms-5 g-0">
+<div class="row gap-3 ms-4 g-0">
 	<h1 class="text-light">Son Eklenenler</h1>
 	{#await episodes}
 		<h1>Yukleniyor</h1>
 	{:then episodelist}
 		{#key episodes}
 			{#each episodelist as episode}
-				<div class="episode" style="max-width: 440px;">
-					<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">
-						<div class="row g-0">
-							<div class="col-md-4 ">
-								<!-- svelte-ignore a11y-missing-attribute -->
-
-								<img
-									src={`../src/lib/imajlar/${episode.animeImage}`}
-									class="img-fluid rounded-start"
-									alt={episode.animeImage}
-								/>
-							</div>
-							<div class="col-md-8 mt-4">
-								<div class="card-body">
-									<h5 class="card-title">{episode.animeName} - {episode.episodeNumber}</h5>
-									<p class="card-text">
-										{episode.episodeLikes} Begeni
-									</p>
-									<p class="card-text">
-										<small class="card-text">{episode.sortingDate}</small>
-									</p>
-								</div>
+			<div class="episode" style="max-width: 275px;">
+				<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">
+					<div class="col g-0">
+						<div class="col">
+							<!-- svelte-ignore a11y-missing-attribute -->
+							<img
+								src={`../src/lib/imajlar/${episode.animeImage}`}
+								class="img-fluid rounded-start"
+								alt={episode.animeImage}
+							/>
+						</div>
+						<div class="col-md-8 ">
+							<div class="card-body">
+								<h1
+									class="card-title"
+									style="font-size:medium;"
+								>
+									{episode.animeName}
+								</h1>
+								<h1
+									class="card-title"
+									style="border: solid; text-align:center; border-color: gray; border-radius:20px;font-size:small;"
+								>
+									Bölüm: {episode.episodeNumber}
+								</h1>
 							</div>
 						</div>
-					</a>
-					<!-- <div class="like-dislike">
-						<button class="btn btn-light"><i class="bx bxs-heart"></i></button>
-					</div> -->
-				</div>
+					</div>
+				</a>
+			</div>
 			{/each}
 		{/key}
 	{/await}
@@ -71,6 +72,8 @@
 		color: white;
 	} */
 	img {
-		inline-size: 100px;
+		inline-size: 270px;
+		max-width: 260px;
+		max-height: 353px;
 	}
 </style>
