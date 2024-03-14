@@ -4,43 +4,30 @@
 	export let episodes: Episodes[] = [];
 </script>
 
-<div class="row gap-3 ms-4 g-0">
+<div class="row mt-0 g-0 ms-5">
 	<h1 class="text-light">Son Eklenenler</h1>
 	{#await episodes}
 		<h1>Yukleniyor</h1>
 	{:then episodelist}
 		{#key episodes}
 			{#each episodelist as episode}
-			<div class="episode" style="max-width: 275px;">
-				<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">
-					<div class="col g-0">
-						<div class="col">
-							<!-- svelte-ignore a11y-missing-attribute -->
-							<img
-								src={`../src/lib/imajlar/${episode.animeImage}`}
-								class="img-fluid rounded-start"
-								alt={episode.animeImage}
-							/>
+				<div class="episode">
+					<a href="/video/{episode.episodeId}" class="text-decoration-none text-light">
+						<div class="image col g-0">
+							<img src={`../src/lib/imajlar/${episode.animeImage}`} alt={episode.animeImage} />
 						</div>
-						<div class="col-md-8 ">
-							<div class="card-body">
-								<h1
-									class="card-title"
-									style="font-size:medium;"
-								>
+						<div class="col-md-8">
+							<div class="episode-info">
+								<h2 class="anime-name">
 									{episode.animeName}
-								</h1>
-								<h1
-									class="card-title"
-									style="border: solid; text-align:center; border-color: gray; border-radius:20px;font-size:small;"
-								>
+								</h2>
+								<span class="episode-number">
 									Bölüm: {episode.episodeNumber}
-								</h1>
+								</span>
 							</div>
 						</div>
-					</div>
-				</a>
-			</div>
+					</a>
+				</div>
 			{/each}
 		{/key}
 	{/await}
@@ -50,8 +37,91 @@
 </footer>
 
 <style>
+	.anime-name,
+	.episode-info {
+		font-family: Roboto, sans-serif !important;
+		font-size: 0.875rem !important;
+		font-weight: 500;
+		line-height: 1.375rem;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		display: -webkit-box;
+		margin-top: 8px;
+		overflow: hidden;
+		word-break: break-all;
+		-webkit-text-size-adjust: 100%;
+		tab-size: 4;
+		-webkit-font-smoothing: antialiased;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		text-rendering: optimizeLegibility;
+		--primary-color: #fdd835;
+		--primary-color-transparent: rgba(253, 216, 53, 0);
+		color: #fff;
+		background-repeat: no-repeat;
+		box-sizing: inherit;
+		margin: 0;
+		padding: 0;
+	}
+	.episode-number {
+		-webkit-text-size-adjust: 100%;
+		tab-size: 4;
+		word-break: normal;
+		-webkit-font-smoothing: antialiased;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		text-rendering: optimizeLegibility;
+		--primary-color: #fdd835;
+		--primary-color-transparent: rgba(253, 216, 53, 0);
+		font-family: Roboto, sans-serif;
+		box-sizing: inherit;
+		margin: 0;
+		align-items: center;
+		cursor: default;
+		display: inline-flex;
+		line-height: 20px;
+		max-width: 100%;
+		outline: none;
+		overflow: hidden;
+		padding: 0 12px;
+		position: relative;
+		text-decoration: none;
+		transition-duration: 0.28s;
+		transition-property: box-shadow, opacity;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		vertical-align: middle;
+		white-space: nowrap;
+		border-radius: 4px !important;
+		margin-right: 4px !important;
+		padding-left: 8px !important;
+		padding-right: 8px !important;
+		border-color: hsla(0, 0%, 100%, 0.12);
+		color: #fff;
+		border-style: solid;
+		border-width: thin;
+		font-size: 14px;
+		height: 16px;
+		background: #555;
+		background-color: transparent !important;
+	}
 	.episode {
-		border-radius: 25px;
+		-webkit-text-size-adjust: 100%;
+		tab-size: 4;
+		word-break: normal;
+		-webkit-font-smoothing: antialiased;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		font-size: 16px;
+		text-rendering: optimizeLegibility;
+		--primary-color: #fdd835;
+		--primary-color-transparent: rgba(253, 216, 53, 0);
+		font-family: Roboto, sans-serif;
+		line-height: 1.5;
+		color: #fff;
+		background-repeat: no-repeat;
+		box-sizing: inherit;
+		margin: 0;
+		padding: 12px;
+		max-width: 275px;
+	}
+	.image {
 		border-style: solid;
 		border-width: 5px;
 		border-image: linear-gradient(to right, rgb(192, 1, 156) 0%, rgb(84, 102, 184) 100%);
@@ -59,21 +129,9 @@
 		align-items: center;
 		margin-bottom: 0.7rem;
 	}
-	/* .like-dislike {
-		position: absolute;
-		left: 90%;
-		top: 2%;
-	}
-	.btn-light i.bxs-heart {
-		color: black;
-		transition: color 0.3s ease;
-	}
-	.btn-light:hover i.bxs-heart {
-		color: white;
-	} */
 	img {
-		inline-size: 270px;
-		max-width: 260px;
-		max-height: 353px;
+		display: block;
+		margin: auto;
+		max-width: 230px;
 	}
 </style>
