@@ -95,7 +95,7 @@
 
 {#if episodeLinkInputVisibility === true}
 	<div class="episode-update-panel">
-		<input placeholder="Please put ',' between links." bind:value={episodeLinkValue} />
+		<input placeholder="Linklerin arasına virgül koyunuz." bind:value={episodeLinkValue} />
 		{#if episodeLinkValue}
 			<button on:click={() => HandleEpisodeUpdate(episodeLinkValue)}>Güncelle</button>
 		{/if}

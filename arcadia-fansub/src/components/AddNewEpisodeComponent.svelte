@@ -84,14 +84,20 @@
 				class="btn btn-light"
 				on:click={() => {
 					if (
-						episodeAnimeName !== 'undefined' ||
-						(episodeAnimeName !== null && episodeNumberVar !== 'undefined') ||
-						(episodeNumberVar !== null && episodeLinks !== 'undefined') ||
+						episodeAnimeName !== 'undefined' &&
+						episodeAnimeName !== null &&
+						episodeNumberVar !== 'undefined' &&
+						episodeNumberVar !== null &&
+						episodeLinks !== 'undefined' &&
 						episodeLinks !== null
-					)
+					) {
 						SendAddEpisodeRequest(episodeAnimeName, episodeNumberVar, episodeLinks);
-				}}>Yeni Bölüm Oluştur</button
+					}
+				}}
+				disabled={!episodeAnimeName || !episodeNumberVar || !episodeLinks}
 			>
+				Yeni Bölüm Oluştur
+			</button>
 		</div>
 	</div>
 </div>

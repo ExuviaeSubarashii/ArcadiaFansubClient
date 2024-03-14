@@ -20,7 +20,7 @@
 		admins: [],
 		uploaders: []
 	};
-	let selectedImage:FormData;
+	let selectedImage: FormData;
 	let editorExists: boolean = false;
 	let translatorExists: boolean = false;
 	let files: any;
@@ -50,9 +50,9 @@
 		sendimage();
 	}
 	function sendimage() {
-		if(files){
-			let fd=new FormData();
-			fd.append('form',files[0])
+		if (files) {
+			let fd = new FormData();
+			fd.append('form', files[0]);
 			UploadImage(fd);
 		}
 	}
@@ -159,7 +159,7 @@
 			aria-describedby="basic-addon2"
 		/>
 	</div>
-	<div class="d-flex justify-content-center">
+	<div class="d-flex justify-content-center" style="position: relative; margin-top:30px;">
 		<h6>Eğer Editör ve Çevirmen adında aradığınız üye yoksa yanındaki tuşa tıklayarak yazın.</h6>
 		<button
 			class="btn btn-light text-center"
@@ -187,7 +187,7 @@
 		border-style: solid;
 		border-radius: 20px;
 		width: 700px;
-		height: 380px;
+		height: 440px;
 		border-color: blueviolet;
 	}
 </style>

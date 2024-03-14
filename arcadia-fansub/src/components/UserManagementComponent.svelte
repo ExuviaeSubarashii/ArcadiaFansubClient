@@ -125,7 +125,10 @@
 					</li>
 				{/each}
 			{/if}
-			<button on:click={() => HandleMemberCreation()}>Oluştur</button>
+			<button
+				on:click={() => HandleMemberCreation()}
+				>Oluştur</button
+			>
 		</div>
 	</PopupModal>
 {/key}

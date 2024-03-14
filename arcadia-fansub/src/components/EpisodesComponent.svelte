@@ -27,7 +27,9 @@
 							</div>
 						</div>
 					</a>
+					<p class="episode-date">{episode.sortingDate}</p>
 				</div>
+
 			{/each}
 		{/key}
 	{/await}
@@ -62,7 +64,8 @@
 		position: relative;
 		margin-left: 4%;
 	}
-	.episode-number {
+	.episode-number,
+	.episode-date {
 		-webkit-text-size-adjust: 100%;
 		tab-size: 4;
 		word-break: normal;
@@ -77,7 +80,7 @@
 		align-items: center;
 		cursor: default;
 		display: inline-flex;
-		line-height: 20px;
+		line-height: 30px;
 		max-width: 100%;
 		outline: none;
 		overflow: hidden;
@@ -98,7 +101,7 @@
 		border-style: solid;
 		border-width: thin;
 		font-size: 14px;
-		height: 16px;
+		height: 19px;
 		background: #555;
 		background-color: transparent !important;
 		position: relative;
