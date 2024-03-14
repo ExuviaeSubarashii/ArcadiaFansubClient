@@ -22,7 +22,7 @@
 									{episode.animeName}
 								</h2>
 								<span class="episode-number">
-									Bölüm: {episode.episodeNumber}
+									{episode.episodeNumber}. Bölüm
 								</span>
 							</div>
 						</div>
@@ -59,8 +59,8 @@
 		color: #fff;
 		background-repeat: no-repeat;
 		box-sizing: inherit;
-		margin: 0;
-		padding: 0;
+		position: relative;
+		margin-left: 4%;
 	}
 	.episode-number {
 		-webkit-text-size-adjust: 100%;
@@ -101,6 +101,8 @@
 		height: 16px;
 		background: #555;
 		background-color: transparent !important;
+		position: relative;
+		margin-left: 4%;
 	}
 	.episode {
 		-webkit-text-size-adjust: 100%;
@@ -120,14 +122,6 @@
 		margin: 0;
 		padding: 12px;
 		max-width: 275px;
-	}
-	.image {
-		border-style: solid;
-		border-width: 5px;
-		border-image: linear-gradient(to right, rgb(192, 1, 156) 0%, rgb(84, 102, 184) 100%);
-		border-image-slice: 1;
-		align-items: center;
-		margin-bottom: 0.7rem;
 	}
 	img {
 		display: block;
