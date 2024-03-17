@@ -49,7 +49,7 @@
 	.loginpage {
 		position: fixed;
 		top: 20%;
-		right: 30%;
+		right: 35%;
 	}
 	.login-options li {
 		list-style: none;

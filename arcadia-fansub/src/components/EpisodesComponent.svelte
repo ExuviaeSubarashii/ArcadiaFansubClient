@@ -105,7 +105,7 @@
 		background: #555;
 		background-color: transparent !important;
 		position: relative;
-		margin-left: 4%;
+		margin-left: 6%;
 	}
 	.episode {
 		-webkit-text-size-adjust: 100%;
