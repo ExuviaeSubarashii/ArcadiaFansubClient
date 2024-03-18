@@ -137,9 +137,13 @@
 	</div>
 	<div class="links">
 		{#each linkArray as link}
-			<button type="button" on:click={() => SetPlayer(link)} class="link-button btn btn-primary"
-				>{link.split('/')[2]}</button
-			>
+			{#if link.includes('https')}
+				<button type="button" on:click={() => SetPlayer(link)} class="link-button btn btn-primary"
+					>{link.split('/')[2]}</button
+				>
+				{:else}
+				<div style="font-size: 24px; color:white;">Link Bulunamadi</div>
+			{/if}
 		{/each}
 	</div>
 </div>

@@ -10,8 +10,10 @@
 		ResetProperties();
 	});
 </script>
-
+{#key currentUser}
+	
 {#key currentUser.isLoggedIn === true}
-	<HeaderComponent />
+<HeaderComponent />
+{/key}
 {/key}
 <slot />

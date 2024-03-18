@@ -29,9 +29,7 @@
 {#each episodedata as episode}
 	<div class="episode-group m-3">
 		<a href="/video/{episode.episodeId}" class="group-anchor" aria-current="true">
-			<div>
-				<h5 class="episode-information">{episode.animeName} - {episode.episodeNumber}. Bölüm</h5>
-			</div>
+			<h5 class="episode-information">{episode.animeName} - {episode.episodeNumber}. Bölüm</h5>
 		</a>
 	</div>
 {/each}
@@ -57,6 +55,7 @@
 	}
 	.episode-information {
 		color: #891b8c;
+		white-space:nowrap;
 	}
 	.information-card {
 		display: flex;
