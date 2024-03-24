@@ -88,7 +88,7 @@
 			}}
 		/>
 		{#if !editorExists && allMembers.editors.length > 0}
-			<select bind:value={editor} on:change={() => console.log(editor)}>
+			<select bind:value={editor}>
 				<option value="">Editör Seçin</option>
 				{#if allMembers.editors}
 					{#each allMembers.editors as editorItem}
@@ -101,7 +101,6 @@
 				type="text"
 				class="form-control"
 				bind:value={editor}
-				on:input={() => console.log(editor)}
 				placeholder="Editör Adı"
 				aria-label="Links"
 				aria-describedby="basic-addon2"
@@ -117,7 +116,7 @@
 			}}
 		/>
 		{#if !translatorExists && allMembers.translators.length > 0}
-			<select bind:value={translator} on:change={() => console.log(translator)}>
+			<select bind:value={translator}>
 				<option value="">Çevirmen Seçiniz</option>
 				{#if allMembers.translators}
 					{#each allMembers.translators as translator}
@@ -130,7 +129,6 @@
 				type="text"
 				class="form-control"
 				bind:value={translator}
-				on:input={() => console.log(translator)}
 				placeholder="Çevirmen Adı"
 				aria-label="Links"
 				aria-describedby="basic-addon2"

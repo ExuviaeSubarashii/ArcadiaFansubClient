@@ -209,7 +209,6 @@ export async function GetTicketById(ticketId: string) {
     ticketBySearch = await GetSpecificTickets(ticketId)
     if (ticketBySearch.ticketId !== null) {
         window.location.href = `/tickets/${ticketId}`
-        console.log(ticketBySearch)
         return ticketBySearch;
     }
     else {

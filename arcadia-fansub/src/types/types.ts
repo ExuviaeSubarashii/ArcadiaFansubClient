@@ -24,7 +24,6 @@ export type User = {
     userName: string;
     favoritedAnimes?: string;
     userToken: string;
-    // userPermission: string;
     userEmail: string;
     isLoggedIn: boolean;
 }
@@ -62,7 +61,7 @@ export type TicketReply = {
     ticketId: string;
     ticketAdminName: string;
     ticketReply: string;
-    ticketReplyDate: Date;
+    ticketReplyDate: string;
 }
 export type TicketDto = {
     ticketId: string;

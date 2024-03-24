@@ -87,8 +87,6 @@
 				commentId: updateBody.updateCommentId,
 				userToken: currentUser.userToken
 			};
-			console.log(updateBody.updateCommentId);
-			console.log(commentBody);
 			await UpdateComment(commentBody);
 			isModalVisible = false;
 			commentData = await GetComments(episodeId);
@@ -101,7 +99,6 @@
 		updateBody.updateCommentId = commentId;
 	}
 	async function deleteComment(commentId: number) {
-		console.log(commentId);
 		await DeleteComment(commentId);
 		commentData = await GetComments(episodeId);
 	}

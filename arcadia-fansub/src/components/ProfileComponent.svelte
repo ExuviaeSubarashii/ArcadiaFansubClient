@@ -17,7 +17,6 @@
 	let isModalVisible: boolean = false;
 	let selectedComment: number;
 	onMount(async () => {
-		console.log('started');
 		userData = await GetUserProfile(userName);
 		userFavoritedAnimes = userData.favoritedAnimes.split(',');
 		if (userFavoritedAnimes.length > 0) {
@@ -26,7 +25,6 @@
 		userComments = await GetUserComments(userName);
 	});
 	async function deleteComment(commentId: number) {
-		console.log(commentId);
 		await DeleteComment(commentId);
 		userComments = await GetUserComments(userName);
 	}

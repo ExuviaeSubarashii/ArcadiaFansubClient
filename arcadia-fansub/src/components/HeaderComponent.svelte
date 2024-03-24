@@ -8,12 +8,6 @@
 	import { IsAuthenticated } from '../datas/users/authentication';
 	// import NotificationComponent from './NotificationComponent.svelte';
 	let searchParameter: string = '';
-
-	onMount(async () => {
-		if ((await IsAuthenticated()) === true) {
-			console.log(currentUser);
-		}
-	});
 </script>
 
 <div class="container">

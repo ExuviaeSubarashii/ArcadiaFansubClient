@@ -13,7 +13,6 @@
 	let allMembers: Member[] = [];
 	onMount(async () => {
 		allMembers = await GetAllMembers();
-		console.log(allMembers);
 	});
 	let RoleName = ['Kodlama', 'Admin', 'Çevirmen', 'Editör', 'Redaktör'];
 	let userId: number;
@@ -22,7 +21,6 @@
 
 	async function HandleRoleRemove(e: any) {
 		let selectedRoleName = e.target.value;
-		console.log(selectedRoleName, userId);
 		await AddOrRemoveMemberRole(selectedRoleName, userId);
 		allMembers = await GetAllMembers();
 	}
@@ -41,23 +39,19 @@
 				(item: any) => item !== e.target.value
 			);
 			selectedRoles.style.color = 'black';
-			console.log(newMember.newMemberRole);
-			console.log(e.target.id);
 		} else {
 			newMember.newMemberRole.push(e.target.value);
 			selectedRoles.style.color = 'green';
-			console.log(newMember.newMemberRole);
-			console.log(e.target.id);
 		}
 	}
 	async function HandleMemberCreation() {
 		if (newMember.newMemberRole.length > 0 && IsNullOrEmpty(newMember.newMemberName) === false) {
-			console.log(newMember);
+		
 			const newUser: CreateNewMemberBody = {
 				memberName: newMember.newMemberName,
 				memberRoles: newMember.newMemberRole
 			};
-			console.log('look:', newUser);
+		
 			await CreateNewMember(newUser);
 			isModalVisible = !isModalVisible;
 			newMember.newMemberName = '';
@@ -74,20 +68,18 @@
 	async function HandleUserReceiving() {
 		if (IsNullOrEmpty(sortingParam) === false) {
 			queriedUsers = await GetMemberByQuery(sortingParam);
-			console.log(queriedUsers);
+		
 		}
 	}
 	let selectedUserButton: HTMLButtonElement;
 	function SetSelectedUser(e: any) {
 		newUserId = e.currentTarget.dataset.userId;
-		console.log('User ID:', newUserId);
 		if (selectedUserButton) {
 			selectedUserButton.style.color = '';
 		}
 		selectedUserButton = e.currentTarget;
 		selectedUserButton.style.color = 'purple';
 		newMember.newMemberName = e.target.value;
-		console.log(newMember.newMemberName);
 	}
 </script>
 

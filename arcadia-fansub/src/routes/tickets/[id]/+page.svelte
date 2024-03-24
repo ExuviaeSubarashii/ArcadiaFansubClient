@@ -35,6 +35,7 @@
 		}
 
 		await CreateAdminResponse(responseBody);
+		adminResponse='';
 		adminTicketReplies = await GetTicketReplies(ticketId);
 	}
 	function HandleStatusChange(event: any) {
@@ -69,10 +70,10 @@
 {#await IsAdmin()}
 <div>Checking if you are an admin...</div>
 {:then isAdminResult} 
-{#if isAdminResult===true}
 <div class="admin-reply">
 	<div class="ticket-status">
 		<input class="admin-input" type="text" bind:value={adminResponse} />
+		{#if isAdminResult===true}
 
 		<label for="completed">
 			<input
@@ -95,6 +96,7 @@
 			/>
 			Yapım Aşamasında
 		</label>
+		{/if}
 
 		<button on:click={() => HandleAdminResponse()}>Kaydet ve Gönder</button>
 		{#if ticketStatus}
@@ -106,7 +108,6 @@
 		{/if}
 	</div>
 </div>
-{/if}
 
 {#await adminTicketReplies}
 	<div>Yanitlar Yukleniyor</div>
@@ -133,12 +134,12 @@
 
 <style>
 	.delete-button {
-		position: absolute;
-		float: right;
+		position: relative;
+		left: 96%;
+		max-width: 70px;
 		border-radius: 5px;
 		background-color: navy;
 		background: linear-gradient(to right, rgb(109, 92, 106), rgb(84, 102, 184));
-		margin: 0;
 		color: black;
 	}
 	.admin-input {

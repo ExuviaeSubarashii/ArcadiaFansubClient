@@ -50,7 +50,6 @@ export async function GetUserNotificationsIfOutOfDate(){
         const differenceInTime=today.getTime()-notificationDateObject.getTime();
         const differenceInDays=differenceInTime/(1000*3600*24);
         if(differenceInDays>7||notificationDate===undefined){
-            console.log("triggered")
             return true;
         }
         else{

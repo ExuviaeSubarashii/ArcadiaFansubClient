@@ -17,7 +17,6 @@
 
 		pageCount.subscribe((value) => {
 			previousPage = value;
-			console.log(previousPage);
 			window.location.href = `/sort/${value}`;
 		});
 	}
@@ -27,7 +26,6 @@
 
 		pageCount.subscribe((value) => {
 			nextPage = value;
-			console.log(nextPage);
 			window.location.href = `/sort/${value}`;
 		});
 	}

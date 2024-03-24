@@ -40,7 +40,6 @@ export async function UploadImage(imageData: FormData) {
         }
 
         const data = await response.json();
-        console.log(data);
     } catch (error) {
         console.error('Error uploading image:', error);
     }

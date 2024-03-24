@@ -29,7 +29,6 @@
 	async function HandleAnimeChange(animeId: string) {
 		currentAnime = animeId;
 		animeData.set(await GetAnimeProperties(animeId));
-		console.log($animeData);
 		visiblediv = null;
 		newAnimeName = '';
 		newTranslatorName = '';

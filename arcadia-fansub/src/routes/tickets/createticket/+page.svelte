@@ -77,7 +77,7 @@
 		flex-direction: column;
 		position: relative;
 		top: 10%;
-		left: 50%;
+		margin-left: 50%;
 	}
 	.reason {
 		color: white;
