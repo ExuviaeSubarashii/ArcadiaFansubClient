@@ -4,11 +4,6 @@
 	import { GetAllEpisodes, GetEpisodesByPageQuery } from '../datas/episodes/getepisodes';
 	import type { Episodes } from '../types/types';
 	import EpisodesComponent from '../components/HomeContent/EpisodesComponent.svelte';
-	export let episodes: Episodes[] = [];
-
-	onMount(async () => {
-		episodes=await GetEpisodesByPageQuery(1);
-	});
+	// export let episodes: Episodes[] = [];
 </script>
-
-<EpisodesComponent episodes={episodes}/>
+<EpisodesComponent offSet={1}/>

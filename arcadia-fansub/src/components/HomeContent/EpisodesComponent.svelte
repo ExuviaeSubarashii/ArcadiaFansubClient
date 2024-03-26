@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import type { Episodes } from "../../types/types";
 	import OrderComponent from "../Layout/OrderComponent.svelte";
+	import { GetEpisodesByPageQuery } from "../../datas/episodes/getepisodes";
 
-	export let episodes: Episodes[] = [];
+	let episodes: Episodes[] = [];
+	export let offSet:number|null;
+	onMount(async () => {
+		episodes=await GetEpisodesByPageQuery(offSet);
+	});
 </script>
 
 <div class="row mt-0 g-0 ms-5">

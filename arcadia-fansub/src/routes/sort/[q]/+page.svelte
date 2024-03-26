@@ -10,9 +10,5 @@
 	export let data: PageData;
 	let num = data.props.querydata.querynumber;
 	let episodes: Episodes[] = [];
-	
-	onMount(async () => {
-		episodes=await GetEpisodesByPageQuery(num);
-	});
 </script>
-<EpisodesComponent episodes={episodes}/>
+<EpisodesComponent offSet={parseInt(num)}/>
