@@ -1,4 +1,5 @@
 <script lang="ts">
-	import LoginComponent from "../../components/LoginComponent.svelte";
+	import LoginComponent from "../../components/UserComponents/LoginComponent.svelte";
+
 </script>
 <LoginComponent/>

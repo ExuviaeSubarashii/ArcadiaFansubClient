@@ -1,9 +1,9 @@
 <script lang="ts">
 
 	import { onMount } from "svelte";
-import currentUser from "../datas/users/user";
-	import { LogOut } from "../datas/users/useractivies";
-	import { IsAdmin } from "../datas/users/authentication";
+	import currentUser from "../../datas/users/user";
+	import { LogOut } from "../../datas/users/useractivies";
+	import { IsAdmin } from "../../datas/users/authentication";
 	let isAdmin:boolean=false;
 	onMount(async()=>{
 		let isAdminresponse= await IsAdmin();
@@ -28,7 +28,7 @@ import currentUser from "../datas/users/user";
             {/if}
             <li><hr class="dropdown-divider"></li>
             <li>
-                <a class="dropdown-item" href="/" on:click={LogOut}>Log out</a>
+                <a class="dropdown-item" href="/" on:click={()=>LogOut()}>Log out</a>
             </li>
         </ul>
     </div>

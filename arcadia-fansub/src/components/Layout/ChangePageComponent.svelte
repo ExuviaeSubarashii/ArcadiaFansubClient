@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { pageCount } from '../datas/stores';
+	import { pageCount } from '../../datas/stores';
 	import { writable } from 'svelte/store';
 
 	let previousPage;

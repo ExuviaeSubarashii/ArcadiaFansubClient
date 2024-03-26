@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { writable } from "svelte/store";
-	import { responseMessageStore } from "../datas/variables";
+	import { responseMessageStore } from "../../datas/variables";
 
 	let message: any = '';
 	let isVisible=writable(true);

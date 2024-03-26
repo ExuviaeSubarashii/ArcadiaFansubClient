@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { AddAnimeToFavorites, GetAllAnimes } from '../datas/animes/getanimes';
-	import type { Animes } from '../types/types';
-	import currentUser from '../datas/users/user';
-	import { IsAuthenticated } from '../datas/users/authentication';
+	import { AddAnimeToFavorites, GetAllAnimes } from '../../datas/animes/getanimes';
+	import type { Animes } from '../../types/types';
+	import currentUser from '../../datas/users/user';
+	import { IsAuthenticated } from '../../datas/users/authentication';
 	export let animes: Animes[] = [];
 </script>
 

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import currentUser from '../datas/users/user';
-	import UserComponent from './UserComponent.svelte';
+	import currentUser from '../../datas/users/user';
 	import ResponseMessageComponent from './ResponseMessageComponent.svelte';
-	import { responseMessageStore } from '../datas/variables';
+	import { responseMessageStore } from '../../datas/variables';
 	import WarningComponent from './WarningComponent.svelte';
-	import { IsAuthenticated } from '../datas/users/authentication';
+	import { IsAuthenticated } from '../../datas/users/authentication';
+	import UserComponent from '../UserComponents/UserComponent.svelte';
 	// import NotificationComponent from './NotificationComponent.svelte';
 	let searchParameter: string = '';
 </script>

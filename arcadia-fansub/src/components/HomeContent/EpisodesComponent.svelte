@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { Episodes } from '../types/types';
-	import OrderComponent from './OrderComponent.svelte';
+	import type { Episodes } from "../../types/types";
+	import OrderComponent from "../Layout/OrderComponent.svelte";
+
 	export let episodes: Episodes[] = [];
 </script>
 

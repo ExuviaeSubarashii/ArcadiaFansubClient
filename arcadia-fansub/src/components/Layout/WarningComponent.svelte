@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { warnings } from '../datas/warnings/warnings';
+	import { warnings } from '../../datas/warnings/warnings';
 	let currentWarning = {
 		id: 0,
 		message: ''

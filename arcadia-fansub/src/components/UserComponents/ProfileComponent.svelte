@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Animes, Comments, UserProfile } from '../types/types';
-	import { GetUserProfile } from '../datas/users/profile';
-	import { AddAnimeToFavorites, GetSpecificAnime } from '../datas/animes/getanimes';
-	import AnimeComponent from './AnimeComponent.svelte';
-	import { DeleteComment, GetUserComments } from '../datas/comments/comments';
-	import PopupModal from './PopupModal.svelte';
-	import { IsAuthenticated } from '../datas/users/authentication';
+	import type { Animes, Comments, UserProfile } from '../../types/types';
+	import { GetUserProfile } from '../../datas/users/profile';
+	import { AddAnimeToFavorites, GetSpecificAnime } from '../../datas/animes/getanimes';
+	import AnimeComponent from '../HomeContent/AnimeComponent.svelte';
+	import { DeleteComment, GetUserComments } from '../../datas/comments/comments';
+	import { IsAuthenticated } from '../../datas/users/authentication';
+	import PopupModal from '../Modals/PopupModal.svelte';
 	export let userName: string;
 	let userData: UserProfile;
 	let userFavoritedAnimes: string[] = [];

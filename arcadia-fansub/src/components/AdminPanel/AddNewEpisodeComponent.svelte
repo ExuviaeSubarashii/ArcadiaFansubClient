@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { GetAllAnimes } from '../datas/animes/getanimes';
-	import { AddEpisodeFunction, GetAddEpisodeNumber } from '../datas/episodes/addEpisode';
-	import type { AddEpisode, Animes } from '../types/types';
-	import { IsNullOrEmpty } from '../datas/emptychecker';
+	import { IsNullOrEmpty } from '../../datas/emptychecker';
+	import { AddEpisodeFunction, GetAddEpisodeNumber } from '../../datas/episodes/addEpisode';
+	import type { AddEpisode, Animes } from '../../types/types';
+	import { GetAllAnimes } from '../../datas/animes/getanimes';
 	let animes: Animes[] = [];
 
 	//add episode

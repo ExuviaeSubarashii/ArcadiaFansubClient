@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Animes } from '../types/types';
-	import { GetEpisodePanelData, exportedepisodes } from '../datas/episodes/episodespanel';
-	import { GetAllAnimes } from '../datas/animes/getanimes';
-	import { DeleteEpisode } from '../datas/episodes/deletepisode';
-	import { UpdateEpisode } from '../datas/episodes/updateEpisode';
+	import type { Animes } from '../../types/types';
+	import { GetEpisodePanelData, exportedepisodes } from '../../datas/episodes/episodespanel';
+	import { GetAllAnimes } from '../../datas/animes/getanimes';
+	import { DeleteEpisode } from '../../datas/episodes/deletepisode';
+	import { UpdateEpisode } from '../../datas/episodes/updateEpisode';
 
 	let paneldata: Animes[] = [];
 	let currentAnime: any;

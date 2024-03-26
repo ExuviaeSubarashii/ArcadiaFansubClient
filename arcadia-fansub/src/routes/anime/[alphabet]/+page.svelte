@@ -1,6 +1,5 @@
 <script lang="ts">
-	import AnimeComponent from '../../../components/AnimeComponent.svelte';
-	import OrderComponent from '../../../components/OrderComponent.svelte';
+	import AnimeComponent from '../../../components/HomeContent/AnimeComponent.svelte';
 	import { GetAnimeByAlphabet } from '../../../datas/animes/getanimes';
 	import type { Animes } from '../../../types/types';
 	import type { PageData } from './$types';

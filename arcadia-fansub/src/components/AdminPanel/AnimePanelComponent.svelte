@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { GetAllAnimes, GetSpecificAnime } from '../datas/animes/getanimes';
-	import type { Animes, UpdateAnimeBody } from '../types/types';
+	import { GetAllAnimes, GetSpecificAnime } from '../../datas/animes/getanimes';
+	import type { Animes, UpdateAnimeBody } from '../../types/types';
 	import { writable } from 'svelte/store';
-	import { GetAnimeProperties } from '../datas/pages/animepage';
-	import { UpdateAnimeFunction } from '../datas/animes/updateAnime';
-	import { IsNullOrEmpty } from '../datas/emptychecker';
-	import { DeleteAnime } from '../datas/animes/deleteAnimes';
-	import PopupModal from './PopupModal.svelte';
+	import { GetAnimeProperties } from '../../datas/pages/animepage';
+	import { UpdateAnimeFunction } from '../../datas/animes/updateAnime';
+	import { IsNullOrEmpty } from '../../datas/emptychecker';
+	import { DeleteAnime } from '../../datas/animes/deleteAnimes';
+	import PopupModal from '../Modals/PopupModal.svelte';
 	let paneldata: Animes[] = [];
 	let visiblediv: any = null;
 	let currentAnime: string;

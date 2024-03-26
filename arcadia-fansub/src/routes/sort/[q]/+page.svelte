@@ -4,9 +4,8 @@
 	import {
 		GetEpisodesByPageQuery
 	} from '../../../datas/episodes/getepisodes';
-	import OrderComponent from '../../../components/OrderComponent.svelte';
 	import type { Episodes } from '../../../types/types';
-	import EpisodesComponent from '../../../components/EpisodesComponent.svelte';
+	import EpisodesComponent from '../../../components/HomeContent/EpisodesComponent.svelte';
 
 	export let data: PageData;
 	let num = data.props.querydata.querynumber;

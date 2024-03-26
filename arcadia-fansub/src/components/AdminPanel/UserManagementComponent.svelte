@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { CreateNewMemberBody, Member, Roles, User } from '../types/types';
-	import {
-		GetAllMembers,
-		AddOrRemoveMemberRole,
-		GetMemberByQuery,
-		CreateNewMember
-	} from '../datas/members/members';
-	import PopupModal from './PopupModal.svelte';
-	import { IsNullOrEmpty } from '../datas/emptychecker';
+	import { AddOrRemoveMemberRole, CreateNewMember, GetAllMembers, GetMemberByQuery } from '../../datas/members/members';
+	import { IsNullOrEmpty } from '../../datas/emptychecker';
+	import type { CreateNewMemberBody, Member, User } from '../../types/types';
+	import PopupModal from '../Modals/PopupModal.svelte';
 
 	let allMembers: Member[] = [];
 	onMount(async () => {

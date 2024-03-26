@@ -15,10 +15,9 @@
 		UpdateComment
 	} from '../../../datas/comments/comments';
 	import currentUser from '../../../datas/users/user';
-	import PopupModal from '../../../components/PopupModal.svelte';
-	import UserComponent from '../../../components/UserComponent.svelte';
 	import { IsAdmin, IsAuthenticated } from '../../../datas/users/authentication';
 	import { IsNullOrEmpty } from '../../../datas/emptychecker';
+	import PopupModal from '../../../components/Modals/PopupModal.svelte';
 	export let data: PageData;
 	var episodeId = data.props.episodedata.episodeId;
 	let episodeData: Episodes;

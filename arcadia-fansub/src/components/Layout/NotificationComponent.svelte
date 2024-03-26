@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Notifications } from '../types/types';
-	import { GetUserNotifications, GetUserNotificationsIfOutOfDate } from '../datas/notifications/notification';
+	import type { Notifications } from '../../types/types';
+	import { GetUserNotifications, GetUserNotificationsIfOutOfDate } from '../../datas/notifications/notification';
 	import { writable, type Writable } from 'svelte/store';
 	let notifications = writable<Notifications[]>([]);
 

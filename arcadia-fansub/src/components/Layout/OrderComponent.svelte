@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { pageCount } from '../datas/stores';
-	import { GetPageAmount } from '../datas/episodes/getepisodes';
+	import { GetPageAmount } from '../../datas/episodes/getepisodes';
 
 	const alphabet = [
 		'A',

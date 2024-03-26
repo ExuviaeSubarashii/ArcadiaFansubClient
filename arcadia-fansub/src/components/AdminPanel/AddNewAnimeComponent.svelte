@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { AddAnimeFunction, UploadImage } from '../datas/animes/addAnime';
-	import { IsNullOrEmpty } from '../datas/emptychecker';
-	import { GetAllMembers } from '../datas/members/members';
-	import type { AddAnime, AllMember, Member } from '../types/types';
-	import { responseMessageStore } from '../datas/variables';
+	import type { AddAnime, AllMember, Member } from '../../types/types';
+	import { GetAllMembers } from '../../datas/members/members';
+	import { AddAnimeFunction, UploadImage } from '../../datas/animes/addAnime';
+	import { IsNullOrEmpty } from '../../datas/emptychecker';
 
 	let animeName: any;
 	let episodeAmount: any;

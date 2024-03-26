@@ -1,17 +1,32 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import currentUser from '../datas/users/user';
-	import { Login } from '../datas/users/useractivies';
-	import { responseMessageStore } from '../datas/variables';
-	import { IsNullOrEmpty } from '../datas/emptychecker';
+	import { IsNullOrEmpty } from "../../datas/emptychecker";
+	import { Register } from "../../datas/users/useractivies";
+	import { responseMessageStore } from "../../datas/variables";
+
 
 	var email = '';
 	var password = '';
-	
+	var username = '';
 </script>
 
 <div class="loginpage">
-	<h1 class="toArcadia">Log in to Arcadia</h1>
+	<h1 class="tospotify">Sign up to start watching</h1>
+	<hr />
+	<br />
+	<input bind:value={email} placeholder="Email" class="email-input" maxlength="250"/>
+	<input bind:value={username} placeholder="Username" class="username-input" maxlength="25"/>
+	<input bind:value={password} placeholder="Password" class="password-input" maxlength="250"/>
+	<button
+		class="login-button"
+		on:click={() => {
+			if (!IsNullOrEmpty(email)&&!IsNullOrEmpty(password)&&!IsNullOrEmpty(username)) {
+				Register(email, password, username);
+			} else {
+				responseMessageStore.set('Email and password are required');
+			}
+		}}>Sign up</button
+	>
+	<h1 style="color:white; text-align:center;">Or</h1>
 	<ul class="login-options">
 		<li>
 			<button>Continue with Google</button>
@@ -23,45 +38,25 @@
 			<button>Continue with Apple</button>
 		</li>
 	</ul>
-	<hr />
-	<br />
-	<input bind:value={email} placeholder="E-Posta" class="email-input" />
-	<input bind:value={password} placeholder="Şifre" class="password-input" />
-	<button
-		class="login-button"
-		on:click={() => {
-			if (!IsNullOrEmpty(email)&&!IsNullOrEmpty(password)) {
-				Login(email, password);
-			} else {
-				{
-					responseMessageStore.set('Email or Password is empty.');
-				}
-			}
-		}}>Login</button
-	>
-	<h1 style="color:gray; text-align:center; font:sans-serif; margin;0 auto">
-		Hesabın Yok Mu? <a style="color:white;" href="/register">Buradan Kayıt Ol</a>
+	<h1 style="color:gray; text-align:center; font:sans-serif">
+		Already have an account? <a style="color:white;" href="/login">Log in here</a>
 	</h1>
 </div>
 
 <style>
-	.toArcadia {
+	.tospotify {
 		color: white;
-		position: fixed;
-		top: 15%;
-		margin-left: 10%;
+		text-align: center;
 	}
 	.loginpage {
-		
 		position: fixed;
-		margin-top: 10%;
-		margin-left: 35%;
+		top: 20%;
+		right: 35%;
 	}
 	.login-options li {
 		list-style: none;
 	}
 	.login-options button {
-		list-style: none;
 		right: 20px;
 		list-style: none;
 		box-sizing: border-box;
@@ -96,8 +91,9 @@
 		margin: auto;
 	}
 	.email-input,
-	.password-input {
-		color: white;
+	.password-input,
+	.username-input {
+		gap: 10px 20px;
 		appearance: none;
 		background-image: none;
 		border: 0px;
@@ -123,18 +119,27 @@
 		text-overflow: ellipsis;
 	}
 	.login-button {
+		font-weight: 700;
+		font-family: sans-serif;
+		text-align: center;
+		text-transform: none;
+		user-select: none;
+		box-sizing: border-box;
+		-webkit-tap-highlight-color: transparent;
 		position: relative;
+		background-color: #1ed760;
+		color: #000000;
 		display: flex;
-		border-radius: 25px;
+		border-radius: 500px;
+		font-size: inherit;
 		min-block-size: 48px;
+		-webkit-box-align: center;
 		align-items: center;
+		-webkit-box-pack: center;
 		justify-content: center;
+		padding-block: 8px;
 		padding-inline: 32px;
+		overflow-wrap: anywhere;
 		margin: auto;
-		background: linear-gradient(to right, rgb(192, 1, 156), rgb(84, 102, 184));
-		-webkit-background-clip: text;
-		color: transparent;
-		background-clip: text;
-		
 	}
 </style>
