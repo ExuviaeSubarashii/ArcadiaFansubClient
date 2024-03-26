@@ -40,7 +40,7 @@ export type AddAnime = {
     editor: string;
     translator: string;
     releaseDate: Date;
-    imageLink: string | null;
+    // imageLink: string | null;
 }
 export type AddEpisode = {
     animeName: string;

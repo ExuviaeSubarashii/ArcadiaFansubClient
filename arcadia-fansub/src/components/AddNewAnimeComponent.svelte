@@ -11,7 +11,7 @@
 	let editor: any;
 	let translator: any;
 	let releaseDate: any;
-	let imageLink: any;
+	// let imageLink: any;
 	let members: Member[] = [];
 	let allMembers: AllMember = {
 		translators: [],
@@ -44,7 +44,7 @@
 			editor: editor,
 			translator: translator,
 			releaseDate: releaseDate,
-			imageLink: imageLink
+			// imageLink: imageLink
 		};
 		await AddAnimeFunction(addAnime);
 		sendimage();
@@ -135,7 +135,7 @@
 			/>
 		{/if}
 	</div>
-	<div class="input-group mb-3">
+	<!-- <div class="input-group mb-3">
 		<input
 			type="text"
 			class="form-control"
@@ -144,9 +144,7 @@
 			aria-label="Links"
 			aria-describedby="basic-addon2"
 		/>
-		<!-- <input bind:files id="many" multiple type="file" accept=".jpg, .jpeg, .png, .webp" required />
-<button on:click={() => sendimage()}>Send</button> -->
-	</div>
+	</div> -->
 	<div class="input-group mb-3">
 		<input
 			type="date"
@@ -167,8 +165,8 @@
 					IsNullOrEmpty(episodeAmount) === false ||
 					IsNullOrEmpty(editor) === false ||
 					IsNullOrEmpty(translator) === false ||
-					IsNullOrEmpty(releaseDate) === false ||
-					IsNullOrEmpty(imageLink) === false
+					IsNullOrEmpty(releaseDate) === false //||
+					// IsNullOrEmpty(imageLink) === false
 				) {
 					SendAddAnimeRequest();
 				}
