@@ -3,8 +3,10 @@
 	import type { Animes } from '../../types/types';
 	import { GetEpisodePanelData, exportedepisodes } from '../../datas/episodes/episodespanel';
 	import { GetAllAnimes } from '../../datas/animes/getanimes';
-	import { DeleteEpisode } from '../../datas/episodes/deletepisode';
+	import { DeleteBulkEpisodeAsync, DeleteEpisode } from '../../datas/episodes/deletepisode';
 	import { UpdateEpisode } from '../../datas/episodes/updateEpisode';
+	import { writable } from 'svelte/store';
+	import PopupModal from '../Modals/PopupModal.svelte';
 
 	let paneldata: Animes[] = [];
 	let currentAnime: any;
@@ -12,7 +14,8 @@
 	let episodeLinkInputVisibility: boolean = false;
 	let episodeLinkValue: any;
 	let episodeId: any;
-
+	const episodeIdArray = writable<string[]>([]);
+	let isModalVisible: boolean = false;
 	onMount(async () => {
 		paneldata = await GetAllAnimes();
 	});
@@ -48,8 +51,44 @@
 			HandleUpdateVisibility();
 		}
 	}
+	function AddEpisodeIdsToRemove(e: any) {
+		episodeIdArray.update((array) => {
+			const index = array.indexOf(e.target.value);
+			if (array.includes(e.target.value.trim())) {
+				array.splice(index, 1);
+				console.log(array);
+			} else {
+				array.push(e.target.value.trim());
+				console.log(array);
+			}
+			return array;
+		});
+	}
+	async function HandleBulkDelete() {
+		if ($episodeIdArray.length > 0) {
+			await DeleteBulkEpisodeAsync($episodeIdArray);
+			window.location.href = '/addnew';
+		} else {
+			alert('Bölüm Seçilmelidir.');
+		}
+	}
 </script>
 
+<PopupModal bind:showModal={isModalVisible}>
+	<div slot="header" class="modal-dialog">
+		<h5 class="modal-title">Yeni Ekip Üyesi Oluştur</h5>
+	</div>
+	<div slot="body" class="modal-content">
+		<p>Silinecek Bolumler?</p>
+		<hr />
+		{#each $episodeIdArray as id, i}
+			<div class="selected-episodes">
+				<p>{id}</p>
+			</div>
+		{/each}
+		<button on:click={() => HandleBulkDelete()}>Sil</button>
+	</div>
+</PopupModal>
 <div class="fullbody">
 	<div class="buttoncontainer">
 		<div class="row g-0">
@@ -66,6 +105,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="episodepanel">
 	{#if $exportedepisodes !== undefined}
 		{#key $exportedepisodes}
@@ -81,6 +121,12 @@
 						class="img-fluid rounded-start"
 						alt={data.animeImage}
 					/>
+					<input
+						type="checkbox"
+						value={data.episodeId}
+						on:click={async (e) => await AddEpisodeIdsToRemove(e)}
+					/>
+
 					{#if visiblediv === index}
 						<div class="optionsdiv">
 							<button on:click={() => HandleEpisodeDeletion(data.episodeId)}>Bölümü Kaldır</button>
@@ -101,9 +147,21 @@
 		{/if}
 	</div>
 {/if}
+{#if $episodeIdArray.length > 0}
+	<button
+		on:click={() => {
+			isModalVisible = !isModalVisible;
+		}}>Toplu Sil</button
+	>
+{/if}
 
 <style>
-	.drop-buttons{
+	.selected-episodes {
+		display: flex;
+		max-width: 100px;
+		flex-direction: column;
+	}
+	.drop-buttons {
 		background-size: 70% 10% 100%;
 		padding: 10px;
 		background-position: center;
