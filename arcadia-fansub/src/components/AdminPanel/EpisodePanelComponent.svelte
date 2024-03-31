@@ -76,17 +76,17 @@
 
 <PopupModal bind:showModal={isModalVisible}>
 	<div slot="header" class="modal-dialog">
-		<h5 class="modal-title">Yeni Ekip Üyesi Oluştur</h5>
+		<h5 class="modal-title">Bölümleri Kaldır</h5>
 	</div>
 	<div slot="body" class="modal-content">
-		<p>Silinecek Bolumler?</p>
+		<p>Bu Bölümler Kaldırılacaktır, Onaylıyor Musunuz?</p>
 		<hr />
 		{#each $episodeIdArray as id, i}
 			<div class="selected-episodes">
 				<p>{id}</p>
 			</div>
 		{/each}
-		<button on:click={() => HandleBulkDelete()}>Sil</button>
+		<button on:click={() => HandleBulkDelete()}  class="btn btn-outline-danger">Sil</button>
 	</div>
 </PopupModal>
 <div class="fullbody">

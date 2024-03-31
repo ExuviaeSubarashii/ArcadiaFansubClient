@@ -114,7 +114,7 @@
 			{/if}
 			<button
 				on:click={() => HandleMemberCreation()}
-				>Oluştur</button
+				class="btn btn-outline-success">Oluştur</button
 			>
 		</div>
 	</PopupModal>

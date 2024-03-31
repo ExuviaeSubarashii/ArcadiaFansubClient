@@ -85,7 +85,7 @@
 		<div slot="body" class="modal-content">
 			<p>Silmek Istediginize Emin Misiniz?</p>
 			<hr />
-			<button on:click={() => HandleAnimeDelete(selectedAnime)}>Sil</button>
+			<button on:click={() => HandleAnimeDelete(selectedAnime)}  class="btn btn-outline-danger">Sil</button>
 		</div>
 	</PopupModal>
 {/key}

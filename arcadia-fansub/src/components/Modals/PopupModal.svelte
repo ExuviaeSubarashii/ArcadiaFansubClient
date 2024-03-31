@@ -19,7 +19,7 @@
 
 		<hr />
 		<!-- svelte-ignore a11y-autofocus -->
-		<button autofocus on:click={() => dialog.close()}>Kapat</button>
+		<button autofocus on:click={() => dialog.close()} class="btn btn-secondary">Kapat</button>
 	</div>
 </dialog>
 
@@ -29,6 +29,10 @@
 		border-radius: 0.2em;
 		border: none;
 		padding: 0;
+		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+		font-weight: bolder;
+		color: white;
+		background-color: #131313;
 	}
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);

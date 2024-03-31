@@ -111,7 +111,7 @@
 		<p>Eski Yorumun:{updateBody.updateOldCommentValue}</p>
 		<hr />
 		<input type="text" bind:value={newCommentValue} placeholder="Yeni Yorumunu Gir." />
-		<button on:click={() => updateComment()}>Değişikliği Kaydet</button>
+		<button on:click={() => updateComment()} class="btn btn-outline-warning">Değişikliği Kaydet</button>
 	</div>
 </PopupModal>
 

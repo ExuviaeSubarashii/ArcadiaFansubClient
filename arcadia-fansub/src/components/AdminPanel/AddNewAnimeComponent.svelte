@@ -169,7 +169,8 @@
 				) {
 					SendAddAnimeRequest();
 				}
-			}}>Yeni Seri Oluştur</button
+			}}
+			disabled={!animeName||!episodeAmount||!editor||!translator||!releaseDate}>Yeni Seri Oluştur</button
 		>
 	</div>
 </div>
@@ -182,7 +183,6 @@
 		border-style: solid;
 		border-radius: 20px;
 		width: 700px;
-		height: 440px;
 		border-color: blueviolet;
 	}
 </style>

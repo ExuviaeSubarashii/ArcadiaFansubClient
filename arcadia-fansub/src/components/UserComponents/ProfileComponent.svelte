@@ -57,7 +57,8 @@
 		<div slot="body" class="modal-content">
 			<p>Silmek Istediginize Emin Misiniz?</p>
 			<hr />
-			<button on:click={() => HandleCommentDeletion()}>Sil</button>
+			<button on:click={() => HandleCommentDeletion()}
+				class="btn btn-outline-danger">Sil</button>
 		</div>
 	</PopupModal>
 {/key}
