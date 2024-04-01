@@ -158,7 +158,7 @@
 	.description-input{
 		resize: both; 
         overflow: auto; 
-        min-width: 100px; 
+        max-width: 200px; 
         max-height: 500px; 
 		height: 300px;
         padding: 5px

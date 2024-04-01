@@ -116,9 +116,9 @@
 						</div>
 						<div class="ticket-information">
 							{#if ticket.ticketStatus === 'Completed'}
-								<p>Durum: Bilet Tamamlandı</p>
+								<p style="color:green;">Durum: Bilet Tamamlandı</p>
 							{:else if ticket.ticketStatus === 'WIP'}
-								<p>Durum: Bilet Yapım Aşamasında</p>
+								<p style="color:yellow;">Durum: Bilet Yapım Aşamasında</p>
 							{/if}
 							{#if ticket.ticketReason === 'EpisodeProblems'}
 								<p>Sebep: Bölüm Sorunları</p>
@@ -170,7 +170,7 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
-		
+
 		color: antiquewhite;
 	}
 	.ticket-body {
