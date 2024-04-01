@@ -10,7 +10,7 @@
 	let editor: any;
 	let translator: any;
 	let releaseDate: any;
-	// let imageLink: any;
+	let description:any;
 	let members: Member[] = [];
 	let allMembers: AllMember = {
 		translators: [],
@@ -43,7 +43,7 @@
 			editor: editor,
 			translator: translator,
 			releaseDate: releaseDate,
-			// imageLink: imageLink
+			description:description
 		};
 		await AddAnimeFunction(addAnime);
 		sendimage();
@@ -70,12 +70,14 @@
 	</div>
 	<div class="input-group mb-3 gap-3">
 		<input
-			type="text"
+			type="number"
+			maxlength="4"
 			class="form-control"
 			bind:value={episodeAmount}
 			placeholder="Bölüm Sayısı"
 			aria-label="Links"
 			aria-describedby="basic-addon2"
+			
 		/>
 	</div>
 	<div class="input-group mb-3 gap-3">
@@ -134,6 +136,11 @@
 			/>
 		{/if}
 	</div>
+	<div class="input-group mb-3 gap-3">
+		<!-- svelte-ignore a11y-label-has-associated-control -->
+		<label>Açıklama</label>
+		<textarea class="description-input" bind:value={description}/>
+	</div>
 	<!-- <div class="input-group mb-3">
 		<input
 			type="text"
@@ -164,8 +171,7 @@
 					IsNullOrEmpty(episodeAmount) === false ||
 					IsNullOrEmpty(editor) === false ||
 					IsNullOrEmpty(translator) === false ||
-					IsNullOrEmpty(releaseDate) === false //||
-					// IsNullOrEmpty(imageLink) === false
+					IsNullOrEmpty(releaseDate) === false
 				) {
 					SendAddAnimeRequest();
 				}
@@ -176,6 +182,13 @@
 </div>
 
 <style>
+	.description-input{
+		resize: both; 
+        overflow: auto; 
+        min-width: 100px; 
+        max-height: 500px; 
+        padding: 5px
+	}
 	.fullbody {
 		padding: 10px;
 		position: relative;

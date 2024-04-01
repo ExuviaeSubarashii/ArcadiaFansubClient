@@ -8,6 +8,7 @@ export type Animes = {
     editor: string | null;
     animeImage: string | null;
     isFavorited: boolean;
+    animeDescription:string|null;
 }
 export type Episodes = {
     episodeId: string;
@@ -40,6 +41,7 @@ export type AddAnime = {
     editor: string;
     translator: string;
     releaseDate: Date;
+    description:string
     // imageLink: string | null;
 }
 export type AddEpisode = {
@@ -111,6 +113,7 @@ export type UpdateAnimeBody = {
     newEditorName: string;
     newTranslatorName: string;
     newReleaseDate: Date;
+    newDescription:string;
 }
 export type Member = {
     memberId:number;

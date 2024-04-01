@@ -23,6 +23,7 @@
 		<h5 class="card-title">{animedata?.animeName}</h5>
 		<img src={`/src/lib/imajlar/${animedata?.animeImage?.trim()}`} alt="captura" />
 		<p>Çevirmen: {animedata?.translator} || Editör:{animedata?.editor}</p>
+		<p>{animedata?.animeDescription}</p>
 	</div>
 </div>
 

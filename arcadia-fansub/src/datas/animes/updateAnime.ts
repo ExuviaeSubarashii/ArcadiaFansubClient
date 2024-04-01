@@ -6,11 +6,12 @@ export async function UpdateAnimeFunction(newAnimeDatas:UpdateAnimeBody):Promise
     try {
         const body={
             animeId:newAnimeDatas.animeId,
-            newAnimeName:newAnimeDatas.newAnimeName||"",
+            newAnimeName:newAnimeDatas.newAnimeName||null,
             newEpisodeAmount:newAnimeDatas.newEpisodeAmount||0,
-            newEditorName:newAnimeDatas.newEditorName||"",
+            newEditorName:newAnimeDatas.newEditorName||null,
             newTranslatorName:newAnimeDatas.newTranslatorName||"",
-            newReleaseDate:newAnimeDatas.newReleaseDate||null
+            newReleaseDate:newAnimeDatas.newReleaseDate||null,
+            newDescription:newAnimeDatas.newDescription||null
         }
         const requestOptions = {
             method: 'PUT',

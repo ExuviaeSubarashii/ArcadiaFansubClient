@@ -8,7 +8,7 @@ export async function AddAnimeFunction(anime: AddAnime) {
         releaseDate: anime.releaseDate,
         translator: anime.translator,
         editor: anime.editor,
-        // imageLink: anime.imageLink,
+        description:anime.description||"Boş"
     }
     try {
         const requestOptions = {

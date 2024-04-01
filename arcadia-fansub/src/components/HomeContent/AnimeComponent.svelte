@@ -28,10 +28,12 @@
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
-								<h5 class="card-title">{anime.animeName}</h5>
-								<p class="card-text"><small class="card-text">{anime.releaseDate}</small></p>
+								<h5 class="card-title" style="color:darkviolet;">{anime.animeName}</h5>
+								<p class="description">{anime.animeDescription}</p>
 								<p class="card-text">
-									<small class="card-text">{anime.translator}||{anime.editor}</small>
+									<small class="card-text" style="color: chocolate;"
+										>Çevirmen: {anime.translator} || Editör: {anime.editor}</small
+									>
 								</p>
 							</div>
 						</div>
@@ -75,6 +77,13 @@
 </div>
 
 <style>
+	.description {
+		height: 100px;
+		width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		overflow-wrap: break-word;
+	}
 	.like-dislike {
 		position: absolute;
 		left: 90%;

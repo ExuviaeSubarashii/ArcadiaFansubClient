@@ -20,6 +20,7 @@
 	let newEditorName: string;
 	let newReleaseDate: Date;
 	let isModalVisible: boolean = false;
+	let newDescription:string;
 	let selectedAnime: string;
 	let isAnimePanelVisible:boolean=false;
 	const animeData = writable<Animes>();
@@ -51,9 +52,9 @@
 	async function HandleUpdates() {
 		if (
 			IsNullOrEmpty(newEpisodeAmount) === true &&
-			IsNullOrEmpty(newAnimeName) === true &&
-			IsNullOrEmpty(newTranslatorName) === true &&
-			IsNullOrEmpty(newEditorName) === true &&
+			IsNullOrEmpty(newAnimeName.trim()) === true &&
+			IsNullOrEmpty(newTranslatorName.trim()) === true &&
+			IsNullOrEmpty(newEditorName.trim()) === true &&
 			IsNullOrEmpty(newReleaseDate) === true
 		) {
 			return alert('En az bir alanın dolu olması gereklidir.');
@@ -64,7 +65,8 @@
 			newEpisodeAmount: newEpisodeAmount,
 			newTranslatorName: newTranslatorName,
 			newEditorName: newEditorName,
-			newReleaseDate: newReleaseDate
+			newReleaseDate: newReleaseDate,
+			newDescription:newDescription
 		};
 		animeData.set(await UpdateAnimeFunction(updateAnimeBody));
 	}
@@ -136,6 +138,9 @@
 					<input bind:value={newEditorName} class="animeInput" placeholder={data.editor} />
 					<label for="newReleaseDate">Yayın Tarihi</label>
 					<input class="animeInput" value={data.releaseDate} type="datetime" />
+						<!-- svelte-ignore a11y-label-has-associated-control -->
+						<label>Açıklama</label>
+						<textarea class="description-input" bind:value={newDescription} placeholder="{data.animeDescription}"/>
 					<button on:click={async () => HandleUpdates()}>Değişiklikleri Kaydet</button>
 					<button
 						on:click={async () => {
@@ -150,6 +155,14 @@
 {/if}
 
 <style>
+	.description-input{
+		resize: both; 
+        overflow: auto; 
+        min-width: 100px; 
+        max-height: 500px; 
+		height: 300px;
+        padding: 5px
+	}
 	.anime {
 		display: flex;
 		flex-direction: column;
