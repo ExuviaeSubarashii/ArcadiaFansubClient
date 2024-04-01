@@ -86,7 +86,7 @@
 				<p>{id}</p>
 			</div>
 		{/each}
-		<button on:click={() => HandleBulkDelete()}  class="btn btn-outline-danger">Sil</button>
+		<button on:click={() => HandleBulkDelete()} class="btn btn-outline-danger">Sil</button>
 	</div>
 </PopupModal>
 <div class="fullbody">
@@ -125,6 +125,7 @@
 						type="checkbox"
 						value={data.episodeId}
 						on:click={async (e) => await AddEpisodeIdsToRemove(e)}
+						class="episode-selecter"
 					/>
 
 					{#if visiblediv === index}
@@ -149,6 +150,7 @@
 {/if}
 {#if $episodeIdArray.length > 0}
 	<button
+		class="delete-bulk-button"
 		on:click={() => {
 			isModalVisible = !isModalVisible;
 		}}>Toplu Sil</button
@@ -156,6 +158,16 @@
 {/if}
 
 <style>
+	.episode-selecter {
+		position: absolute;
+		left: 90%;
+		width: 30px;
+		border-radius: 10px;
+		background-color: #121212;
+		color: white;
+		padding: 1;
+		left: 1%;
+	}
 	.selected-episodes {
 		display: flex;
 		max-width: 100px;
@@ -180,7 +192,7 @@
 		background-color: gray;
 		color: black;
 	}
-	.optionsdiv button {
+	.optionsdiv button,.delete-bulk-button {
 		padding: 0.2em;
 		border-radius: 10px;
 		background-color: #121212;

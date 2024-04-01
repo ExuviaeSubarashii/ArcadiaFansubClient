@@ -133,6 +133,13 @@
 		padding: 12px;
 		max-width: 275px;
 	}
+	.episode:hover{
+		border-image: linear-gradient(to right, rgb(192, 1, 156) 0%, rgb(84, 102, 184) 100%);
+		border-image-slice: 1;
+		border-radius: 25px;
+		border-style: solid;
+		border-width: 5px;
+	}
 	img {
 		display: block;
 		margin: auto;
