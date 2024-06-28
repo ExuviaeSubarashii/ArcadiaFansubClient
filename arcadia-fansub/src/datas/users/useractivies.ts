@@ -26,7 +26,8 @@ export async function Login(email: string, password: string) {
         const loginResponse = await fetch(`${baseUrl}/User/Login`, requestOptions);
         if (!loginResponse.ok) {
             responseMessageStore.set('E-Posta veya Şifre Hatalı!')
-            throw new Error(loginResponse.statusText);
+            return "Failed";
+            
         }
         const data: User = await loginResponse.json();
         localStorage.setItem('userId', data.userId.toString());
@@ -36,7 +37,6 @@ export async function Login(email: string, password: string) {
         localStorage.setItem('isLoggedIn', "true");
         window.location.href = '/';
     } catch (error) {
-        console.error('Error:', error);
     }
 }
 export async function ResetProperties() {

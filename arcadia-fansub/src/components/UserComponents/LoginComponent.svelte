@@ -6,7 +6,7 @@
 
 	var email = '';
 	var password = '';
-	
+	var failedResult:boolean=false;
 </script>
 
 <div class="loginpage">
@@ -24,20 +24,32 @@
 	</ul>
 	<hr />
 	<br />
-	<input bind:value={email} placeholder="E-Posta" class="email-input" />
-	<input bind:value={password} placeholder="Şifre" class="password-input" />
+	<input bind:value={email} placeholder="E-Posta" class="email-input" on:input={()=>{failedResult=true}}/>
+	<input bind:value={password} placeholder="Şifre" class="password-input" on:input={()=>{failedResult=true}}/>
+	{#key failedResult}
+		
 	<button
 		class="login-button"
-		on:click={() => {
+		disabled={!email||!password||!failedResult}
+		on:click={async() => {
 			if (!IsNullOrEmpty(email)&&!IsNullOrEmpty(password)) {
-				Login(email, password);
+				const loginResult= await Login(email, password);
+
+				console.log(loginResult);
+
+				if(loginResult==="Failed"){
+					failedResult=!failedResult;
+				}
 			} else {
 				{
+					
 					responseMessageStore.set('Email or Password is empty.');
 				}
 			}
 		}}>Login</button
 	>
+	{/key}
+
 	<h1 style="color:gray; text-align:center; font:sans-serif; margin;0 auto">
 		Hesabın Yok Mu? <a style="color:white;" href="/register">Buradan Kayıt Ol</a>
 	</h1>
