@@ -22,7 +22,6 @@ export async function AddAnimeFunction(anime: AddAnime) {
         }
         window.location.href = "/addnew";
         const responseMessage = await addAnimeResponse.text();
-        const uploadMessage=await 
         responseMessageStore.set(responseMessage);
     } catch (error) {
         console.error('Error:', error);
